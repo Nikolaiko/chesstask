@@ -1,7 +1,8 @@
-package com.otus.homework.chessclient
+package com.otus.homework.chessclient.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.otus.homework.chessclient.R
 
 class MainActivity : AppCompatActivity() {
 
