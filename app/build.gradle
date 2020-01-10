@@ -3,15 +3,24 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/nikolaybaklanov/Projects/OTUSDiplom/chessKey')
+            storePassword 'chessKey'
+            keyAlias = 'key0'
+            keyPassword 'chessKey'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.otus.homework.chessclient"
-        minSdkVersion 24
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -23,7 +32,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
