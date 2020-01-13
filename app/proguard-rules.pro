@@ -8,6 +8,7 @@
     public static *** v(...);
     public static *** e(...);
     public static *** i(...);
+    public static *** w(...);
 }
 
 -assumenosideeffects class java.lang.Throwable {
