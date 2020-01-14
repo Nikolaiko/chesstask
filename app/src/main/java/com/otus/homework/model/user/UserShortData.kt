@@ -1,4 +1,10 @@
 package com.otus.homework.model.user
 
-data class UserShortData(val email:String,
-                         val password:String)
+import com.google.gson.annotations.SerializedName
+
+data class UserShortData(
+    @SerializedName("email")
+    val email:String,
+    @SerializedName("password")
+    val password:String
+)
