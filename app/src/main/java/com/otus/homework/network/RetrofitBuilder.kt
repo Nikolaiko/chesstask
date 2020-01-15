@@ -8,6 +8,7 @@ import com.otus.homework.network.interfaces.IRetrofitBuilder
 import com.otus.homework.network.interfaces.OnBoardingService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitBuilder : IRetrofitBuilder {
@@ -19,6 +20,7 @@ class RetrofitBuilder : IRetrofitBuilder {
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://92.242.40.194:80")
         .client(OkHttpClient.Builder().build())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 

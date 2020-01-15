@@ -4,10 +4,11 @@ import com.otus.homework.model.enums.ChessTaskDifficulty
 import com.otus.homework.model.task.ChessTask
 import com.otus.homework.model.user.UserShortData
 import okhttp3.ResponseBody
-import rx.Observable
+import retrofit2.Response
+import io.reactivex.Single
 
 interface IOnBoardingApi {
-    fun login(newUserData:UserShortData):Observable<Result<ResponseBody>>
-    fun register(newUserData:UserShortData):Observable<Result<UserShortData>>
-    fun getRandomTask(difficulty:ChessTaskDifficulty):Observable<Result<ChessTask>>
+    fun login(newUserData:UserShortData): Single<Response<ResponseBody>>
+    fun register(newUserData:UserShortData):Single<Response<UserShortData>>
+    fun getRandomTask(difficulty:ChessTaskDifficulty):Single<Response<ChessTask>>
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_button_label">Login</string>
+    <string name="register_button_label">Register</string>
+</resources>

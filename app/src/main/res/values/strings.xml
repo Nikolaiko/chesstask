@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ChessClient</string>
+
+
+
+    <!--- Error messages -->
+    <string name="unknown_screen_error">Unknown destination screen</string>
 </resources>
