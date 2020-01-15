@@ -60,6 +60,6 @@ class LoginReducer(private val backend:IOnBoardingApi) : ILoginReducer {
     }
 
     override fun clearDisposables() {
-        disposeBag.dispose()
+        disposeBag.clear()
     }
 }

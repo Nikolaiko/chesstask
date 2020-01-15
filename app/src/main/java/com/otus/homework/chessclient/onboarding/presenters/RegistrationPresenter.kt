@@ -2,6 +2,7 @@ package com.otus.homework.chessclient.onboarding.presenters
 
 import com.otus.homework.chessclient.core.views.IView
 import com.otus.homework.chessclient.onboarding.model.LoginState
+import com.otus.homework.chessclient.onboarding.model.RegistrationState
 import com.otus.homework.chessclient.onboarding.reducer.IRegistrationReducer
 import com.otus.homework.chessclient.onboarding.views.IRegisterView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +19,7 @@ class RegistrationPresenter(private val reducer: IRegistrationReducer) : IRegist
 
     override fun detachView() {
         presenterView = null
-        disposeContainer.dispose()
+        disposeContainer.clear()
         reducer.clearDisposables()
     }
 
@@ -30,11 +31,18 @@ class RegistrationPresenter(private val reducer: IRegistrationReducer) : IRegist
             disposeContainer.add(credentialsObserver)
         }
 
-       val registerClickObserver = presenterView?.registerClick()?.subscribe {
+        val registerClickObserver = presenterView?.registerClick()?.subscribe {
             renderState(reducer.tryToRegister())
         }
         if (registerClickObserver != null) {
             disposeContainer.add(registerClickObserver)
+        }
+
+        val backClickObserver = presenterView?.backClick()?.subscribe {
+            reducer.goToPreviousScreen()
+        }
+        if (backClickObserver != null) {
+            disposeContainer.add(backClickObserver)
         }
 
         disposeContainer.add(reducer.updateState
@@ -56,10 +64,11 @@ class RegistrationPresenter(private val reducer: IRegistrationReducer) : IRegist
             })
     }
 
-    private fun renderState(newState: LoginState) {
+    private fun renderState(newState: RegistrationState) {
         presenterView?.setLoading(newState.loadingActive)
         presenterView?.setRegisterButtonEnabled(newState.registrationButtonEnabled)
         presenterView?.setLoginTextEnabled(newState.loginTextFieldEnabled)
         presenterView?.setPasswordTextEnabled(newState.passwordTextField)
+        presenterView?.setBackButtonEnabled(newState.backButtonEnabled)
     }
 }

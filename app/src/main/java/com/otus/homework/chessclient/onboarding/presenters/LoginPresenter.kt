@@ -18,7 +18,7 @@ class LoginPresenter(private val reducer: ILoginReducer) : ILoginPresenter {
 
     override fun detachView() {
         presenterView = null
-        disposeContainer.dispose()
+        disposeContainer.clear()
         reducer.clearDisposables()
     }
 

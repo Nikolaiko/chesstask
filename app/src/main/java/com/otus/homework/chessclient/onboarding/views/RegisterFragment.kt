@@ -1,11 +1,13 @@
 package com.otus.homework.chessclient.onboarding.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -35,8 +37,8 @@ class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
         presenter.attachView(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         presenter.detachView()
     }
 
@@ -58,6 +60,12 @@ class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
         }
     }
 
+    override fun setBackButtonEnabled(isEnabled: Boolean) {
+        activity?.runOnUiThread {
+            backButton.isEnabled = isEnabled
+        }
+    }
+
     override fun setLoading(isLoading: Boolean) {
         activity?.runOnUiThread {
             when(isLoading) {
@@ -68,6 +76,7 @@ class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
     }
 
     override fun registerClick(): Observable<Any>  = RxView.clicks(registerButton)
+    override fun backClick(): Observable<Any> = RxView.clicks(backButton)
 
     override fun credentialsChange(): Observable<List<String>> = Observable.combineLatest<String, String, List<String>> (
         emailChange(),
@@ -83,8 +92,8 @@ class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
 
     override fun navigateTo(destination: AppScreens) {
         when(destination) {
-            AppScreens.LOGIN_SCREEN -> findNavController().popBackStack()
-            AppScreens.MAIN_SCREEN -> findNavController().navigate(R.id.action_registerFragment_to_tasksListFragment)
+            AppScreens.LOGIN_SCREEN -> NavHostFragment.findNavController(this).popBackStack()
+            AppScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_tasksListFragment)
             else -> displayMessage(resources.getString(R.string.unknown_screen_error))
         }
      }

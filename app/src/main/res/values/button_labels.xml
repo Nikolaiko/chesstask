@@ -2,4 +2,5 @@
 <resources>
     <string name="login_button_label">Login</string>
     <string name="register_button_label">Register</string>
+    <string name="back_button_label">Back</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.otus.homework.chessclient.onboarding.reducer
 
 import com.otus.homework.chessclient.onboarding.model.LoginState
+import com.otus.homework.chessclient.onboarding.model.RegistrationState
 import com.otus.homework.model.enums.AppScreens
 import com.otus.homework.model.user.UserShortData
 import com.otus.homework.network.interfaces.IOnBoardingApi
@@ -13,23 +14,23 @@ class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationRed
         private const val MIN_EMAIL_LENGTH:Int = 3
     }
 
-    override val updateState: PublishSubject<LoginState> = PublishSubject.create()
+    override val updateState: PublishSubject<RegistrationState> = PublishSubject.create()
     override val updateNews: PublishSubject<String> = PublishSubject.create()
     override val updateDestination: PublishSubject<AppScreens> = PublishSubject.create()
 
     private var email:String = ""
     private var password:String = ""
-    private var currentState = LoginState()
+    private var currentState = RegistrationState()
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(values: List<String>): LoginState {
+    override fun credentialsChange(values: List<String>): RegistrationState {
         email = values[0]
         password = values[1]
         currentState = currentState.copy(registrationButtonEnabled = (email.length > MIN_EMAIL_LENGTH && password.isNotEmpty()))
         return currentState
     }
 
-    override fun tryToRegister(): LoginState {
+    override fun tryToRegister(): RegistrationState {
         disposeBag.add(backend.register(UserShortData(email, password))
             .subscribeOn(Schedulers.io())
             .subscribe( {
@@ -38,13 +39,13 @@ class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationRed
                         if (it.body() != null) {
                             tryToLoginAfterRegistration(it.body()!!)
                         } else {
-                            currentState = LoginState()
+                            currentState = RegistrationState()
                             updateNews.onNext("Unknown error during registration request : body is null")
                             updateState.onNext(currentState)
                         }
                     }
                     false -> {
-                        currentState = LoginState()
+                        currentState = RegistrationState()
                         updateNews.onNext("Error with status : ${it.code()}")
                         updateState.onNext(currentState)
                     }
@@ -53,7 +54,7 @@ class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationRed
                 updateNews.onNext("Exception during registration request : ${it.localizedMessage}")
             }))
 
-        currentState = LoginState(false,
+        currentState = RegistrationState(false,
             registrationButtonEnabled = false,
             loadingActive = true,
             loginTextFieldEnabled = false,
@@ -63,7 +64,11 @@ class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationRed
     }
 
     override fun clearDisposables() {
-        disposeBag.dispose()
+        disposeBag.clear()
+    }
+
+    override fun goToPreviousScreen() {
+        updateDestination.onNext(AppScreens.LOGIN_SCREEN)
     }
 
     private fun tryToLoginAfterRegistration(newUserData:UserShortData) {
@@ -75,13 +80,13 @@ class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationRed
                         if (it.body() != null) {
                             updateDestination.onNext(AppScreens.MAIN_SCREEN)
                         } else {
-                            currentState = LoginState()
+                            currentState = RegistrationState()
                             updateNews.onNext("Unknown error during login after registration request : body is null")
                             updateState.onNext(currentState)
                         }
                     }
                     false -> {
-                        currentState = LoginState()
+                        currentState = RegistrationState()
                         updateNews.onNext("Registration Successful, but login failed with error with status : ${it.code()}")
                         updateState.onNext(currentState)
                     }
