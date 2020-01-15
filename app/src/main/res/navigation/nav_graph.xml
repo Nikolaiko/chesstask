@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/startupFragment"
-        android:name="com.otus.homework.chessclient.fragments.StartupFragment"
+        android:name="com.otus.homework.chessclient.core.StartupFragment"
         android:label="StartupFragment" />
 </navigation>

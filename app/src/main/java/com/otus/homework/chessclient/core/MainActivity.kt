@@ -1,4 +1,4 @@
-package com.otus.homework.chessclient.activities
+package com.otus.homework.chessclient.core
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
