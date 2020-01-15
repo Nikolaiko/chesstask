@@ -1,6 +1,8 @@
 package com.otus.homework.chessclient.onboarding.reducer
 
 import com.otus.homework.chessclient.onboarding.model.LoginState
+import com.otus.homework.chessclient.onboarding.model.News
+import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.model.enums.AppScreens
 import com.otus.homework.model.user.UserShortData
 import com.otus.homework.network.interfaces.IOnBoardingApi
@@ -15,34 +17,32 @@ class LoginReducer(private val backend:IOnBoardingApi) : ILoginReducer {
 
     override val updateDestination:PublishSubject<AppScreens>  = PublishSubject.create()
     override val updateState:PublishSubject<LoginState> = PublishSubject.create()
-    override val updateNews:PublishSubject<String> = PublishSubject.create()
+    override val updateNews:PublishSubject<News> = PublishSubject.create()
 
-    private var email:String = ""
-    private var password:String = ""
+    private var currentUserData = UserShortData()
     private var currentState = LoginState()
     private val disposeBag:CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(values:List<String>):LoginState {
-        email = values[0]
-        password = values[1]
-        currentState = currentState.copy(loginButtonEnabled = (email.length > MIN_EMAIL_LENGTH && password.isNotEmpty()))
+    override fun credentialsChange(userData:UserShortData):LoginState {
+        currentUserData = userData
+        currentState = currentState.copy(loginButtonEnabled = (currentUserData.email.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
     }
 
     override fun tryToLogin():LoginState {
-        disposeBag.add(backend.login(UserShortData(email, password))
+        disposeBag.add(backend.login(currentUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
                 when (it.isSuccessful) {
                     true -> updateDestination.onNext(AppScreens.MAIN_SCREEN)
                     false -> {
                         currentState = LoginState()
-                        updateNews.onNext("Error with status : ${it.code()}")
+                        updateNews.onNext(News(NewsMessageId.REQUEST_STATUS_ERROR, it.code().toString()))
                     }
                 }
                 updateState.onNext(currentState)
             }, {
-                updateNews.onNext("Exception during login request : ${it.localizedMessage}")
+                updateNews.onNext(News(NewsMessageId.EXCEPTION_LOGIN_REQUEST, it.localizedMessage ?: ""))
             }))
 
         currentState = LoginState(false,

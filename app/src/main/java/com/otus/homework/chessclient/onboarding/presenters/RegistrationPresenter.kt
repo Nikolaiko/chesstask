@@ -5,6 +5,7 @@ import com.otus.homework.chessclient.onboarding.model.LoginState
 import com.otus.homework.chessclient.onboarding.model.RegistrationState
 import com.otus.homework.chessclient.onboarding.reducer.IRegistrationReducer
 import com.otus.homework.chessclient.onboarding.views.IRegisterView
+import com.otus.homework.model.user.UserShortData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -25,7 +26,7 @@ class RegistrationPresenter(private val reducer: IRegistrationReducer) : IRegist
 
     private fun bind() {
         val credentialsObserver = presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(it))
+            renderState(reducer.credentialsChange(UserShortData(it[0], it[1])))
         }
         if (credentialsObserver != null) {
             disposeContainer.add(credentialsObserver)

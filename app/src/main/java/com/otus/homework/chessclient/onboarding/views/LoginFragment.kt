@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.chessclient.R
+import com.otus.homework.chessclient.onboarding.model.News
+import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
 import com.otus.homework.model.enums.AppScreens
 import io.reactivex.Observable
@@ -86,9 +88,9 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
             }
         )
 
-    override fun displayMessage(message: String) {
+    override fun displayMessage(newsMessage: News) {
         activity?.runOnUiThread {
-            Toast.makeText(context!!, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context!!, convertNewsToString(newsMessage), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -96,7 +98,7 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
         when(destination) {
             AppScreens.REGISTER_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)
             AppScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_tasksListFragment)
-            else -> displayMessage(resources.getString(R.string.unknown_screen_error))
+            else -> displayMessage(News(NewsMessageId.UNKNOWN_DESTINATION))
         }
     }
 
@@ -106,4 +108,12 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
     private fun passwordChange():Observable<String> = RxTextView.textChanges(passwordText)
         .map { emailValue -> emailValue.toString() }
         .debounce(500, TimeUnit.MICROSECONDS)
+
+    private fun convertNewsToString(news:News):String = when(news.id) {
+        NewsMessageId.UNKNOWN_DESTINATION -> resources.getString(R.string.unknown_screen_error)
+        NewsMessageId.NULL_BODY_MESSAGE -> resources.getString(R.string.null_body_error)
+        NewsMessageId.REQUEST_STATUS_ERROR -> resources.getString(R.string.request_status_error, news.message)
+        NewsMessageId.EXCEPTION_LOGIN_REQUEST -> resources.getString(R.string.exception_login_request_error, news.message)
+        NewsMessageId.EXCEPTION_REGISTRATION_REQUEST -> resources.getString(R.string.exception_registration_request_error, news.message)
+    }
 }

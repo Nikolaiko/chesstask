@@ -2,8 +2,11 @@ package com.otus.homework.chessclient.onboarding.presenters
 
 import com.otus.homework.chessclient.core.views.IView
 import com.otus.homework.chessclient.onboarding.model.LoginState
+import com.otus.homework.chessclient.onboarding.model.News
+import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.chessclient.onboarding.reducer.ILoginReducer
 import com.otus.homework.chessclient.onboarding.views.ILoginView
+import com.otus.homework.model.user.UserShortData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,7 +27,7 @@ class LoginPresenter(private val reducer: ILoginReducer) : ILoginPresenter {
 
     private fun bind() {
         val credentialsObserver = presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(it))
+            renderState(reducer.credentialsChange(UserShortData(it[0], it[1])))
         }
         if (credentialsObserver != null) {
             disposeContainer.add(credentialsObserver)
