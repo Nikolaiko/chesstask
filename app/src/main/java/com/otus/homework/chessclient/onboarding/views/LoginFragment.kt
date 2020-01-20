@@ -23,11 +23,13 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class LoginFragment : Fragment(), ILoginView, KodeinAware {
     override val kodein: Kodein by kodein()
 
-    private val presenter:ILoginPresenter by instance()
+    @Inject
+    lateinit var presenter:ILoginPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)

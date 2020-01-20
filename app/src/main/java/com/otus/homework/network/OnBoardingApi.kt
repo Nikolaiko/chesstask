@@ -8,8 +8,9 @@ import com.otus.homework.network.interfaces.IRetrofitBuilder
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
+import javax.inject.Inject
 
-class OnBoardingApi(private val builder:IRetrofitBuilder) : IOnBoardingApi {
+class OnBoardingApi @Inject constructor(private val builder:IRetrofitBuilder) : IOnBoardingApi {
     private val service = builder.buildOnBoardingService()
 
     override fun login(newUserData: UserShortData): Single<Response<ResponseBody>> = service.loginUser(newUserData)

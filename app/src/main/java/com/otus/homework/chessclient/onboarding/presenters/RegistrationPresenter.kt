@@ -8,8 +8,9 @@ import com.otus.homework.chessclient.onboarding.views.IRegisterView
 import com.otus.homework.model.user.UserShortData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class RegistrationPresenter(private val reducer: IRegistrationReducer) : IRegistrationPresenter {
+class RegistrationPresenter @Inject constructor(private val reducer: IRegistrationReducer) : IRegistrationPresenter {
     private var presenterView:IRegisterView? = null
     private val disposeContainer: CompositeDisposable = CompositeDisposable()
 

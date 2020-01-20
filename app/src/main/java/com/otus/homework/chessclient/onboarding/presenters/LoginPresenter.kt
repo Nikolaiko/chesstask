@@ -9,8 +9,9 @@ import com.otus.homework.chessclient.onboarding.views.ILoginView
 import com.otus.homework.model.user.UserShortData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class LoginPresenter(private val reducer: ILoginReducer) : ILoginPresenter {
+class LoginPresenter @Inject constructor(private val reducer: ILoginReducer) : ILoginPresenter {
     private var presenterView:ILoginView? = null
     private val disposeContainer:CompositeDisposable = CompositeDisposable()
 

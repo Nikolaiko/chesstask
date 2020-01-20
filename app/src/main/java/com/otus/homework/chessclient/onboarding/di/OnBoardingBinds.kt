@@ -1,6 +1,5 @@
-package com.otus.homework.chessclient.core
+package com.otus.homework.chessclient.onboarding.di
 
-import android.app.Application
 import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
 import com.otus.homework.chessclient.onboarding.presenters.IRegistrationPresenter
 import com.otus.homework.chessclient.onboarding.presenters.LoginPresenter
@@ -13,13 +12,17 @@ import com.otus.homework.network.OnBoardingApi
 import com.otus.homework.network.RetrofitBuilder
 import com.otus.homework.network.interfaces.IOnBoardingApi
 import com.otus.homework.network.interfaces.IRetrofitBuilder
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import dagger.Binds
+import dagger.Module
 
-class ChessApplication : Application() {
+@Module
+abstract class OnBoardingBinds {
+    @Binds abstract fun bindLoginReducer(reducer: LoginReducer):ILoginReducer
+    @Binds abstract fun bindLoginPresenter(presenter: LoginPresenter):ILoginPresenter
 
+    @Binds abstract fun bindRegistrationReducer(reducer: RegistrationReducer):IRegistrationReducer
+    @Binds abstract fun bindRegistrationPresenter(presenter: RegistrationPresenter):IRegistrationPresenter
+
+    @Binds abstract fun bindOnBoardingApi(api: OnBoardingApi):IOnBoardingApi
+    @Binds abstract fun bindRetrofit(retrofit: RetrofitBuilder):IRetrofitBuilder
 }

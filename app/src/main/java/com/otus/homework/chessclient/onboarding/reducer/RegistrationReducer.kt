@@ -10,8 +10,9 @@ import com.otus.homework.network.interfaces.IOnBoardingApi
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
-class RegistrationReducer(private val backend:IOnBoardingApi) : IRegistrationReducer {
+class RegistrationReducer @Inject constructor(private val backend:IOnBoardingApi) : IRegistrationReducer {
     companion object{
         private const val MIN_EMAIL_LENGTH:Int = 3
     }
