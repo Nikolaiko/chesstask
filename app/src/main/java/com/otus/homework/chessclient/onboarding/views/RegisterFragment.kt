@@ -21,16 +21,10 @@ import com.otus.homework.model.enums.AppScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_registration.*
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
-import org.kodein.di.generic.instance
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
-    override val kodein: Kodein by kodein()
-
+class RegisterFragment : Fragment(), IRegisterView {
     @Inject
     lateinit var presenter: IRegistrationPresenter
 

@@ -10,10 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.chessclient.R
-import com.otus.homework.chessclient.core.ChessApplication
 import com.otus.homework.chessclient.core.di.DaggerCoreComponent
 import com.otus.homework.chessclient.onboarding.di.DaggerLoginComponent
-import com.otus.homework.chessclient.onboarding.di.LoginBinds
 import com.otus.homework.chessclient.onboarding.model.News
 import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
@@ -21,15 +19,10 @@ import com.otus.homework.model.enums.AppScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LoginFragment : Fragment(), ILoginView, KodeinAware {
-    override val kodein: Kodein by kodein()
-
+class LoginFragment : Fragment(), ILoginView {
     @Inject
     lateinit var presenter:ILoginPresenter
 
