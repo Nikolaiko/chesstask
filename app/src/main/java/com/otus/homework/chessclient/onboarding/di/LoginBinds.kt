@@ -16,13 +16,10 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class OnBoardingBinds {
-    @Binds abstract fun bindLoginReducer(reducer: LoginReducer):ILoginReducer
-    @Binds abstract fun bindLoginPresenter(presenter: LoginPresenter):ILoginPresenter
+abstract class LoginBinds {
+    @Binds
+    abstract fun bindLoginReducer(reducer: LoginReducer):ILoginReducer
 
-    @Binds abstract fun bindRegistrationReducer(reducer: RegistrationReducer):IRegistrationReducer
-    @Binds abstract fun bindRegistrationPresenter(presenter: RegistrationPresenter):IRegistrationPresenter
-
-    @Binds abstract fun bindOnBoardingApi(api: OnBoardingApi):IOnBoardingApi
-    @Binds abstract fun bindRetrofit(retrofit: RetrofitBuilder):IRetrofitBuilder
+    @Binds
+    abstract fun bindLoginPresenter(presenter: LoginPresenter):ILoginPresenter
 }

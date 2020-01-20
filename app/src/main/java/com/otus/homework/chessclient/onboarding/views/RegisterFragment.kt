@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.chessclient.R
+import com.otus.homework.chessclient.core.di.DaggerCoreComponent
+import com.otus.homework.chessclient.onboarding.di.DaggerRegistrationComponent
 import com.otus.homework.chessclient.onboarding.model.News
 import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.chessclient.onboarding.presenters.IRegistrationPresenter
@@ -33,6 +35,11 @@ class RegisterFragment : Fragment(), IRegisterView, KodeinAware {
     lateinit var presenter: IRegistrationPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        DaggerRegistrationComponent
+            .builder()
+            .coreComponent(DaggerCoreComponent.create())
+            .build()
+            .inject(this)
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 

@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.chessclient.R
+import com.otus.homework.chessclient.core.ChessApplication
+import com.otus.homework.chessclient.core.di.DaggerCoreComponent
+import com.otus.homework.chessclient.onboarding.di.DaggerLoginComponent
+import com.otus.homework.chessclient.onboarding.di.LoginBinds
 import com.otus.homework.chessclient.onboarding.model.News
 import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
@@ -21,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
-import org.kodein.di.generic.instance
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -32,6 +34,11 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
     lateinit var presenter:ILoginPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        DaggerLoginComponent
+            .builder()
+            .coreComponent(DaggerCoreComponent.create())
+            .build()
+            .inject(this)
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 

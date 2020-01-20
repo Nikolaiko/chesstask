@@ -1,6 +1,7 @@
 package com.otus.homework.chessclient.core
 
 import android.app.Application
+import com.otus.homework.chessclient.core.di.DaggerCoreComponent
 import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
 import com.otus.homework.chessclient.onboarding.presenters.IRegistrationPresenter
 import com.otus.homework.chessclient.onboarding.presenters.LoginPresenter
@@ -21,5 +22,14 @@ import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 class ChessApplication : Application() {
+    companion object{
+        val appComponent = DaggerCoreComponent.builder().build()
+    }
+
+
+    override fun onCreate() {
+        super.onCreate()
+    }
+
 
 }
