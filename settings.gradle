@@ -1,2 +1,2 @@
-include ':app', ':main'
+include ':app', ':main', ':core', ':core_api', ':core_impl'
 rootProject.name='ChessClient'
