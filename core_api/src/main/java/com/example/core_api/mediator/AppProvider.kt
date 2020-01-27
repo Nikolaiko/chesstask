@@ -5,5 +5,5 @@ import android.content.SharedPreferences
 
 interface AppProvider {
     fun provideContext():Context
-    fun provideSharedPreferences(context: Context): SharedPreferences
+    fun provideSharedPreferences():SharedPreferences
 }

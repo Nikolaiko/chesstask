@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    //@Inject
-    //lateinit var sharedPreferences:SharedPreferences
+    @Inject
+    lateinit var shared:SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         MainComponent.init((application as AppWithFacade).getFacade()).injects(this)
 
-        //println(sharedPreferences)
+
     }
 }

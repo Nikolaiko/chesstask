@@ -8,12 +8,15 @@ import javax.inject.Singleton
 
 @Module
 abstract class AppModule {
+
+    @Module
     companion object {
         private const val PREFS_NAME:String = "CHESS_PREFS"
-    }
 
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences =
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideSharedPreferences(context: Context): SharedPreferences =
+            context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
 }

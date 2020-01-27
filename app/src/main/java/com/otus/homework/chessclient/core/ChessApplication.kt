@@ -1,11 +1,17 @@
 package com.otus.homework.chessclient.core
 
 import android.app.Application
+import android.content.SharedPreferences
 import com.example.core_api.mediator.AppWithFacade
 import com.example.core_api.mediator.ProviderFacade
 import com.otus.homework.FacadeComponent
+import javax.inject.Inject
 
 class ChessApplication : Application(), AppWithFacade {
+
+    @Inject
+    lateinit var shared:SharedPreferences
+
     companion object {
         private var facadeObject:FacadeComponent? = null
     }

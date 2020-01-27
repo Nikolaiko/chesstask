@@ -7,6 +7,4 @@ import dagger.Provides
 @Module
 class MainModule {
 
-    @Provides
-    fun provideSharedPreferances(preferances:SharedPreferences):SharedPreferences = preferances
 }
