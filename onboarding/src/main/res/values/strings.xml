@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">onboarding</string>
+
+    <!--- Error messages -->
+    <string name="unknown_screen_error">Unknown destination screen</string>
+    <string name="null_body_error">Unknown error during registration request : body is null</string>
+    <string name="request_status_error">Status : %1$s</string>
+    <string name="exception_registration_request_error">Exception during registration request : %1$s</string>
+    <string name="exception_login_request_error">Exception during login request : %1$s</string>
+</resources>

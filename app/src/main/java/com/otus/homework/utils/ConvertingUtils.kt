@@ -1,7 +1,7 @@
 package com.otus.homework.utils
 
-import com.otus.homework.model.enums.ChessFigureColor
-import com.otus.homework.model.enums.ChessFigureType
+import com.example.core_api.model.enums.ChessFigureColor
+import com.example.core_api.model.enums.ChessFigureType
 
 fun getColorFromFigureChar(figureChar:Char): ChessFigureColor = when(figureChar.isUpperCase()) {
     true -> ChessFigureColor.w

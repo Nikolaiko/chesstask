@@ -15,6 +15,6 @@ class StartupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController().navigate(R.id.action_startupFragment_to_loginFragment)
+        //findNavController().navigate(R.id.action_startupFragment_to_loginFragment)
     }
 }

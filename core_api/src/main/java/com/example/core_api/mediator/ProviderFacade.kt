@@ -1,3 +1,5 @@
 package com.example.core_api.mediator
 
-interface ProviderFacade : AppProvider
+import com.example.core_api.utils.UserDataProvider
+
+interface ProviderFacade : AppProvider, UserDataProvider, MediatorsProvider, NetworkProvider
