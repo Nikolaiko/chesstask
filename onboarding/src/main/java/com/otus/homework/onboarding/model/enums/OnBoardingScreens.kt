@@ -1,6 +1,6 @@
 package com.otus.homework.onboarding.model.enums
 
-enum class AppScreens {
+enum class OnBoardingScreens {
     NOT_SET,
     REGISTER_SCREEN,
     LOGIN_SCREEN,

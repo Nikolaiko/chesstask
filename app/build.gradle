@@ -80,6 +80,7 @@ dependencies {
     implementation project(":core")
     implementation project(":main")
     implementation project(":onboarding")
+    implementation project(":taskslist")
 
     //test
     testImplementation 'junit:junit:4.12'

@@ -15,7 +15,7 @@ import com.otus.homework.onboarding.di.DaggerLoginComponent
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.presenters.ILoginPresenter
-import com.otus.homework.onboarding.model.enums.AppScreens
+import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -96,10 +96,10 @@ class LoginFragment : Fragment(), ILoginView {
         }
     }
 
-    override fun navigateTo(destination: AppScreens) {
+    override fun navigateTo(destination: OnBoardingScreens) {
         when(destination) {
-            AppScreens.REGISTER_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)
-            //AppScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_tasksListFragment)
+            OnBoardingScreens.REGISTER_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)
+            //OnBoardingScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_tasksListFragment)
             else -> displayMessage(News(NewsMessageId.UNKNOWN_DESTINATION))
         }
     }

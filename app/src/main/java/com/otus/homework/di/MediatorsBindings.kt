@@ -1,7 +1,9 @@
-package com.otus.homework
+package com.otus.homework.di
 
 import com.example.core_api.mediator.OnBoardingMediator
+import com.example.core_api.mediator.TasksListMediator
 import com.otus.homework.onboarding.OnBoardingMediatorImpl
+import com.otus.homework.taskslist.TasksListMediatorImpl
 import dagger.Binds
 import dagger.Module
 
@@ -9,4 +11,7 @@ import dagger.Module
 interface MediatorsBindings {
     @Binds
     fun providesOnBoardingMediator(mediator:OnBoardingMediatorImpl):OnBoardingMediator
+
+    @Binds
+    fun providesTasksListMediator(mediator:TasksListMediatorImpl):TasksListMediator
 }

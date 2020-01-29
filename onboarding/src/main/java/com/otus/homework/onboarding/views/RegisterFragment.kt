@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.core_api.mediator.AppWithFacade
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.otus.homework.onboarding.model.enums.AppScreens
+import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.DaggerRegistrationComponent
 import com.otus.homework.onboarding.model.News
@@ -96,10 +96,10 @@ class RegisterFragment : Fragment(), IRegisterView {
         }
     }
 
-    override fun navigateTo(destination: AppScreens) {
+    override fun navigateTo(destination: OnBoardingScreens) {
         when(destination) {
-            AppScreens.LOGIN_SCREEN -> NavHostFragment.findNavController(this).popBackStack()
-           // AppScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_tasksListFragment)
+            OnBoardingScreens.LOGIN_SCREEN -> NavHostFragment.findNavController(this).popBackStack()
+           // OnBoardingScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_tasksListFragment)
             else -> displayMessage(News(NewsMessageId.UNKNOWN_DESTINATION))
         }
      }

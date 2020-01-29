@@ -1,4 +1,4 @@
-package com.otus.homework
+package com.otus.homework.di
 
 import android.content.Context
 import android.content.SharedPreferences

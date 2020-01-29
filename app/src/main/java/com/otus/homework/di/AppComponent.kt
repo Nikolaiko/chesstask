@@ -1,4 +1,4 @@
-package com.otus.homework
+package com.otus.homework.di
 
 import android.app.Application
 import android.content.Context
@@ -17,8 +17,8 @@ interface AppComponent : AppProvider {
         private var appComponent: AppProvider? = null
 
         fun create(application: Application): AppProvider {
-            return appComponent ?: DaggerAppComponent
-                .builder()
+            return appComponent
+                ?: DaggerAppComponent.builder()
                 .application(application.applicationContext)
                 .build().also {
                     appComponent = it

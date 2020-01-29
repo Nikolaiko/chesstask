@@ -1,24 +1,29 @@
 package com.otus.homework.onboarding.reducer
 
+import com.example.core_api.model.UserProfile
 import com.example.core_api.network.OnBoardingApi
+import com.example.core_api.utils.LoggedUserProvider
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.RegistrationState
 import com.otus.homework.onboarding.model.enums.NewsMessageId
-import com.otus.homework.onboarding.model.enums.AppScreens
+import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.model.user.UserShortData
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class RegistrationReducer @Inject constructor(private val backend: OnBoardingApi) : IRegistrationReducer {
+class RegistrationReducer @Inject constructor(
+    private val backend: OnBoardingApi,
+    private val userData: LoggedUserProvider) : IRegistrationReducer {
+
     companion object{
         private const val MIN_EMAIL_LENGTH:Int = 3
     }
 
     override val updateState: PublishSubject<RegistrationState> = PublishSubject.create()
     override val updateNews: PublishSubject<News> = PublishSubject.create()
-    override val updateDestination: PublishSubject<AppScreens> = PublishSubject.create()
+    override val updateDestination: PublishSubject<OnBoardingScreens> = PublishSubject.create()
 
     private var currentUserData = UserShortData()
     private var currentState = RegistrationState()
@@ -68,7 +73,7 @@ class RegistrationReducer @Inject constructor(private val backend: OnBoardingApi
     }
 
     override fun goToPreviousScreen() {
-        updateDestination.onNext(AppScreens.LOGIN_SCREEN)
+        updateDestination.onNext(OnBoardingScreens.LOGIN_SCREEN)
     }
 
     private fun tryToLoginAfterRegistration(newUserData:UserShortData) {
@@ -78,7 +83,8 @@ class RegistrationReducer @Inject constructor(private val backend: OnBoardingApi
                 when (it.isSuccessful) {
                     true -> {
                         if (it.body() != null) {
-                            updateDestination.onNext(AppScreens.MAIN_SCREEN)
+                            userData.setLoggedUser(UserProfile(newUserData.email))
+                            updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
                         } else {
                             currentState = RegistrationState()
                             updateNews.onNext(News(NewsMessageId.NULL_BODY_MESSAGE))
