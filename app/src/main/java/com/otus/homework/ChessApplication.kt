@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ChessApplication : Application(), AppWithFacade {
 
     @Inject
-    lateinit var shared:SharedPreferences
+    lateinit var shared: SharedPreferences
 
     companion object {
         private var facadeObject: FacadeComponent? = null
