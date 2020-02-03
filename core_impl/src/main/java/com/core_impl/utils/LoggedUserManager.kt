@@ -8,8 +8,7 @@ import javax.inject.Inject
 class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPreferences) : LoggedUserProvider {
     companion object {
         private const val USER_NAME_KEY:String = "logged_user_name"
-        private const val USER_REFRESH_TOKEN_KEY:String = "logged_user_refresh_token"
-        private const val USER_TOKEN_KEY:String = "logged_user_token"
+        private const val USER_NAME_PASSWORD:String = "logged_user_password"
         private const val DEFAULT_STRING_VALUE:String = ""
         private var loggedInUser:UserProfile? = null
     }
@@ -19,8 +18,7 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
         val editor:SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putString(USER_NAME_KEY, loggedUser.username)
-        editor.putString(USER_TOKEN_KEY, loggedUser.token)
-        editor.putString(USER_REFRESH_TOKEN_KEY, loggedUser.refreshToken)
+        editor.putString(USER_NAME_PASSWORD, loggedUser.password)
         editor.apply()
     }
 
@@ -36,9 +34,8 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
         val loggedUsername:String = sharedPreferences.getString(USER_NAME_KEY, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
 
         if (loggedUsername != DEFAULT_STRING_VALUE) {
-            val token:String = sharedPreferences.getString(USER_TOKEN_KEY, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
-            val refreshToken:String = sharedPreferences.getString(USER_REFRESH_TOKEN_KEY, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
-            savedUser = UserProfile(loggedUsername, token, refreshToken)
+            val password:String = sharedPreferences.getString(USER_NAME_PASSWORD, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
+            savedUser = UserProfile(loggedUsername, password)
         }
         return savedUser
     }

@@ -1,5 +1,5 @@
 package com.example.core_api.mediator
 
-interface AppWithFacade {
+interface AppWithContext {
     fun getFacade(): ProviderFacade
 }

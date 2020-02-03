@@ -1,18 +1,19 @@
-package com.otus.homework.network
+package com.otus.homework.network.implementations
 
 import com.example.core_api.model.task.ChessTask
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.otus.homework.network.deserializers.ChessTaskDeserializer
-import com.example.core_api.network.RetrofitBuilder
-import com.example.core_api.network.OnBoardingService
+import com.otus.homework.network.interfaces.OnBoardingService
+import com.otus.homework.network.interfaces.RetrofitBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-class RetrofitBuilderImpl @Inject constructor() : RetrofitBuilder {
+class RetrofitBuilderImpl @Inject constructor() :
+    RetrofitBuilder {
     private val gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .registerTypeAdapter(ChessTask::class.java, ChessTaskDeserializer())

@@ -1,20 +1,19 @@
 package com.otus.homework.onboarding.reducer
 
 import com.example.core_api.model.UserProfile
-import com.example.core_api.network.OnBoardingApi
 import com.example.core_api.utils.LoggedUserProvider
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.RegistrationState
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
-import com.otus.homework.model.user.UserShortData
+import com.otus.homework.storage.UserDataRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class RegistrationReducer @Inject constructor(
-    private val backend: OnBoardingApi,
+    private val backend: UserDataRepository,
     private val userData: LoggedUserProvider) : IRegistrationReducer {
 
     companion object{
@@ -25,38 +24,25 @@ class RegistrationReducer @Inject constructor(
     override val updateNews: PublishSubject<News> = PublishSubject.create()
     override val updateDestination: PublishSubject<OnBoardingScreens> = PublishSubject.create()
 
-    private var currentUserData = UserShortData()
+    private var currentUserData = UserProfile("", "")
     private var currentState = RegistrationState()
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(userData:UserShortData): RegistrationState {
+    override fun credentialsChange(userData:UserProfile): RegistrationState {
         currentUserData = userData
-        currentState = currentState.copy(registrationButtonEnabled = (currentUserData.email.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
+        currentState = currentState.copy(registrationButtonEnabled = (currentUserData.username.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
     }
 
     override fun tryToRegister(): RegistrationState {
-        disposeBag.add(backend.register(currentUserData)
+        disposeBag.add(backend.registerNewUser(currentUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
-                when (it.isSuccessful) {
-                    true -> {
-                        if (it.body() != null) {
-                            tryToLoginAfterRegistration(it.body()!!)
-                        } else {
-                            currentState = RegistrationState()
-                            updateNews.onNext(News(NewsMessageId.NULL_BODY_MESSAGE))
-                            updateState.onNext(currentState)
-                        }
-                    }
-                    false -> {
-                        currentState = RegistrationState()
-                        updateNews.onNext(News(NewsMessageId.REQUEST_STATUS_ERROR, it.code().toString()))
-                        updateState.onNext(currentState)
-                    }
-                }
+                tryToLoginAfterRegistration(it)
             }, {
+                currentState = RegistrationState()
                 updateNews.onNext(News(NewsMessageId.EXCEPTION_REGISTRATION_REQUEST, it.localizedMessage ?: ""))
+                updateState.onNext(currentState)
             }))
 
         currentState = RegistrationState(false,
@@ -76,29 +62,16 @@ class RegistrationReducer @Inject constructor(
         updateDestination.onNext(OnBoardingScreens.LOGIN_SCREEN)
     }
 
-    private fun tryToLoginAfterRegistration(newUserData:UserShortData) {
-        disposeBag.add(backend.login(UserShortData(newUserData.email, newUserData.password))
+    private fun tryToLoginAfterRegistration(newUserData:UserProfile) {
+        disposeBag.add(backend.login(newUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
-                when (it.isSuccessful) {
-                    true -> {
-                        if (it.body() != null) {
-                            userData.setLoggedUser(UserProfile(newUserData.email))
-                            updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
-                        } else {
-                            currentState = RegistrationState()
-                            updateNews.onNext(News(NewsMessageId.NULL_BODY_MESSAGE))
-                            updateState.onNext(currentState)
-                        }
-                    }
-                    false -> {
-                        currentState = RegistrationState()
-                        updateNews.onNext(News(NewsMessageId.REQUEST_STATUS_ERROR, it.code().toString()))
-                        updateState.onNext(currentState)
-                    }
-                }
+                userData.setLoggedUser(it)
+                updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
             }, {
+                currentState = RegistrationState()
                 updateNews.onNext(News(NewsMessageId.EXCEPTION_LOGIN_REQUEST, it.localizedMessage ?: ""))
+                updateState.onNext(currentState)
             }))
     }
 }

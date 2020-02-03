@@ -1,9 +1,9 @@
 package com.otus.homework.onboarding.reducer
 
+import com.example.core_api.model.UserProfile
 import com.otus.homework.onboarding.model.LoginState
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
-import com.otus.homework.model.user.UserShortData
 import io.reactivex.subjects.PublishSubject
 
 interface ILoginReducer {
@@ -11,7 +11,7 @@ interface ILoginReducer {
     val updateNews:PublishSubject<News>
     val updateDestination:PublishSubject<OnBoardingScreens>
 
-    fun credentialsChange(userData: UserShortData):LoginState
+    fun credentialsChange(userData: UserProfile):LoginState
     fun tryToLogin():LoginState
     fun register():LoginState
     fun clearDisposables()

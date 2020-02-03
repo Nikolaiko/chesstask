@@ -1,4 +1,4 @@
-package com.example.core_api.model.enums
+package com.otus.homework.storage.model.chesstasks
 
 enum class ChessTaskDifficulty {
     easy,

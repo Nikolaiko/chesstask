@@ -1,2 +1,2 @@
-include ':app', ':main', ':core', ':core_api', ':core_impl', ':onboarding', ':network', ':taskslist'
+include ':app', ':main', ':core', ':core_api', ':core_impl', ':onboarding', ':network', ':taskslist', ':storage'
 rootProject.name='ChessClient'

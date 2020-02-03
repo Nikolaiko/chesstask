@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.example.core_api.mediator.AppWithFacade
+import com.example.core_api.mediator.AppWithContext
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
@@ -30,7 +30,7 @@ class RegisterFragment : Fragment(), IRegisterView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         DaggerRegistrationComponent
             .builder()
-            .providerFacade((activity!!.application as AppWithFacade).getFacade())
+            .providerFacade((activity!!.application as AppWithContext).getFacade())
             .build()
             .inject(this)
         return inflater.inflate(R.layout.fragment_registration, container, false)

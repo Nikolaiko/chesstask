@@ -1,29 +1,21 @@
 package com.otus.homework
 
 import android.app.Application
-import android.content.SharedPreferences
-import com.example.core_api.mediator.AppWithFacade
-import com.example.core_api.mediator.ProviderFacade
-import com.otus.homework.di.FacadeComponent
-import javax.inject.Inject
+import com.otus.homework.di.AppComponent
 
-class ChessApplication : Application(), AppWithFacade {
-
-    @Inject
-    lateinit var shared: SharedPreferences
-
+class ChessApplication : Application() {
     companion object {
-        private var facadeObject: FacadeComponent? = null
+        private var appComponentObject: AppComponent? = null
     }
 
-    override fun getFacade(): ProviderFacade {
-        return facadeObject ?: FacadeComponent.init(this).also {
-            facadeObject = it
+    fun getAppContextComponent(): AppComponent {
+        return appComponentObject ?: D.also {
+            appComponentObject = it
         }
     }
 
     override fun onCreate() {
         super.onCreate()
-        (getFacade() as FacadeComponent).injects(this)
+        getAppContextComponent().injects(this)
     }
 }
