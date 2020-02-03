@@ -1,6 +1,6 @@
 package com.otus.homework.network.interfaces
 
-import com.example.core_api.model.task.ChessTask
+import com.example.core.model.task.ChessTask
 import com.otus.homework.model.user.UserData
 import com.otus.homework.network.model.chesstasks.ChessTaskData
 import io.reactivex.Single

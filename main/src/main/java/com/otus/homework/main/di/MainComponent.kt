@@ -1,17 +1,23 @@
 package com.otus.homework.main.di
 
-import com.example.core_api.mediator.AppProvider
-import com.example.core_api.mediator.ProviderFacade
+import com.example.core.app.ProvidersFacade
 import com.otus.homework.main.MainActivity
+import com.otus.homework.storage.di.UserDataComponent
 import dagger.Component
 
-@Component(dependencies = [ProviderFacade::class])
+@Component(
+    dependencies = [
+        ProvidersFacade::class,
+        UserDataComponent::class
+    ]
+)
 interface MainComponent {
 
     companion object {
-        fun init(providerFacade:ProviderFacade):MainComponent = DaggerMainComponent
+        fun init(appFacade: ProvidersFacade):MainComponent = DaggerMainComponent
             .builder()
-            .providerFacade(providerFacade)
+            .providersFacade(appFacade)
+            .userDataComponent(UserDataComponent.init(appFacade))
             .build()
     }
 

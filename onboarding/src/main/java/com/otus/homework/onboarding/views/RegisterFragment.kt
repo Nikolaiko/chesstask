@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.example.core_api.mediator.AppWithContext
+import com.example.core.app.AppWithFacade
+import com.example.core.mediator.TasksListMediator
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.R
-import com.otus.homework.onboarding.di.DaggerRegistrationComponent
+import com.otus.homework.onboarding.di.RegistrationComponent
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.presenters.IRegistrationPresenter
@@ -25,14 +26,13 @@ import javax.inject.Inject
 class RegisterFragment : Fragment(), IRegisterView {
 
     @Inject
+    lateinit var mediator: TasksListMediator
+
+    @Inject
     lateinit var presenter: IRegistrationPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        DaggerRegistrationComponent
-            .builder()
-            .providerFacade((activity!!.application as AppWithContext).getFacade())
-            .build()
-            .inject(this)
+        RegistrationComponent.init((activity!!.application as AppWithFacade).getFacade()).inject(this)
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 
@@ -99,7 +99,10 @@ class RegisterFragment : Fragment(), IRegisterView {
     override fun navigateTo(destination: OnBoardingScreens) {
         when(destination) {
             OnBoardingScreens.LOGIN_SCREEN -> NavHostFragment.findNavController(this).popBackStack()
-           // OnBoardingScreens.MAIN_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_registerFragment_to_tasksListFragment)
+            OnBoardingScreens.MAIN_SCREEN -> {
+                mediator.createTasksListActivity(context!!)
+                activity?.finish()
+            }
             else -> displayMessage(News(NewsMessageId.UNKNOWN_DESTINATION))
         }
      }

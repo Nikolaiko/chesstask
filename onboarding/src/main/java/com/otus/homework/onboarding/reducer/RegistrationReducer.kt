@@ -1,12 +1,12 @@
 package com.otus.homework.onboarding.reducer
 
-import com.example.core_api.model.UserProfile
-import com.example.core_api.utils.LoggedUserProvider
+import com.example.core.model.UserProfile
+import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.RegistrationState
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
-import com.otus.homework.storage.UserDataRepository
+import com.otus.homework.storage.implementations.UserDataRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 class RegistrationReducer @Inject constructor(
     private val backend: UserDataRepository,
-    private val userData: LoggedUserProvider) : IRegistrationReducer {
+    private val userData: LoggedUserProvider
+) : IRegistrationReducer {
 
     companion object{
         private const val MIN_EMAIL_LENGTH:Int = 3

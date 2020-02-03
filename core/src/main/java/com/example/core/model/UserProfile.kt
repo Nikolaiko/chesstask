@@ -1,4 +1,4 @@
-package com.example.core_api.model
+package com.example.core.model
 
 data class UserProfile(
     val username:String,

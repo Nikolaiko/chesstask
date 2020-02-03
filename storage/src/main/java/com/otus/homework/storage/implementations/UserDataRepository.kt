@@ -1,6 +1,6 @@
-package com.otus.homework.storage
+package com.otus.homework.storage.implementations
 
-import com.example.core_api.model.UserProfile
+import com.example.core.model.UserProfile
 import com.otus.homework.model.user.UserData
 import com.otus.homework.network.interfaces.OnBoardingApi
 import io.reactivex.Observable

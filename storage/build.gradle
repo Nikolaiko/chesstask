@@ -9,7 +9,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
 
     //Modules
-    implementation project(':network')
+    api project(':network')
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"

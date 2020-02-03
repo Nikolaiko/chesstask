@@ -1,4 +1,4 @@
-package com.example.core_api.mediator
+package com.example.core.app
 
 import android.content.Context
 import android.content.SharedPreferences

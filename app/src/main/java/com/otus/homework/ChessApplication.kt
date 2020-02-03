@@ -1,21 +1,24 @@
 package com.otus.homework
 
 import android.app.Application
+import com.example.core.app.AppWithFacade
+import com.example.core.app.ProvidersFacade
 import com.otus.homework.di.AppComponent
 
-class ChessApplication : Application() {
+class ChessApplication : Application(),
+    AppWithFacade {
     companion object {
-        private var appComponentObject: AppComponent? = null
+        private var appComponentObject: ProvidersFacade? = null
     }
 
-    fun getAppContextComponent(): AppComponent {
-        return appComponentObject ?: D.also {
+    override fun getFacade(): ProvidersFacade {
+        return appComponentObject ?: AppComponent.create(this).also {
             appComponentObject = it
         }
     }
 
     override fun onCreate() {
         super.onCreate()
-        getAppContextComponent().injects(this)
+        (getFacade() as AppComponent).injects(this)
     }
 }

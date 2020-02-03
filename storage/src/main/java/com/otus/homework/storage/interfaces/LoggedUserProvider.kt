@@ -1,6 +1,6 @@
-package com.example.core_api.utils
+package com.otus.homework.storage.interfaces
 
-import com.example.core_api.model.UserProfile
+import com.example.core.model.UserProfile
 
 interface LoggedUserProvider {
     fun setLoggedUser(loggedUser: UserProfile)

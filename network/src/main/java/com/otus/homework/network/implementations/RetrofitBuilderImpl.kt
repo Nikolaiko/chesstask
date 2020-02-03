@@ -1,6 +1,6 @@
 package com.otus.homework.network.implementations
 
-import com.example.core_api.model.task.ChessTask
+import com.example.core.model.task.ChessTask
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.otus.homework.network.deserializers.ChessTaskDeserializer

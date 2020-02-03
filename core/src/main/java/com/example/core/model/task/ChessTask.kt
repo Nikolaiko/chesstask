@@ -1,6 +1,6 @@
-package com.example.core_api.model.task
+package com.example.core.model.task
 
-import com.example.core_api.model.enums.ChessFigureColor
+import com.example.core.model.enums.ChessFigureColor
 
 data class ChessTask(val id:String,
                      val startingPositions:List<ChessFigure>,

@@ -1,9 +1,9 @@
 package com.otus.homework.network.deserializers
 
-import com.example.core_api.model.enums.ChessFigureColor
-import com.example.core_api.model.task.ChessFigure
-import com.example.core_api.model.task.ChessTask
-import com.example.core_api.model.task.FigurePosition
+import com.example.core.model.enums.ChessFigureColor
+import com.example.core.model.task.ChessFigure
+import com.example.core.model.task.ChessTask
+import com.example.core.model.task.FigurePosition
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement

@@ -34,7 +34,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
 
     //Modules
-    api project(':core_api')
+    api project(':core')
 
     //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

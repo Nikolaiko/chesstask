@@ -1,11 +1,12 @@
-package com.core_impl.utils
+package com.otus.homework.storage.implementations
 
 import android.content.SharedPreferences
-import com.example.core_api.model.UserProfile
-import com.example.core_api.utils.LoggedUserProvider
+import com.example.core.model.UserProfile
+import com.otus.homework.storage.interfaces.LoggedUserProvider
 import javax.inject.Inject
 
-class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPreferences) : LoggedUserProvider {
+class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPreferences) :
+    LoggedUserProvider {
     companion object {
         private const val USER_NAME_KEY:String = "logged_user_name"
         private const val USER_NAME_PASSWORD:String = "logged_user_password"
@@ -31,10 +32,16 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
 
     private fun tryToGetSavedUserProfile(): UserProfile? {
         var savedUser:UserProfile? = null
-        val loggedUsername:String = sharedPreferences.getString(USER_NAME_KEY, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
+        val loggedUsername:String = sharedPreferences.getString(
+            USER_NAME_KEY,
+            DEFAULT_STRING_VALUE
+        ) ?: DEFAULT_STRING_VALUE
 
         if (loggedUsername != DEFAULT_STRING_VALUE) {
-            val password:String = sharedPreferences.getString(USER_NAME_PASSWORD, DEFAULT_STRING_VALUE) ?: DEFAULT_STRING_VALUE
+            val password:String = sharedPreferences.getString(
+                USER_NAME_PASSWORD,
+                DEFAULT_STRING_VALUE
+            ) ?: DEFAULT_STRING_VALUE
             savedUser = UserProfile(loggedUsername, password)
         }
         return savedUser

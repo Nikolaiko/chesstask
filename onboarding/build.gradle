@@ -10,7 +10,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
 
-
     //RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
@@ -47,17 +46,11 @@ dependencies {
     //RxBindings
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbindings_version"
 
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_rx_adapter_version"
-
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //Modules
-    implementation project(':core_api')
+    implementation project(':core')
     implementation project(':storage')
 }

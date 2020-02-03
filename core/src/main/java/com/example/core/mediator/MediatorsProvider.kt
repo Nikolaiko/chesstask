@@ -1,4 +1,4 @@
-package com.example.core_api.mediator
+package com.example.core.mediator
 
 interface MediatorsProvider {
     fun provideOnBoardingMediator():OnBoardingMediator
