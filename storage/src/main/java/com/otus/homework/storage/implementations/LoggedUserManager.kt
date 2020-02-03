@@ -8,13 +8,13 @@ import javax.inject.Inject
 class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPreferences) :
     LoggedUserProvider {
     companion object {
-        private const val USER_NAME_KEY:String = "logged_user_name"
-        private const val USER_NAME_PASSWORD:String = "logged_user_password"
-        private const val DEFAULT_STRING_VALUE:String = ""
-        private var loggedInUser:UserProfile? = null
+        private const val USER_NAME_KEY: String = "logged_user_name"
+        private const val USER_NAME_PASSWORD: String = "logged_user_password"
+        private const val DEFAULT_STRING_VALUE: String = ""
+        private var loggedInUser: UserProfile? = null
     }
 
-    override fun setLoggedUser(loggedUser:UserProfile) {
+    override fun setLoggedUser(loggedUser: UserProfile) {
         loggedInUser = loggedUser
         val editor:SharedPreferences.Editor = sharedPreferences.edit()
 
@@ -31,14 +31,14 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
     }
 
     private fun tryToGetSavedUserProfile(): UserProfile? {
-        var savedUser:UserProfile? = null
-        val loggedUsername:String = sharedPreferences.getString(
+        var savedUser: UserProfile? = null
+        val loggedUsername: String = sharedPreferences.getString(
             USER_NAME_KEY,
             DEFAULT_STRING_VALUE
         ) ?: DEFAULT_STRING_VALUE
 
         if (loggedUsername != DEFAULT_STRING_VALUE) {
-            val password:String = sharedPreferences.getString(
+            val password: String = sharedPreferences.getString(
                 USER_NAME_PASSWORD,
                 DEFAULT_STRING_VALUE
             ) ?: DEFAULT_STRING_VALUE

@@ -1,6 +1,5 @@
 package com.otus.homework.storage.di
 
-import com.example.core.app.AppProvider
 import com.example.core.app.ProvidersFacade
 import com.otus.homework.network.di.DaggerNetworkComponent
 import com.otus.homework.network.di.NetworkComponent
@@ -19,13 +18,13 @@ import dagger.Component
 )
 interface UserDataComponent {
     companion object {
-        fun init(facadeApp: ProvidersFacade):UserDataComponent = DaggerUserDataComponent
+        fun init(facadeApp: ProvidersFacade): UserDataComponent = DaggerUserDataComponent
             .builder()
             .providersFacade(facadeApp)
             .networkComponent(DaggerNetworkComponent.builder().build())
             .build()
     }
 
-    fun provideLoggedUserManager():LoggedUserProvider
+    fun provideLoggedUserManager(): LoggedUserProvider
     fun provideUserDataRepository(): UserDataRepository
 }

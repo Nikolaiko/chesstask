@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var loggedDataManager: LoggedUserProvider
 
     @Inject
-    lateinit var onBoardingMediator:OnBoardingMediator
+    lateinit var onBoardingMediator: OnBoardingMediator
 
     @Inject
     lateinit var tasksListMediator: TasksListMediator
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_module)
 
         MainComponent.init((application as AppWithFacade).getFacade()).injects(this)
-        val loggedUser:UserProfile? = loggedDataManager.getLoggedUser()
+        val loggedUser: UserProfile? = loggedDataManager.getLoggedUser()
 
         if (loggedUser == null) {
             onBoardingMediator.createOnBoardingActivity(this)

@@ -10,8 +10,8 @@ import dagger.Module
 @Module
 interface MediatorsBindings {
     @Binds
-    fun providesOnBoardingMediator(mediator:OnBoardingMediatorImpl):OnBoardingMediator
+    fun providesOnBoardingMediator(mediator:OnBoardingMediatorImpl): OnBoardingMediator
 
     @Binds
-    fun providesTasksListMediator(mediator:TasksListMediatorImpl):TasksListMediator
+    fun providesTasksListMediator(mediator:TasksListMediatorImpl): TasksListMediator
 }

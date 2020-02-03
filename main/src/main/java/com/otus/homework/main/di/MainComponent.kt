@@ -14,7 +14,7 @@ import dagger.Component
 interface MainComponent {
 
     companion object {
-        fun init(appFacade: ProvidersFacade):MainComponent = DaggerMainComponent
+        fun init(appFacade: ProvidersFacade): MainComponent = DaggerMainComponent
             .builder()
             .providersFacade(appFacade)
             .userDataComponent(UserDataComponent.init(appFacade))
