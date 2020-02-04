@@ -7,7 +7,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import io.reactivex.Single
 
-interface IOnBoardingApi {
+interface UserApi {
     fun login(newUserData:UserShortData): Single<Response<ResponseBody>>
     fun register(newUserData:UserShortData):Single<Response<UserShortData>>
     fun getRandomTask(difficulty:ChessTaskDifficulty):Single<Response<ChessTask>>

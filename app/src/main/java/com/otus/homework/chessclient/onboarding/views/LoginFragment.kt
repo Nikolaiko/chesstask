@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.chessclient.R
 import com.otus.homework.chessclient.onboarding.model.News
 import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
-import com.otus.homework.chessclient.onboarding.presenters.ILoginPresenter
+import com.otus.homework.chessclient.onboarding.presenters.LoginPresenter
 import com.otus.homework.model.enums.AppScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -27,7 +26,7 @@ import java.util.concurrent.TimeUnit
 class LoginFragment : Fragment(), ILoginView, KodeinAware {
     override val kodein: Kodein by kodein()
 
-    private val presenter:ILoginPresenter by instance()
+    private val presenter:LoginPresenter by instance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)

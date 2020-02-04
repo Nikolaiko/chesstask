@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.otus.homework.chessclient.R
 
-class TasksListFragment : Fragment() {
+class TasksFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_all_tasks, container, false)
+        return inflater.inflate(R.layout.fragment_tasks, container, false)
     }
 }

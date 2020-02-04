@@ -35,6 +35,6 @@
     </fragment>
     <fragment
         android:id="@+id/tasksListFragment"
-        android:name="com.otus.homework.chessclient.chesstasks.TasksListFragment"
+        android:name="com.otus.homework.chessclient.chesstasks.TasksFragment"
         android:label="TasksListFragment" />
 </navigation>

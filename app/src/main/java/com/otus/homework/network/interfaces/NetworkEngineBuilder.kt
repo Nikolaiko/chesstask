@@ -1,5 +1,5 @@
 package com.otus.homework.network.interfaces
 
-interface IRetrofitBuilder {
+interface NetworkEngineBuilder {
     fun buildOnBoardingService():OnBoardingService
 }
