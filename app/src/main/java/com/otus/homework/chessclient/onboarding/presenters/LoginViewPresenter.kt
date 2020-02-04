@@ -1,5 +1,6 @@
 package com.otus.homework.chessclient.onboarding.presenters
 
+import android.content.Context
 import com.otus.homework.chessclient.core.views.BaseView
 import com.otus.homework.chessclient.onboarding.model.LoginState
 import com.otus.homework.chessclient.onboarding.reducer.LoginReducer
@@ -9,7 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
-class LoginViewPresenter(private val reducer: LoginReducer) : LoginPresenter {
+class LoginViewPresenter(
+    private val reducer: LoginReducer
+) : LoginPresenter {
     private var presenterView:ILoginView? = null
     private val disposeContainer:CompositeDisposable = CompositeDisposable()
 
@@ -26,15 +29,15 @@ class LoginViewPresenter(private val reducer: LoginReducer) : LoginPresenter {
 
     private fun bind() {
         presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(UserShortData(it[0], it[1])))
+            reducer.credentialsChange(UserShortData(it[0], it[1]))
         }?.addTo(disposeContainer)
 
         presenterView?.loginClick()?.subscribe {
-            renderState(reducer.tryToLogin())
+            reducer.tryToLogin()
         }?.addTo(disposeContainer)
 
         presenterView?.registerClick()?.subscribe {
-            renderState(reducer.register())
+            reducer.register()
         }?.addTo(disposeContainer)
 
         reducer.updateState
@@ -60,6 +63,7 @@ class LoginViewPresenter(private val reducer: LoginReducer) : LoginPresenter {
     }
 
     private fun renderState(newState:LoginState) {
+        context.run
         presenterView?.setLoading(newState.loadingActive)
         presenterView?.setLoginButtonEnabled(newState.loginButtonEnabled)
         presenterView?.setRegisterButtonEnabled(newState.registrationButtonEnabled)
