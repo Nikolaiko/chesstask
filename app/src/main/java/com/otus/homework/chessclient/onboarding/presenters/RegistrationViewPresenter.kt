@@ -26,11 +26,11 @@ class RegistrationViewPresenter(private val reducer: RegistrationReducer) : Regi
 
     private fun bind() {
         presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(UserShortData(it[0], it[1])))
+            reducer.credentialsChange(UserShortData(it[0], it[1]))
         }?.addTo(disposeContainer)
 
         presenterView?.registerClick()?.subscribe {
-            renderState(reducer.tryToRegister())
+            reducer.tryToRegister()
         }?.addTo(disposeContainer)
 
         presenterView?.backClick()?.subscribe {

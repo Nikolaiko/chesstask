@@ -63,7 +63,6 @@ class LoginViewPresenter(
     }
 
     private fun renderState(newState:LoginState) {
-        context.run
         presenterView?.setLoading(newState.loadingActive)
         presenterView?.setLoginButtonEnabled(newState.loginButtonEnabled)
         presenterView?.setRegisterButtonEnabled(newState.registrationButtonEnabled)
