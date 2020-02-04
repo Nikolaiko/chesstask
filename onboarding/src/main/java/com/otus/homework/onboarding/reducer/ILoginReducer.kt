@@ -1,6 +1,6 @@
 package com.otus.homework.onboarding.reducer
 
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.model.LoginState
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens

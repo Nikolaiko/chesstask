@@ -1,6 +1,6 @@
 package com.otus.homework.onboarding.reducer
 
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.RegistrationState
@@ -11,7 +11,7 @@ interface IRegistrationReducer {
     val updateNews: PublishSubject<News>
     val updateDestination: PublishSubject<OnBoardingScreens>
 
-    fun credentialsChange(userData:UserProfile): RegistrationState
+    fun credentialsChange(userData: UserProfile): RegistrationState
     fun tryToRegister(): RegistrationState
     fun goToPreviousScreen()
     fun clearDisposables()

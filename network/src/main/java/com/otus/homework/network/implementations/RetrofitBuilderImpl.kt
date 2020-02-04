@@ -20,7 +20,7 @@ class RetrofitBuilderImpl @Inject constructor() :
         .create()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://92.242.40.194:80")
+        .baseUrl("http://92.242.40.194:8080")
         .client(OkHttpClient.Builder().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))

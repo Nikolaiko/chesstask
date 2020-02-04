@@ -1,6 +1,6 @@
 package com.otus.homework.onboarding.reducer
 
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserProfile
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.model.LoginState
@@ -29,7 +29,7 @@ class LoginReducer @Inject constructor(
     private var currentState = LoginState()
     private val disposeBag:CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(userData:UserProfile):LoginState {
+    override fun credentialsChange(userData: UserProfile):LoginState {
         currentUserData = userData
         currentState = currentState.copy(loginButtonEnabled = (currentUserData.username.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
@@ -39,8 +39,9 @@ class LoginReducer @Inject constructor(
         disposeBag.add(backend.login(currentUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
-                userData.setLoggedUser(it)
                 updateState.onNext(currentState)
+                userData.setLoggedUser(currentUserData)
+                userData.setLoggedUserTokens(it)
                 updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
             }, {
                 currentState = LoginState(loginButtonEnabled = true)

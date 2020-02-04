@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.core.app.AppWithFacade
 import com.example.core.mediator.OnBoardingMediator
 import com.example.core.mediator.TasksListMediator
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserTokens
 import com.otus.homework.main.di.MainComponent
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import javax.inject.Inject
@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_module)
 
         MainComponent.init((application as AppWithFacade).getFacade()).injects(this)
-        val loggedUser: UserProfile? = loggedDataManager.getLoggedUser()
+        val loggedUserTokens: UserTokens? = loggedDataManager.getLoggedUserTokens()
 
-        if (loggedUser == null) {
+        if (loggedUserTokens == null) {
             onBoardingMediator.createOnBoardingActivity(this)
             finish()
         } else {

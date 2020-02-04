@@ -1,7 +1,8 @@
 package com.otus.homework.storage.implementations
 
 import android.content.SharedPreferences
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserProfile
+import com.example.core.model.user.UserTokens
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import javax.inject.Inject
 
@@ -10,8 +11,11 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
     companion object {
         private const val USER_NAME_KEY: String = "logged_user_name"
         private const val USER_NAME_PASSWORD: String = "logged_user_password"
+        private const val USER_NAME_ACCESS_TOKEN: String = "logged_user_access_token"
         private const val DEFAULT_STRING_VALUE: String = ""
+
         private var loggedInUser: UserProfile? = null
+        private var loggedUsertokens: UserTokens? = null
     }
 
     override fun setLoggedUser(loggedUser: UserProfile) {
@@ -30,6 +34,34 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
         return loggedInUser
     }
 
+    override fun setLoggedUserTokens(tokens: UserTokens) {
+        loggedUsertokens = tokens
+        val editor:SharedPreferences.Editor = sharedPreferences.edit()
+
+        editor.putString(USER_NAME_ACCESS_TOKEN, tokens.accessToken)
+        editor.apply()
+    }
+
+    override fun getLoggedUserTokens(): UserTokens? {
+        if (loggedUsertokens == null) {
+            loggedUsertokens = tryGetSavedUserTokens()
+        }
+        return loggedUsertokens
+    }
+
+    private fun tryGetSavedUserTokens(): UserTokens? {
+        var tokens: UserTokens? = null
+        val userToken: String = sharedPreferences.getString(
+            USER_NAME_ACCESS_TOKEN,
+            DEFAULT_STRING_VALUE
+        ) ?: DEFAULT_STRING_VALUE
+
+        if (userToken != DEFAULT_STRING_VALUE) {
+            tokens = UserTokens(userToken)
+        }
+        return tokens
+    }
+
     private fun tryToGetSavedUserProfile(): UserProfile? {
         var savedUser: UserProfile? = null
         val loggedUsername: String = sharedPreferences.getString(
@@ -42,7 +74,8 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
                 USER_NAME_PASSWORD,
                 DEFAULT_STRING_VALUE
             ) ?: DEFAULT_STRING_VALUE
-            savedUser = UserProfile(loggedUsername, password)
+            savedUser =
+                UserProfile(loggedUsername, password)
         }
         return savedUser
     }

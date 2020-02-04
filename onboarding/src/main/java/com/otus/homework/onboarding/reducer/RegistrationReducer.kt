@@ -1,6 +1,6 @@
 package com.otus.homework.onboarding.reducer
 
-import com.example.core.model.UserProfile
+import com.example.core.model.user.UserProfile
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.News
 import com.otus.homework.onboarding.model.RegistrationState
@@ -29,7 +29,7 @@ class RegistrationReducer @Inject constructor(
     private var currentState = RegistrationState()
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(userData:UserProfile): RegistrationState {
+    override fun credentialsChange(userData: UserProfile): RegistrationState {
         currentUserData = userData
         currentState = currentState.copy(registrationButtonEnabled = (currentUserData.username.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
@@ -39,7 +39,9 @@ class RegistrationReducer @Inject constructor(
         disposeBag.add(backend.registerNewUser(currentUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
-                tryToLoginAfterRegistration(it)
+                userData.setLoggedUser(currentUserData)
+                userData.setLoggedUserTokens(it)
+                updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
             }, {
                 currentState = RegistrationState()
                 updateNews.onNext(News(NewsMessageId.EXCEPTION_REGISTRATION_REQUEST, it.localizedMessage ?: ""))
@@ -61,18 +63,5 @@ class RegistrationReducer @Inject constructor(
 
     override fun goToPreviousScreen() {
         updateDestination.onNext(OnBoardingScreens.LOGIN_SCREEN)
-    }
-
-    private fun tryToLoginAfterRegistration(newUserData:UserProfile) {
-        disposeBag.add(backend.login(newUserData)
-            .subscribeOn(Schedulers.io())
-            .subscribe( {
-                userData.setLoggedUser(it)
-                updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
-            }, {
-                currentState = RegistrationState()
-                updateNews.onNext(News(NewsMessageId.EXCEPTION_LOGIN_REQUEST, it.localizedMessage ?: ""))
-                updateState.onNext(currentState)
-            }))
     }
 }
