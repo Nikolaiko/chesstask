@@ -8,11 +8,14 @@
 
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
         android:hint="@string/edit_text_email_hint"
         android:inputType="textEmailAddress"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,12 +24,15 @@
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:ellipsize="end"
         android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
         android:hint="@string/edit_text_password_hint"
         android:inputType="textPassword"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText"

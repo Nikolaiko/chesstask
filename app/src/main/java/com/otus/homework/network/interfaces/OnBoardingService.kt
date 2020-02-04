@@ -15,7 +15,7 @@ interface OnBoardingService {
     fun registerUser(@Body userData:UserShortData): Single<Response<UserShortData>>
 
     @POST("user/signin")
-    fun loginUser(@Body userData:UserShortData): Single<Response<ResponseBody>>
+    fun loginUser(@Body userData:UserShortData): Single<Response<UserShortData>>
 
     @GET("tasks/get")
     fun getRandomTask(@Query("difficulty") difficulty:String): Single<Response<ChessTask>>

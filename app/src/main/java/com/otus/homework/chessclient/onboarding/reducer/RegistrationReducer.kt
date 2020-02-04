@@ -5,12 +5,13 @@ import com.otus.homework.chessclient.onboarding.model.RegistrationState
 import com.otus.homework.chessclient.onboarding.model.enums.NewsMessageId
 import com.otus.homework.model.enums.AppScreens
 import com.otus.homework.model.user.UserShortData
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 interface RegistrationReducer {
-    val updateState: PublishSubject<RegistrationState>
-    val updateNews: PublishSubject<News>
-    val updateDestination: PublishSubject<AppScreens>
+    val updateState: Observable<RegistrationState>
+    val updateNews: Observable<News>
+    val updateDestination: Observable<AppScreens>
 
     fun credentialsChange(userData:UserShortData)
     fun tryToRegister()

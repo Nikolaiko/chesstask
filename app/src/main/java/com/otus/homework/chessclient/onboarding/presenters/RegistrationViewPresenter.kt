@@ -1,6 +1,6 @@
 package com.otus.homework.chessclient.onboarding.presenters
 
-import com.otus.homework.chessclient.core.views.IView
+import com.otus.homework.chessclient.core.views.BaseView
 import com.otus.homework.chessclient.onboarding.model.RegistrationState
 import com.otus.homework.chessclient.onboarding.reducer.RegistrationReducer
 import com.otus.homework.chessclient.onboarding.views.IRegisterView
@@ -13,7 +13,7 @@ class RegistrationViewPresenter(private val reducer: RegistrationReducer) : Regi
     private var presenterView:IRegisterView? = null
     private val disposeContainer: CompositeDisposable = CompositeDisposable()
 
-    override fun attachView(view: IView) {
+    override fun attachView(view: BaseView) {
         presenterView = view as? IRegisterView
         bind()
     }

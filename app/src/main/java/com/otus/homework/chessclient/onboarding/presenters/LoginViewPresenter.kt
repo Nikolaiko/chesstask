@@ -1,6 +1,6 @@
 package com.otus.homework.chessclient.onboarding.presenters
 
-import com.otus.homework.chessclient.core.views.IView
+import com.otus.homework.chessclient.core.views.BaseView
 import com.otus.homework.chessclient.onboarding.model.LoginState
 import com.otus.homework.chessclient.onboarding.reducer.LoginReducer
 import com.otus.homework.chessclient.onboarding.views.ILoginView
@@ -13,7 +13,7 @@ class LoginViewPresenter(private val reducer: LoginReducer) : LoginPresenter {
     private var presenterView:ILoginView? = null
     private val disposeContainer:CompositeDisposable = CompositeDisposable()
 
-    override fun attachView(view: IView) {
+    override fun attachView(view: BaseView) {
         presenterView = view as? ILoginView
         bind()
     }

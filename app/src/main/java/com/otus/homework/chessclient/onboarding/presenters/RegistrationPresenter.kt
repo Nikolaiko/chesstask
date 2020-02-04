@@ -1,5 +1,5 @@
 package com.otus.homework.chessclient.onboarding.presenters
 
-import com.otus.homework.chessclient.core.presenters.IPresenter
+import com.otus.homework.chessclient.core.presenters.BasePresenter
 
-interface RegistrationPresenter : IPresenter
+interface RegistrationPresenter : BasePresenter
