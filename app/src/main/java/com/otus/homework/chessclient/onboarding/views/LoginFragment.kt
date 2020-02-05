@@ -43,35 +43,25 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
     }
 
     override fun setRegisterButtonEnabled(isEnabled: Boolean) {
-        activity?.runOnUiThread {
-            registerButton.isEnabled = isEnabled
-        }
+        registerButton.isEnabled = isEnabled
     }
 
     override fun setLoginButtonEnabled(isEnabled: Boolean) {
-        activity?.runOnUiThread {
-            loginButton.isEnabled = isEnabled
-        }
+        loginButton.isEnabled = isEnabled
     }
 
     override fun setPasswordTextEnabled(isEnabled: Boolean) {
-        activity?.runOnUiThread {
-            passwordText.isEnabled = isEnabled
-        }
+        passwordText.isEnabled = isEnabled
     }
 
     override fun setLoginTextEnabled(isEnabled: Boolean) {
-        activity?.runOnUiThread {
-            emailText.isEnabled = isEnabled
-        }
+        emailText.isEnabled = isEnabled
     }
 
     override fun setLoading(isLoading: Boolean) {
-        activity?.runOnUiThread {
-            when(isLoading) {
-                true -> progressBar.visibility = View.VISIBLE
-                false -> progressBar.visibility = View.INVISIBLE
-            }
+        when(isLoading) {
+            true -> progressBar.visibility = View.VISIBLE
+            false -> progressBar.visibility = View.INVISIBLE
         }
     }
 
@@ -88,9 +78,7 @@ class LoginFragment : Fragment(), ILoginView, KodeinAware {
         )
 
     override fun displayMessage(newsMessage: News) {
-        activity?.runOnUiThread {
-            Toast.makeText(context!!, convertNewsToString(newsMessage), Toast.LENGTH_SHORT).show()
-        }
+        Toast.makeText(context!!, convertNewsToString(newsMessage), Toast.LENGTH_SHORT).show()
     }
 
     override fun navigateTo(destination: AppScreens) {
