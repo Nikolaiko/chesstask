@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/tasksListFragment"
-        android:name="com.otus.homework.taskslist.TasksListFragment"
+        android:name="com.otus.homework.taskslist.views.TasksListFragment"
         android:label="TasksListFragment" />
 </navigation>

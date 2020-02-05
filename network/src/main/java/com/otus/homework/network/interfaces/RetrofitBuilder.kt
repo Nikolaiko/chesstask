@@ -4,4 +4,5 @@ import com.otus.homework.network.interfaces.OnBoardingService
 
 interface RetrofitBuilder {
     fun buildOnBoardingService(): OnBoardingService
+    fun buildChessTasksService():ChessTasksService
 }

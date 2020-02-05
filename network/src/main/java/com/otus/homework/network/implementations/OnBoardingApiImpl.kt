@@ -8,18 +8,26 @@ import com.otus.homework.network.model.responses.UserDataResponse
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class OnBoardingApiImpl @Inject constructor(private val builder: RetrofitBuilder) :
+class OnBoardingApiImpl @Inject constructor(builder: RetrofitBuilder) :
     OnBoardingApi {
     private val service = builder.buildOnBoardingService()
 
     override fun login(newUserData: UserData): Observable<UserDataResponse> {
         return service.loginUser(newUserData).map {
-            UserDataResponse(it.code(), it.message(), it.body())
+            if (it.isSuccessful) {
+                UserDataResponse(it.code(), it.message(), it.body())
+            } else {
+                throw Exception(it.message())
+            }
         }.toObservable()
     }
     override fun register(newUserData: UserData): Observable<UserDataResponse> {
         return service.registerUser(newUserData).map {
-            UserDataResponse(it.code(), it.message(), it.body())
+            if (it.isSuccessful) {
+                UserDataResponse(it.code(), it.message(), it.body())
+            } else {
+                throw Exception(it.message())
+            }
         }.toObservable()
     }
     override fun getRandomTask(difficulty: String):Observable<ChessTaskResponse>  {

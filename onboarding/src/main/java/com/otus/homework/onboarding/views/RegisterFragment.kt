@@ -14,7 +14,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.RegistrationComponent
-import com.otus.homework.onboarding.model.News
+import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.presenters.IRegistrationPresenter
 import io.reactivex.Observable
@@ -90,7 +90,7 @@ class RegisterFragment : Fragment(), IRegisterView {
         }
     )
 
-    override fun displayMessage(newsMessage: News) {
+    override fun displayMessage(newsMessage: OnBoardingNews) {
         activity?.runOnUiThread {
             Toast.makeText(context!!, convertNewsToString(newsMessage), Toast.LENGTH_SHORT).show()
         }
@@ -103,7 +103,7 @@ class RegisterFragment : Fragment(), IRegisterView {
                 mediator.createTasksListActivity(context!!)
                 activity?.finish()
             }
-            else -> displayMessage(News(NewsMessageId.UNKNOWN_DESTINATION))
+            else -> displayMessage(OnBoardingNews(NewsMessageId.UNKNOWN_DESTINATION))
         }
      }
 
@@ -114,7 +114,7 @@ class RegisterFragment : Fragment(), IRegisterView {
         .map { emailValue -> emailValue.toString() }
         .debounce(500, TimeUnit.MICROSECONDS)
 
-    private fun convertNewsToString(news: News):String = when(news.id) {
+    private fun convertNewsToString(news: OnBoardingNews):String = when(news.id) {
         NewsMessageId.UNKNOWN_DESTINATION -> resources.getString(R.string.unknown_screen_error)
         NewsMessageId.NULL_BODY_MESSAGE -> resources.getString(R.string.null_body_error)
         NewsMessageId.REQUEST_STATUS_ERROR -> resources.getString(R.string.request_status_error, news.message)

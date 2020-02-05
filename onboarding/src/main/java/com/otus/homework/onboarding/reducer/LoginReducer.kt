@@ -4,7 +4,7 @@ import com.example.core.model.user.UserProfile
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.model.LoginState
-import com.otus.homework.onboarding.model.News
+import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.storage.implementations.UserDataRepository
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +23,7 @@ class LoginReducer @Inject constructor(
 
     override val updateDestination:PublishSubject<OnBoardingScreens>  = PublishSubject.create()
     override val updateState:PublishSubject<LoginState> = PublishSubject.create()
-    override val updateNews:PublishSubject<News> = PublishSubject.create()
+    override val updateNews:PublishSubject<OnBoardingNews> = PublishSubject.create()
 
     private var currentUserData = UserProfile("", "")
     private var currentState = LoginState()
@@ -45,7 +45,7 @@ class LoginReducer @Inject constructor(
                 updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
             }, {
                 currentState = LoginState(loginButtonEnabled = true)
-                updateNews.onNext(News(NewsMessageId.EXCEPTION_LOGIN_REQUEST, it.localizedMessage ?: ""))
+                updateNews.onNext(OnBoardingNews(NewsMessageId.EXCEPTION_LOGIN_REQUEST, it.localizedMessage ?: ""))
                 updateState.onNext(currentState)
             }))
 

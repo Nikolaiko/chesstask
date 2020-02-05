@@ -2,7 +2,7 @@ package com.otus.homework.onboarding.reducer
 
 import com.example.core.model.user.UserProfile
 import com.otus.homework.storage.interfaces.LoggedUserProvider
-import com.otus.homework.onboarding.model.News
+import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.RegistrationState
 import com.otus.homework.onboarding.model.enums.NewsMessageId
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
@@ -22,7 +22,7 @@ class RegistrationReducer @Inject constructor(
     }
 
     override val updateState: PublishSubject<RegistrationState> = PublishSubject.create()
-    override val updateNews: PublishSubject<News> = PublishSubject.create()
+    override val updateNews: PublishSubject<OnBoardingNews> = PublishSubject.create()
     override val updateDestination: PublishSubject<OnBoardingScreens> = PublishSubject.create()
 
     private var currentUserData = UserProfile("", "")
@@ -44,7 +44,7 @@ class RegistrationReducer @Inject constructor(
                 updateDestination.onNext(OnBoardingScreens.MAIN_SCREEN)
             }, {
                 currentState = RegistrationState()
-                updateNews.onNext(News(NewsMessageId.EXCEPTION_REGISTRATION_REQUEST, it.localizedMessage ?: ""))
+                updateNews.onNext(OnBoardingNews(NewsMessageId.EXCEPTION_REGISTRATION_REQUEST, it.localizedMessage ?: ""))
                 updateState.onNext(currentState)
             }))
 

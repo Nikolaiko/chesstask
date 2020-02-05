@@ -1,9 +1,9 @@
 package com.otus.homework.onboarding.views
 
-import com.otus.homework.onboarding.model.News
+import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 
-interface IView {
-    fun displayMessage(newsMessage: News)
+interface BaseView {
+    fun displayMessage(newsMessage: OnBoardingNews)
     fun navigateTo(destination:OnBoardingScreens)
 }

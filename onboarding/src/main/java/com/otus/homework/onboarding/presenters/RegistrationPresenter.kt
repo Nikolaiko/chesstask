@@ -1,7 +1,7 @@
 package com.otus.homework.onboarding.presenters
 
 import com.example.core.model.user.UserProfile
-import com.otus.homework.onboarding.views.IView
+import com.otus.homework.onboarding.views.BaseView
 import com.otus.homework.onboarding.model.RegistrationState
 import com.otus.homework.onboarding.reducer.IRegistrationReducer
 import com.otus.homework.onboarding.views.IRegisterView
@@ -13,7 +13,7 @@ class RegistrationPresenter @Inject constructor(private val reducer: IRegistrati
     private var presenterView:IRegisterView? = null
     private val disposeContainer: CompositeDisposable = CompositeDisposable()
 
-    override fun attachView(view: IView) {
+    override fun attachView(view: BaseView) {
         presenterView = view as? IRegisterView
         bind()
     }

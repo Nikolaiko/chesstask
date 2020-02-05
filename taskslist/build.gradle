@@ -42,6 +42,14 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+
+    //RxBindings
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbindings_version"
+
     //Modules
     implementation project(':core')
+    implementation project(':storage')
 }

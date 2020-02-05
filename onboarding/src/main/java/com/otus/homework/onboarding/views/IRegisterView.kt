@@ -2,7 +2,7 @@ package com.otus.homework.onboarding.views
 
 import io.reactivex.Observable
 
-interface IRegisterView : IView {
+interface IRegisterView : BaseView {
     fun setBackButtonEnabled(isEnabled:Boolean)
     fun setRegisterButtonEnabled(isEnabled:Boolean)
     fun setPasswordTextEnabled(isEnabled:Boolean)
