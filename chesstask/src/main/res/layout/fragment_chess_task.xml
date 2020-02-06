@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/row1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        app:layout_constraintWidth_percent="0.8">
+
+        <ImageView
+            android:id="@+id/cell00"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/white_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell01"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell00"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/black_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell02"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell01"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/white_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell03"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell02"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/black_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell04"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell03"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/white_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell05"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell04"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/black_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell06"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell05"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/white_cell_color" />
+
+        <ImageView
+            android:id="@+id/cell07"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@id/cell06"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.125"
+            app:srcCompat="@color/black_cell_color" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row2"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell11"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell10"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell12"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell11"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell13"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell12"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell14"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell13"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell15"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell14"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell16"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell15"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell17"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell16"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row3"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@id/row2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell20"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell21"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell20"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell22"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell21"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell23"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell22"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell23"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell24"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell26"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell25"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell27"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell26"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row4"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row3">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell30"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell31"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell30"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell32"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell31"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell33"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell32"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell34"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell33"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell35"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell34"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell36"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell35"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell37"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell36"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row5"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@id/row4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell40"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell41"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell40"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell42"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell41"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell43"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell42"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell44"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell43"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell45"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell44"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell46"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell45"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell47"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell46"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row6"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row5">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell51"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell50"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell52"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell51"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell53"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell52"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell54"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell53"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell55"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell54"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell56"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell55"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell57"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell56"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row7"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@id/row6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell60"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell61"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell60"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell62"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell61"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell63"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell62"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell64"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell63"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell65"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell64"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell66"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell65"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell67"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell66"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/row8"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@id/row7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell70"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell71"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell70"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell72"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell71"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell73"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell72"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell74"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell73"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell75"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell74"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/black_cell_color"
+            android:id="@+id/cell76"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell75"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@color/white_cell_color"
+            android:id="@+id/cell77"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cell76"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintWidth_percent="0.125"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

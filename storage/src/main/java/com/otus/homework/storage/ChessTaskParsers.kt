@@ -5,7 +5,7 @@ import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.ChessFigure
 import com.example.core.model.task.FigurePosition
 
-private fun getStartingColor(fenString:String?): ChessFigureColor {
+fun getStartingColor(fenString:String?): ChessFigureColor {
     return if (fenString?.isNotBlank() == true) {
         val secondPart = fenString.split(' ')[1]
         ChessFigureColor.valueOf(secondPart[0].toString())
@@ -14,7 +14,7 @@ private fun getStartingColor(fenString:String?): ChessFigureColor {
     }
 }
 
-private fun getStartingPositions(fenString:String?):List<ChessFigure> {
+fun getStartingPositions(fenString:String?):List<ChessFigure> {
     val startingPositions = mutableListOf<ChessFigure>()
     if (fenString?.isNotBlank() == true) {
         val firstPart = fenString.split(' ')[0]

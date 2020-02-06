@@ -1,5 +1,6 @@
 package com.otus.homework.network.implementations
 
+import com.example.core.model.task.ChessTask
 import com.otus.homework.network.interfaces.ChessTasksApi
 import com.otus.homework.network.interfaces.ChessTasksService
 import com.otus.homework.network.interfaces.RetrofitBuilder
@@ -16,6 +17,16 @@ class ChessTasksApiImpl @Inject constructor(builder: RetrofitBuilder) : ChessTas
         return service.getTasksList(accessToken).map {
             if (it.isSuccessful) {
                 Response<List<ChessTaskShortData>>(it.code(), it.message(), it.body())
+            } else {
+                throw Exception(it.message())
+            }
+        }.toObservable()
+    }
+
+    override fun getTaskById(accessToken: String, id: String): Observable<Response<ChessTaskData>> {
+        return service.getTaskById(accessToken, id).map {
+            if (it.isSuccessful) {
+                Response<ChessTaskData>(it.code(), it.message(), it.body())
             } else {
                 throw Exception(it.message())
             }

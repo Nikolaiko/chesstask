@@ -56,4 +56,5 @@ dependencies {
     implementation project(":main")
     implementation project(":onboarding")
     implementation project(":taskslist")
+    implementation project(":chesstask")
 }

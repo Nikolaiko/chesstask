@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/chesstask_nav"
+    app:startDestination="@id/chessTaskFragment">
+
+    <fragment
+        android:id="@+id/chessTaskFragment"
+        android:name="com.otus.homework.chesstask.views.ChessTaskFragment"
+        android:label="ChessTaskFragment" />
+</navigation>

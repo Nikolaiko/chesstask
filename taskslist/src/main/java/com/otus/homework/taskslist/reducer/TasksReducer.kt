@@ -11,6 +11,7 @@ interface TasksReducer {
     val updateDestination:Observable<TasksListScreens>
 
     fun refreshTasks()
+    fun getTaskById(id:String)
 
     fun clearDisposables()
 }

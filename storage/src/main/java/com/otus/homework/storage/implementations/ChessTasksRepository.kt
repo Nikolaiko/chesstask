@@ -5,6 +5,8 @@ import com.example.core.model.task.ChessTask
 import com.example.core.model.user.UserTokens
 import com.otus.homework.network.interfaces.ChessTasksApi
 import com.example.core.model.task.ChessTaskShortInfo
+import com.otus.homework.storage.getStartingColor
+import com.otus.homework.storage.getStartingPositions
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -15,6 +17,20 @@ class ChessTasksRepository @Inject constructor(private val api:ChessTasksApi) {
                it.responseObject!!.map { currentTask ->
                    ChessTaskShortInfo(currentTask.id, currentTask.name)
                }
+            } else {
+                throw Exception(it.message)
+            }
+        }
+    }
+
+    fun getTaskById(userTokens: UserTokens, id: String): Observable<ChessTask> {
+        return api.getTaskById("Bearer ${userTokens.accessToken}", id).map {
+            if (it.responseObject != null) {
+                ChessTask(
+                    it.responseObject!!.id,
+                    getStartingPositions(it.responseObject!!.fen),
+                    getStartingColor(it.responseObject!!.fen)
+                )
             } else {
                 throw Exception(it.message)
             }

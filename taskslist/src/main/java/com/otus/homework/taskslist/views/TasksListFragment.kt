@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.core.app.AppWithFacade
+import com.example.core.mediator.SingleChessTaskMediator
+import com.example.core.model.task.ChessTask
 import com.example.core.model.task.ChessTaskShortInfo
 import com.otus.homework.taskslist.R
 import com.otus.homework.taskslist.di.TasksComponent
@@ -23,6 +25,9 @@ class TasksListFragment : Fragment(), TasksView {
 
     @Inject
     lateinit var presenter:TasksPresenter
+
+    @Inject
+    lateinit var mediator:SingleChessTaskMediator
 
     private var listAdapter:TasksListAdapter? = null
     private val _selectedTask:PublishSubject<ChessTaskShortInfo> = PublishSubject.create()
@@ -58,8 +63,11 @@ class TasksListFragment : Fragment(), TasksView {
         }
     }
 
-    override fun navigateTo(destination: TasksListScreens) {
+    override fun navigateTo(destination: TasksListScreens, task:ChessTask?) {
         when(destination) {
+            TasksListScreens.SINGLE_CHESS_TASK -> {
+                mediator.startOnChessActivity(context!!, task!!)
+            }
             else -> displayMessage(TasksListNews(NewsMessageId.UNKNOWN_DESTINATION))
         }
     }
@@ -79,6 +87,8 @@ class TasksListFragment : Fragment(), TasksView {
     private fun convertNewsToString(news:TasksListNews):String = when(news.id) {
         NewsMessageId.UNKNOWN_DESTINATION -> resources.getString(R.string.unknown_screen_error)
         NewsMessageId.REQUEST_STATUS_ERROR -> resources.getString(R.string.request_status_error, news.message)
-        NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST -> resources.getString(R.string.exception_registration_request_error, news.message)
+        NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST -> resources.getString(R.string.exception_all_tasks_request_error, news.message)
+        NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST -> resources.getString(R.string.exception_task_by_id_request_error, news.message)
+        NewsMessageId.NULL_TOKEN_ERROR -> resources.getString(R.string.null_token_error)
     }
 }

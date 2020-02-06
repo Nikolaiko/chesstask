@@ -16,6 +16,12 @@ interface ChessTasksService {
     ): Single<Response<List<ChessTaskShortData>>>
 
     @GET("tasks/get")
+    fun getTaskById(
+        @Header("Authorization") token:String,
+        @Query("id") id:String
+    ): Single<Response<ChessTaskData>>
+
+    @GET("tasks/get")
     fun getRandomTask(
         @Header("Authorization") token:String,
         @Query("difficulty") difficulty:String

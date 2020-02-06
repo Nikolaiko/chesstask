@@ -7,4 +7,5 @@ import io.reactivex.Observable
 
 interface ChessTasksApi {
     fun getAllTasks(accessToken:String): Observable<Response<List<ChessTaskShortData>>>
+    fun getTaskById(accessToken:String, id:String): Observable<Response<ChessTaskData>>
 }

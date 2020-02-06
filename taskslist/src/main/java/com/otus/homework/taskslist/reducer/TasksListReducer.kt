@@ -33,7 +33,7 @@ class TasksListReducer @Inject constructor(
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
     override fun refreshTasks() {
-        state = TasksListState(loadingActive = true)
+        state = TasksListState(loadingActive = true, loadedTasks = null)
         _updateState.onNext(state)
 
         val userTokens = loggedUserProvider.getLoggedUserTokens()
@@ -45,14 +45,37 @@ class TasksListReducer @Inject constructor(
                 _updateState.onNext(state)
             }, {
                 println("Error message : ${it.message}")
-                state = TasksListState()
+                state = TasksListState(loadedTasks = null)
                 _updateState.onNext(state)
                 _updateNews.onNext(TasksListNews(NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST, it.message ?: ""))
             }).addTo(disposeBag)
         } else {
-            state = TasksListState()
+            state = TasksListState(loadedTasks = null)
             _updateState.onNext(state)
-            //news about error    not logged in
+            _updateNews.onNext(TasksListNews(NewsMessageId.NULL_TOKEN_ERROR))
+        }
+    }
+
+    override fun getTaskById(id: String) {
+        state = TasksListState(loadingActive = true, loadedTasks = null)
+        _updateState.onNext(state)
+
+        val userTokens = loggedUserProvider.getLoggedUserTokens()
+        if (userTokens != null) {
+            tasksRepository.getTaskById(userTokens, id)
+                .subscribeOn(Schedulers.io())
+                .subscribe( {
+                    state = state.copy(loadingActive = false, loadedTask = it, loadedTasks = null)
+                    _updateState.onNext(state)
+                }, {
+                    state = TasksListState(loadedTasks = null)
+                    _updateState.onNext(state)
+                    _updateNews.onNext(TasksListNews(NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST, it.message ?: ""))
+                }).addTo(disposeBag)
+        } else {
+            state = TasksListState(loadedTasks = null)
+            _updateState.onNext(state)
+            _updateNews.onNext(TasksListNews(NewsMessageId.NULL_TOKEN_ERROR))
         }
     }
 
