@@ -42,6 +42,12 @@ class ChessBoardPresenter @Inject constructor(
                 presenterView?.updateChessBoardSelection(it)
             }.addTo(disposeBag)
 
+        reducer.applyBoardAction
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                presenterView?.applyAction(it)
+            }.addTo(disposeBag)
+
         presenterView?.selectedFigureId?.subscribeOn(Schedulers.io())?.subscribe {
             reducer.selectFigureById(it)
         }?.addTo(disposeBag)

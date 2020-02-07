@@ -15,6 +15,7 @@ import com.otus.homework.chesstask.ChessTaskActivity
 import com.otus.homework.chesstask.R
 import com.otus.homework.chesstask.di.ChessTaskComponent
 import com.otus.homework.chesstask.factory.ChessViewFactory
+import com.otus.homework.chesstask.model.BoardAction
 import com.otus.homework.chesstask.model.ChessFigureOnBoard
 import com.otus.homework.chesstask.model.ChessFigureView
 import com.otus.homework.chesstask.presenters.ChessBoardPresenter
@@ -32,13 +33,11 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
     lateinit var factory: ChessViewFactory
 
     private var figuresOnView:MutableList<ChessFigureView> = mutableListOf()
+    private var selectedBoardCells:MutableList<FigurePosition> = mutableListOf()
+
     private val _selectedFigureId: PublishSubject<String> = PublishSubject.create()
     override val selectedFigureId: Observable<String>
         get() = _selectedFigureId
-
-    override fun updateChessBoardSelection(selectedCells: List<FigurePosition>) {
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         ChessTaskComponent.init((activity!!.application as AppWithFacade).getFacade()).inject(this)
@@ -66,6 +65,18 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         presenter.detachView()
     }
 
+    override fun updateChessBoardSelection(selectedCells: List<FigurePosition>) {
+        clearSelection()
+        for (currentCell in selectedCells) {
+            val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
+                "cell${currentCell.row}${currentCell.column}",
+                "id", context!!.packageName
+            ))
+            pieceCell.setColorFilter(R.color.design_default_color_primary)
+            selectedBoardCells.add(currentCell)
+        }
+    }
+
     override fun updateChessBoardPosition(position: List<ChessFigureOnBoard>) {
         clearBoard()
         for (currentFigure in position) {
@@ -89,7 +100,66 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
             figureView.setOnClickListener {
                 _selectedFigureId.onNext(currentFigure.id)
             }
+            figuresOnView.add(ChessFigureView(
+                currentFigure.id,
+                figureView,
+                currentFigure.position,
+                currentFigure.figureType
+            ))
         }
+    }
+
+    override fun applyAction(action: BoardAction) {
+        clearSelection()
+
+        if (action.removedFigure != null) {
+            val displayedFigure = figuresOnView.first { it.id == action.removedFigure.id }
+            figuresOnView.remove(displayedFigure)
+
+            val pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
+                "row${displayedFigure.position.row + 1}",
+                "id", context!!.packageName
+            ))
+            pieceRow.removeView(displayedFigure.imageView)
+        }
+
+        var displayedFigure = figuresOnView.first { it.id == action.figure.id }
+        figuresOnView.remove(displayedFigure)
+
+        var pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
+            "row${displayedFigure.position.row + 1}",
+            "id", context!!.packageName
+        ))
+        pieceRow.removeView(displayedFigure.imageView)
+
+        displayedFigure = displayedFigure.copy(position = action.endPosition)
+        val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
+            "cell${displayedFigure.position.row}${displayedFigure.position.column}",
+            "id", context!!.packageName
+        ))
+        pieceRow = view!!.findViewById(resources.getIdentifier(
+            "row${displayedFigure.position.row + 1}",
+            "id", context!!.packageName
+        ))
+
+        pieceRow.addView(displayedFigure.imageView)
+        displayedFigure.imageView.x = pieceCell.x
+        displayedFigure.imageView.y = pieceCell.y
+        displayedFigure.imageView.layoutParams.height = pieceCell.height
+        displayedFigure.imageView.layoutParams.width = pieceCell.width
+        displayedFigure.imageView.requestLayout()
+        figuresOnView.add(displayedFigure)
+    }
+
+    private fun clearSelection() {
+        for (currentPosition in selectedBoardCells) {
+            val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
+                "cell${currentPosition.row}${currentPosition.column}",
+                "id", context!!.packageName
+            ))
+            pieceCell.clearColorFilter()
+        }
+        selectedBoardCells.clear()
     }
 
     private fun clearBoard() {
