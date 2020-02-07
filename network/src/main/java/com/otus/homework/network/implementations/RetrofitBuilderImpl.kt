@@ -34,8 +34,8 @@ class RetrofitBuilderImpl @Inject constructor() :
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://92.242.40.194:8080")
-        .client(client)
-        //.client(OkHttpClient.Builder().build())
+        //.client(client)
+        .client(OkHttpClient.Builder().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()

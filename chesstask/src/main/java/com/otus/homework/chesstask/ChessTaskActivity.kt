@@ -8,7 +8,7 @@ import com.example.core.model.task.ChessTask
 
 class ChessTaskActivity : AppCompatActivity() {
     companion object {
-        private var selectedTask:ChessTask? = null
+        var selectedTask:ChessTask? = null
 
         fun startOnChessActivity(context: Context, task: ChessTask) {
             selectedTask = task
