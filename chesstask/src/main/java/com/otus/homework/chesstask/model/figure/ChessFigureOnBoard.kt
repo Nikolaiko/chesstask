@@ -1,4 +1,4 @@
-package com.otus.homework.chesstask.model
+package com.otus.homework.chesstask.model.figure
 
 import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType

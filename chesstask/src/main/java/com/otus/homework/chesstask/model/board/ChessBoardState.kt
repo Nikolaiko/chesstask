@@ -1,9 +1,10 @@
-package com.otus.homework.chesstask.model
+package com.otus.homework.chesstask.model.board
 
 import android.graphics.Point
 import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.FigurePosition
+import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
 
 
 class ChessBoardState {
@@ -18,6 +19,16 @@ class ChessBoardState {
 
     fun getFigureById(id: String) = figures[id]
     fun getFigures() = figures.values.toList()
+    fun getFigureByPosition(targetPosition: FigurePosition): ChessFigureOnBoard? {
+        var foundFigure: ChessFigureOnBoard? = null
+        for (currentFigure in figures) {
+            if (currentFigure.value.position == targetPosition) {
+                foundFigure = currentFigure.value
+                break
+            }
+        }
+        return foundFigure
+    }
 
     fun applyAction(action: BoardAction) {
         history.add(action)
@@ -325,7 +336,7 @@ class ChessBoardState {
     }
 
     private fun getFigureForCell(position: FigurePosition): ChessFigureOnBoard? {
-        var findedFigure:ChessFigureOnBoard? = null
+        var findedFigure: ChessFigureOnBoard? = null
         for (pair in figures) {
             if (pair.value.position.equals(position)) {
                 findedFigure = pair.value

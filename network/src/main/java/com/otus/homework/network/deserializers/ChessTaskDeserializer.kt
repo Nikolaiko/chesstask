@@ -29,7 +29,9 @@ class ChessTaskDeserializer : JsonDeserializer<ChessTask> {
 
         return ChessTask(jsonObject?.get(ID_FIELD_NAME)?.asString ?: DEFAULT_ID,
             getStartingPositions(jsonObject?.get(FEN_FIELD_NAME)?.asString),
-            getStartingColor(jsonObject?.get(FEN_FIELD_NAME)?.asString))
+            getStartingColor(jsonObject?.get(FEN_FIELD_NAME)?.asString),
+            emptyList()
+        )
     }
 
     private fun getStartingColor(fenString:String?): ChessFigureColor {

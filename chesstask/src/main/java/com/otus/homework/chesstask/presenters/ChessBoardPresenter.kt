@@ -51,5 +51,9 @@ class ChessBoardPresenter @Inject constructor(
         presenterView?.selectedFigureId?.subscribeOn(Schedulers.io())?.subscribe {
             reducer.selectFigureById(it)
         }?.addTo(disposeBag)
+
+        presenterView?.selectedCell?.subscribeOn(Schedulers.io())?.subscribe {
+            reducer.selectCellAt(it)
+        }?.addTo(disposeBag)
     }
 }

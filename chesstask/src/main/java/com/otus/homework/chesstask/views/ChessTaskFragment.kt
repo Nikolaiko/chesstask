@@ -9,15 +9,14 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.core.app.AppWithFacade
-import com.example.core.model.task.ChessTaskShortInfo
 import com.example.core.model.task.FigurePosition
 import com.otus.homework.chesstask.ChessTaskActivity
 import com.otus.homework.chesstask.R
 import com.otus.homework.chesstask.di.ChessTaskComponent
 import com.otus.homework.chesstask.factory.ChessViewFactory
-import com.otus.homework.chesstask.model.BoardAction
-import com.otus.homework.chesstask.model.ChessFigureOnBoard
-import com.otus.homework.chesstask.model.ChessFigureView
+import com.otus.homework.chesstask.model.board.BoardAction
+import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
+import com.otus.homework.chesstask.model.figure.ChessFigureView
 import com.otus.homework.chesstask.presenters.ChessBoardPresenter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -34,6 +33,10 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
 
     private var figuresOnView:MutableList<ChessFigureView> = mutableListOf()
     private var selectedBoardCells:MutableList<FigurePosition> = mutableListOf()
+
+    private val _selectedCell: PublishSubject<FigurePosition> = PublishSubject.create()
+    override val selectedCell: Observable<FigurePosition>
+        get() = _selectedCell
 
     private val _selectedFigureId: PublishSubject<String> = PublishSubject.create()
     override val selectedFigureId: Observable<String>
@@ -55,6 +58,17 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         parentLayout.viewTreeObserver.addOnGlobalLayoutListener( object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 parentLayout.viewTreeObserver.removeGlobalOnLayoutListener(this)
+                for (i in 0..7) {
+                    for (j in 0..7) {
+                        val pieceCell: ImageView = view.findViewById(resources.getIdentifier(
+                            "cell$i$j",
+                            "id", context!!.packageName
+                        ))
+                        pieceCell.setOnClickListener {
+                            _selectedCell.onNext(FigurePosition(i, j))
+                        }
+                    }
+                }
                 presenter.setBoardTask(ChessTaskActivity.selectedTask!!)
             }
         })
@@ -81,31 +95,16 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         clearBoard()
         for (currentFigure in position) {
             val figureView = factory.buildFigure(currentFigure.figureType, currentFigure.color)
-
-            val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
-                "cell${currentFigure.position.row}${currentFigure.position.column}",
-                "id", context!!.packageName
-            ))
-            val pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
-                "row${currentFigure.position.row + 1}",
-                "id", context!!.packageName
-            ))
-
-            pieceRow.addView(figureView)
-            figureView.x = pieceCell.x
-            figureView.y = pieceCell.y
-            figureView.layoutParams.height = pieceCell.height
-            figureView.layoutParams.width = pieceCell.width
-            figureView.requestLayout()
-            figureView.setOnClickListener {
-                _selectedFigureId.onNext(currentFigure.id)
-            }
-            figuresOnView.add(ChessFigureView(
+            val newFigure = ChessFigureView(
                 currentFigure.id,
                 figureView,
                 currentFigure.position,
                 currentFigure.figureType
-            ))
+            )
+            figureView.setOnClickListener {
+                _selectedFigureId.onNext(currentFigure.id)
+            }
+            addFigureToScreen(newFigure)
         }
     }
 
@@ -113,42 +112,43 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         clearSelection()
 
         if (action.removedFigure != null) {
-            val displayedFigure = figuresOnView.first { it.id == action.removedFigure.id }
-            figuresOnView.remove(displayedFigure)
-
-            val pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
-                "row${displayedFigure.position.row + 1}",
-                "id", context!!.packageName
-            ))
-            pieceRow.removeView(displayedFigure.imageView)
+            val destroyedFigure = figuresOnView.first { it.id == action.removedFigure.id }
+            removeFigureFromScreen(destroyedFigure)
         }
 
-        var displayedFigure = figuresOnView.first { it.id == action.figure.id }
-        figuresOnView.remove(displayedFigure)
+        var movedFigure = figuresOnView.first { it.id == action.figure.id }
+        removeFigureFromScreen(movedFigure)
 
-        var pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
-            "row${displayedFigure.position.row + 1}",
-            "id", context!!.packageName
-        ))
-        pieceRow.removeView(displayedFigure.imageView)
+        movedFigure = movedFigure.copy(position = action.endPosition)
+        addFigureToScreen(movedFigure)
+    }
 
-        displayedFigure = displayedFigure.copy(position = action.endPosition)
+    private fun addFigureToScreen(figure: ChessFigureView) {
         val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
-            "cell${displayedFigure.position.row}${displayedFigure.position.column}",
+            "cell${figure.position.row}${figure.position.column}",
             "id", context!!.packageName
         ))
-        pieceRow = view!!.findViewById(resources.getIdentifier(
-            "row${displayedFigure.position.row + 1}",
+        val pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
+            "row${figure.position.row + 1}",
             "id", context!!.packageName
         ))
+        pieceRow.addView(figure.imageView)
+        figure.imageView.x = pieceCell.x
+        figure.imageView.y = pieceCell.y
+        figure.imageView.layoutParams.height = pieceCell.height
+        figure.imageView.layoutParams.width = pieceCell.width
+        figure.imageView.requestLayout()
+        figuresOnView.add(figure)
+    }
 
-        pieceRow.addView(displayedFigure.imageView)
-        displayedFigure.imageView.x = pieceCell.x
-        displayedFigure.imageView.y = pieceCell.y
-        displayedFigure.imageView.layoutParams.height = pieceCell.height
-        displayedFigure.imageView.layoutParams.width = pieceCell.width
-        displayedFigure.imageView.requestLayout()
-        figuresOnView.add(displayedFigure)
+    private fun removeFigureFromScreen(figure: ChessFigureView) {
+        figuresOnView.remove(figure)
+
+        val pieceRow: ConstraintLayout = view!!.findViewById(resources.getIdentifier(
+            "row${figure.position.row + 1}",
+            "id", context!!.packageName
+        ))
+        pieceRow.removeView(figure.imageView)
     }
 
     private fun clearSelection() {

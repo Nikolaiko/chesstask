@@ -1,4 +1,4 @@
-package com.otus.homework.chesstask.model
+package com.otus.homework.chesstask.model.figure
 
 import android.widget.ImageView
 import com.example.core.model.enums.ChessFigureType
