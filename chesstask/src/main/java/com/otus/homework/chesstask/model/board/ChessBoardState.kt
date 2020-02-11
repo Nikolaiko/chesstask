@@ -4,6 +4,7 @@ import android.graphics.Point
 import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.FigurePosition
+import com.example.core.model.task.PgnMove
 import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
 
 
@@ -19,15 +20,28 @@ class ChessBoardState {
 
     fun getFigureById(id: String) = figures[id]
     fun getFigures() = figures.values.toList()
-    fun getFigureByPosition(targetPosition: FigurePosition): ChessFigureOnBoard? {
-        var foundFigure: ChessFigureOnBoard? = null
-        for (currentFigure in figures) {
-            if (currentFigure.value.position == targetPosition) {
-                foundFigure = currentFigure.value
-                break
+    fun getFigureByPgnMove(move: PgnMove): ChessFigureOnBoard? {
+        val neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
+        if (neededFigures.size == 1) return neededFigures.values.first()
+
+        for (currentFigure in neededFigures) {
+            val cells = getAvailableCellsForFigure(currentFigure.key)
+            for (currentCell in cells) {
+               if (currentCell == move.destination) {
+                   return currentFigure.value
+               }
             }
         }
-        return foundFigure
+        return null
+    }
+
+    fun getFigureByPosition(position: FigurePosition): ChessFigureOnBoard? {
+        var foundedFigure:ChessFigureOnBoard? = null
+        val figuresOnPosition = figures.filter { it.value.position == position }.values
+        if (figuresOnPosition.isNotEmpty()) {
+            foundedFigure = figuresOnPosition.first()
+        }
+        return foundedFigure
     }
 
     fun applyAction(action: BoardAction) {

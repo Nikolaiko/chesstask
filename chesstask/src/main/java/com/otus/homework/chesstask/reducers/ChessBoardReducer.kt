@@ -1,5 +1,6 @@
 package com.otus.homework.chesstask.reducers
 
+import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.task.ChessTask
 import com.example.core.model.task.FigurePosition
 import com.otus.homework.chesstask.model.ChessTaskMessageId
@@ -43,6 +44,7 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
         get() = _updateBoardCellSelection
 
     override fun initChessTask(task: ChessTask) {
+        println(task.pgnMoves)
         chessTask = task
         currentTurn = 0
 
@@ -86,7 +88,7 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
         makeMove(destination, attackedFigure)
         if (isMoveCorrect(destination)) {
             println("Correct move!!!")
-            //blackTurn
+            makeAIMove()
             currentTurn += 1
             checkTaskFinish()
         } else {
@@ -109,11 +111,16 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     }
 
     private fun isMoveCorrect(position: FigurePosition): Boolean {
-        val currentPgnMove = chessTask!!.pgnMoves[currentTurn].whiteMove
-        return currentPgnMove.destination != position
+        val currentPgnMove = when(chessTask!!.activeColor) {
+            ChessFigureColor.w -> chessTask!!.pgnMoves[currentTurn].whiteMove
+            ChessFigureColor.b -> chessTask!!.pgnMoves[currentTurn].blackMove
+        }
+        return position == currentPgnMove?.destination
     }
 
     private fun checkTaskFinish() {
+
+
         if (currentTurn == chessTask!!.pgnMoves.size) {
             chessTaskState = ChessTaskState.WON
             //message
@@ -123,6 +130,7 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     private fun isCellAvailable(position: FigurePosition): Boolean {
         var available = false
         for (cell in availableForMoveCells) {
+            println(cell)
             if (cell == position) {
                 available = true
                 break
@@ -132,12 +140,29 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     }
 
     private fun makeAIMove() {
-        val blackTurn = chessTask!!.pgnMoves[currentTurn].blackMove
-        if (blackTurn != null) {
+        val aiMove = when(chessTask!!.activeColor) {
+            ChessFigureColor.w -> chessTask!!.pgnMoves[currentTurn].blackMove
+            ChessFigureColor.b -> chessTask!!.pgnMoves[currentTurn].whiteMove
+        }
 
-            BoardAction(
-
-            )
+        println("Ai move : ${aiMove}")
+        if (aiMove != null) {
+            val figure = boardState.getFigureByPgnMove(aiMove)
+            if (figure != null) {
+                var attackedFigure:ChessFigureOnBoard? = null
+                if (aiMove.takeOppositeFigure) {
+                    attackedFigure = boardState.getFigureByPosition(aiMove.destination)
+                }
+                val action = BoardAction(
+                    figure,
+                    figure.position,
+                    aiMove.destination,
+                    attackedFigure
+                )
+                println("Black action : ${action}")
+                boardState.applyAction(action)
+                _applyBoardAction.onNext(action)
+            }
         }
     }
 }

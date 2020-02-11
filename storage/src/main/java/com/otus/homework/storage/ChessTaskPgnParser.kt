@@ -7,8 +7,6 @@ import com.example.core.model.task.PgnMove
 import com.example.core.model.task.PgnMovePair
 
 fun parsePgnString(pgn: String): List<PgnMovePair> {
-    println("PGN : $pgn")
-
     val pgnTurns: MutableList<PgnMovePair> = mutableListOf()
     val chessMoveSplitRegex = Regex("\\d{1,3}[.]")
     val splittedPgn = pgn.split(chessMoveSplitRegex).filter { it.isNotEmpty() }
@@ -19,18 +17,22 @@ fun parsePgnString(pgn: String): List<PgnMovePair> {
     trimmedPgn.forEach {
         pgnTurns.add(parseSingleTurn(it))
     }
-    println(pgnTurns)
     return pgnTurns.toList()
 }
 
 private fun parseSingleTurn(turn: String): PgnMovePair {
     val splittedMoves = turn.split(" ")
     val whiteMoveString = splittedMoves[0].trim('=', '+', '-', '/', '!', '?', '#', ' ')
-    val whiteMove = parsePgnMove(whiteMoveString, ChessFigureColor.w)
+
+    var whiteMove: PgnMove? = null
+    if (whiteMoveString != "..") {
+        whiteMove = parsePgnMove(whiteMoveString, ChessFigureColor.w)
+    }
 
     var blackMove: PgnMove? = null
     if (splittedMoves.size > 1) {
-        blackMove = parsePgnMove(splittedMoves[1], ChessFigureColor.b)
+        val blackMoveString = splittedMoves[1].trim('=', '+', '-', '/', '!', '?', '#', ' ')
+        blackMove = parsePgnMove(blackMoveString, ChessFigureColor.b)
     }
     return PgnMovePair(whiteMove, blackMove)
 }
@@ -39,49 +41,43 @@ private fun parsePgnMove(move: String, color: ChessFigureColor): PgnMove {
     var figureType = ChessFigureType.pawn
     var attackEnemyFigure = false
 
+    var withoutFigureType = move
     if (move[0].isUpperCase()) {
         figureType = parsePgnLetterToFigure(move[0])
+        withoutFigureType  = withoutFigureType.substring(1)
     }
 
-    var withoutFigureType = move.substring(1)
+    var destinationPart:String? = null
+    var startPart:String? = null
+
     if (withoutFigureType.contains('x')) {
         attackEnemyFigure = true
-        withoutFigureType = withoutFigureType.substring(1)
+
+        val turnParts = withoutFigureType.split('x')
+        startPart = turnParts[0]
+        destinationPart = turnParts[1]
+    } else {
+        if (withoutFigureType.length > 2) {
+            destinationPart = withoutFigureType.substring(withoutFigureType.length - 2)
+            startPart = withoutFigureType.substring(0, withoutFigureType.length - 2)
+        } else {
+            destinationPart = withoutFigureType
+        }
     }
-    val position = parsePgnStringToPosition(withoutFigureType)
+
+    val destPosition = parsePgnStringToPosition(destinationPart)
+    var startPosition:FigurePosition? = null
+    if (startPart != null) {
+        startPosition = parsePgnStringToPosition(startPart)
+    }
 
     return PgnMove(
         figureType,
         color,
-        position,
+        destPosition,
+        startPosition,
         attackEnemyFigure
     )
-}
-
-private fun parsePgnStringToPosition(positionString: String): FigurePosition {
-    val column = when(positionString.first()) {
-        'a' -> 0
-        'b' -> 1
-        'c' -> 2
-        'd' -> 3
-        'e' -> 4
-        'f' -> 5
-        'g' -> 6
-        'h' -> 7
-        else -> -1
-    }
-    val row = when(positionString.last()) {
-        '1' -> 0
-        '2' -> 1
-        '3' -> 2
-        '4' -> 3
-        '5' -> 4
-        '6' -> 5
-        '7' -> 6
-        '8' -> 7
-        else -> -1
-    }
-    return FigurePosition(row, column)
 }
 
 private fun parsePgnLetterToFigure(letter:Char): ChessFigureType = when(letter) {
@@ -91,4 +87,46 @@ private fun parsePgnLetterToFigure(letter:Char): ChessFigureType = when(letter) 
     'B' -> ChessFigureType.bishop
     'R' -> ChessFigureType.rock
     else -> ChessFigureType.pawn
+}
+
+private fun parsePgnStringToPosition(positionString: String?): FigurePosition {
+    var column = -1
+    var row = -1
+
+    if (positionString != null && positionString.isNotEmpty()) {
+        when(positionString.length) {
+            1 -> {
+                column = parseCharToColumn(positionString.first())
+            }
+            2 -> {
+                column = parseCharToColumn(positionString.first())
+                row = parseCharToRow(positionString.last())
+            }
+        }
+    }
+    return FigurePosition(row, column)
+}
+
+fun parseCharToColumn(char: Char): Int = when(char) {
+    'a' -> 0
+    'b' -> 1
+    'c' -> 2
+    'd' -> 3
+    'e' -> 4
+    'f' -> 5
+    'g' -> 6
+    'h' -> 7
+    else -> -1
+}
+
+fun parseCharToRow(char: Char): Int =  when(char) {
+    '1' -> 7
+    '2' -> 6
+    '3' -> 5
+    '4' -> 4
+    '5' -> 3
+    '6' -> 2
+    '7' -> 1
+    '8' -> 0
+    else -> -1
 }

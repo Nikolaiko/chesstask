@@ -7,6 +7,7 @@ data class PgnMove (
     val figureType: ChessFigureType,
     val figureColor: ChessFigureColor,
     val destination: FigurePosition,
+    val start:FigurePosition?,
     val takeOppositeFigure: Boolean = false,
     val promotedFigure: ChessFigureType? = null
 )
