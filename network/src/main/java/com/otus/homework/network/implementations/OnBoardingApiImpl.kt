@@ -30,9 +30,4 @@ class OnBoardingApiImpl @Inject constructor(builder: RetrofitBuilder) :
             }
         }.toObservable()
     }
-    override fun getRandomTask(difficulty: String):Observable<ChessTaskResponse>  {
-        return service.getRandomTask(difficulty).map {
-            ChessTaskResponse(it.code(), it.message(), it.body())
-        }.toObservable()
-    }
 }

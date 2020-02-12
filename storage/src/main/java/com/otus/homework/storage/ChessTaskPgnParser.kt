@@ -67,7 +67,7 @@ private fun parsePgnMove(move: String, color: ChessFigureColor): PgnMove {
 
     val destPosition = parsePgnStringToPosition(destinationPart)
     var startPosition:FigurePosition? = null
-    if (startPart != null) {
+    if (startPart?.isNotBlank() == true) {
         startPosition = parsePgnStringToPosition(startPart)
     }
 
@@ -107,7 +107,7 @@ private fun parsePgnStringToPosition(positionString: String?): FigurePosition {
     return FigurePosition(row, column)
 }
 
-fun parseCharToColumn(char: Char): Int = when(char) {
+private fun parseCharToColumn(char: Char): Int = when(char) {
     'a' -> 0
     'b' -> 1
     'c' -> 2
@@ -119,7 +119,7 @@ fun parseCharToColumn(char: Char): Int = when(char) {
     else -> -1
 }
 
-fun parseCharToRow(char: Char): Int =  when(char) {
+private fun parseCharToRow(char: Char): Int =  when(char) {
     '1' -> 7
     '2' -> 6
     '3' -> 5

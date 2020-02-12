@@ -8,5 +8,4 @@ import io.reactivex.Observable
 interface OnBoardingApi {
     fun login(newUserData:UserData): Observable<UserDataResponse>
     fun register(newUserData:UserData):Observable<UserDataResponse>
-    fun getRandomTask(difficulty: String):Observable<ChessTaskResponse>
 }

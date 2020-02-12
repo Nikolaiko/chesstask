@@ -1,6 +1,5 @@
 package com.otus.homework.chesstask.model.board
 
-import android.graphics.Point
 import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.FigurePosition
@@ -21,7 +20,15 @@ class ChessBoardState {
     fun getFigureById(id: String) = figures[id]
     fun getFigures() = figures.values.toList()
     fun getFigureByPgnMove(move: PgnMove): ChessFigureOnBoard? {
-        val neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
+        var neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
+        if (move.start != null) {
+           if (move.start!!.row != -1) {
+               neededFigures = neededFigures.filter { it.value.position.row == move.start!!.row }
+           }
+           if (move.start!!.column != -1) {
+               neededFigures = neededFigures.filter { it.value.position.column == move.start!!.column }
+           }
+        }
         if (neededFigures.size == 1) return neededFigures.values.first()
 
         for (currentFigure in neededFigures) {
@@ -272,35 +279,35 @@ class ChessBoardState {
     }
 
     private fun getAvailableCellsForBishop(position: FigurePosition, color: ChessFigureColor): List<FigurePosition> {
-        val totalCells = (checkStraitPath(Point(-1, -1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, 1), position, color))
-        totalCells.addAll(checkStraitPath(Point(-1, 1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, -1), position, color))
+        val totalCells = (checkStraitPath(FigurePosition(-1, -1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, 1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(-1, 1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, -1), position, color))
         return totalCells
     }
 
     private fun getAvailableCellsForQueen(position: FigurePosition, color: ChessFigureColor): List<FigurePosition> {
-        val totalCells = checkStraitPath(Point(0, 1), position, color)
-        totalCells.addAll(checkStraitPath(Point(0, -1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, 0), position, color))
-        totalCells.addAll(checkStraitPath(Point(-1, 0), position, color))
-        totalCells.addAll(checkStraitPath(Point(-1, -1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, 1), position, color))
-        totalCells.addAll(checkStraitPath(Point(-1, 1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, -1), position, color))
+        val totalCells = checkStraitPath(FigurePosition(0, 1), position, color)
+        totalCells.addAll(checkStraitPath(FigurePosition(0, -1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, 0), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(-1, 0), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(-1, -1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, 1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(-1, 1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, -1), position, color))
         return totalCells
     }
 
     private fun getAvailableCellsForRock(position: FigurePosition, color: ChessFigureColor): List<FigurePosition> {
-        val totalCells = checkStraitPath(Point(0, 1), position, color)
-        totalCells.addAll(checkStraitPath(Point(0, -1), position, color))
-        totalCells.addAll(checkStraitPath(Point(1, 0), position, color))
-        totalCells.addAll(checkStraitPath(Point(-1, 0), position, color))
+        val totalCells = checkStraitPath(FigurePosition(0, 1), position, color)
+        totalCells.addAll(checkStraitPath(FigurePosition(0, -1), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(1, 0), position, color))
+        totalCells.addAll(checkStraitPath(FigurePosition(-1, 0), position, color))
         return totalCells
     }
 
     private fun checkStraitPath(
-        coff:Point,
+        coff:FigurePosition,
         position: FigurePosition,
         color: ChessFigureColor
     ): MutableList<FigurePosition> {
@@ -310,8 +317,8 @@ class ChessBoardState {
 
         while (nextStep) {
             currentPosition = FigurePosition(
-                currentPosition.row + coff.x,
-                currentPosition.column + coff.y
+                currentPosition.row + coff.row,
+                currentPosition.column + coff.column
             )
             if (!isCellOnBoard(currentPosition)) {
                 nextStep = false

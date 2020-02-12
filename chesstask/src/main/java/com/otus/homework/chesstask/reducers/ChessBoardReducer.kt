@@ -44,7 +44,6 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
         get() = _updateBoardCellSelection
 
     override fun initChessTask(task: ChessTask) {
-        println(task.pgnMoves)
         chessTask = task
         currentTurn = 0
 

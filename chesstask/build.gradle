@@ -51,4 +51,9 @@ dependencies {
 
     //Modules
     implementation project(':core')
+
+    //Unit Tests
+    testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.test:core:$android_x_testcore_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 }
