@@ -43,4 +43,10 @@ dependencies {
     //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
+
+    //Unit Tests
+    testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.test:core:$android_x_testcore_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
 }

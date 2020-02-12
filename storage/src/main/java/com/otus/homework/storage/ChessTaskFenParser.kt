@@ -43,9 +43,9 @@ fun getStartingPositions(fenString:String?):List<ChessFigure> {
     return startingPositions
 }
 
-fun getColorFromFigureChar(figureChar:Char): ChessFigureColor = when(figureChar.isUpperCase()) {
+private fun getColorFromFigureChar(figureChar:Char): ChessFigureColor = when(figureChar.isUpperCase()) {
     true -> ChessFigureColor.w
     false -> ChessFigureColor.b
 }
 
-fun getFigureTypeFromChar(figureChar:Char): ChessFigureType = ChessFigureType.values().first { it.figureName == figureChar.toString() }
+private fun getFigureTypeFromChar(figureChar:Char): ChessFigureType = ChessFigureType.values().first { it.figureName == figureChar.toString() }
