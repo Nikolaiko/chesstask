@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>LongMethod:ChessBoardState.kt$ChessBoardState$getAvailableCellsForKing</ID>
+    <ID>LongMethod:ChessBoardState.kt$ChessBoardState$getAvailableCellsForKnight</ID>
+    <ID>NestedBlockDepth:ChessBoardState.kt$ChessBoardState$getFigureByPgnMove</ID>
+    <ID>TooManyFunctions:ChessBoardState.kt$ChessBoardState$ChessBoardState</ID>
+  </Whitelist>
+</SmellBaseline>

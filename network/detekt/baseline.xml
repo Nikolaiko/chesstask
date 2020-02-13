@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>MaxLineLength:Utils.kt$fun getFigureTypeFromChar(figureChar:Char): ChessFigureType</ID>
+    <ID>NestedBlockDepth:ChessTaskDeserializer.kt$ChessTaskDeserializer$getStartingPositions</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskData.kt$com.otus.homework.network.model.chesstasks.ChessTaskData.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskDeserializer.kt$com.otus.homework.network.deserializers.ChessTaskDeserializer.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskResponse.kt$com.otus.homework.network.model.responses.ChessTaskResponse.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskShortData.kt$com.otus.homework.network.model.chesstasks.ChessTaskShortData.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTasksApi.kt$com.otus.homework.network.interfaces.ChessTasksApi.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTasksApiImpl.kt$com.otus.homework.network.implementations.ChessTasksApiImpl.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTasksService.kt$com.otus.homework.network.interfaces.ChessTasksService.kt</ID>
+    <ID>NewLineAtEndOfFile:NetworkBinds.kt$com.otus.homework.network.di.NetworkBinds.kt</ID>
+    <ID>NewLineAtEndOfFile:NetworkComponent.kt$com.otus.homework.network.di.NetworkComponent.kt</ID>
+    <ID>NewLineAtEndOfFile:OnBoardingApi.kt$com.otus.homework.network.interfaces.OnBoardingApi.kt</ID>
+    <ID>NewLineAtEndOfFile:OnBoardingApiImpl.kt$com.otus.homework.network.implementations.OnBoardingApiImpl.kt</ID>
+    <ID>NewLineAtEndOfFile:OnBoardingService.kt$com.otus.homework.network.interfaces.OnBoardingService.kt</ID>
+    <ID>NewLineAtEndOfFile:Response.kt$com.otus.homework.network.model.responses.Response.kt</ID>
+    <ID>NewLineAtEndOfFile:RetrofitBuilder.kt$com.otus.homework.network.interfaces.RetrofitBuilder.kt</ID>
+    <ID>NewLineAtEndOfFile:RetrofitBuilderImpl.kt$com.otus.homework.network.implementations.RetrofitBuilderImpl.kt</ID>
+    <ID>NewLineAtEndOfFile:Tokens.kt$com.otus.homework.network.model.user.Tokens.kt</ID>
+    <ID>NewLineAtEndOfFile:UserData.kt$com.otus.homework.model.user.UserData.kt</ID>
+    <ID>NewLineAtEndOfFile:UserDataResponse.kt$com.otus.homework.network.model.responses.UserDataResponse.kt</ID>
+    <ID>NewLineAtEndOfFile:Utils.kt$com.otus.homework.network.Utils.kt</ID>
+    <ID>TooGenericExceptionThrown:ChessTasksApiImpl.kt$ChessTasksApiImpl$throw Exception(it.message())</ID>
+    <ID>TooGenericExceptionThrown:OnBoardingApiImpl.kt$OnBoardingApiImpl$throw Exception(it.message())</ID>
+  </Whitelist>
+</SmellBaseline>

@@ -7,7 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-abstract class AppModule {
+abstract class AppModule private constructor() {
 
     @Module
     companion object {

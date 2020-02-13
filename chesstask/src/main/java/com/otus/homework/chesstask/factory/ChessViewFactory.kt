@@ -14,19 +14,26 @@ class ChessViewFactory @Inject constructor(private val context: Context) {
         return pieceImage
     }
 
-    private fun getResource(type: ChessFigureType, color: ChessFigureColor) = when {
-        (type == ChessFigureType.pawn && color == ChessFigureColor.b) -> R.drawable.svg_black_pawn
-        (type == ChessFigureType.pawn && color == ChessFigureColor.w) -> R.drawable.svg_white_pawn
-        (type == ChessFigureType.knight && color == ChessFigureColor.b) -> R.drawable.svg_black_knight
-        (type == ChessFigureType.knight && color == ChessFigureColor.w) -> R.drawable.svg_white_knight
-        (type == ChessFigureType.rock && color == ChessFigureColor.b) -> R.drawable.svg_black_rock
-        (type == ChessFigureType.rock && color == ChessFigureColor.w) -> R.drawable.svg_white_rock
-        (type == ChessFigureType.bishop && color == ChessFigureColor.b) -> R.drawable.svg_black_bishop
-        (type == ChessFigureType.bishop && color == ChessFigureColor.w) -> R.drawable.svg_white_bishop
-        (type == ChessFigureType.king && color == ChessFigureColor.b) -> R.drawable.svg_black_king
-        (type == ChessFigureType.king && color == ChessFigureColor.w) -> R.drawable.svg_white_king
-        (type == ChessFigureType.queen && color == ChessFigureColor.b) -> R.drawable.svg_black_queen
-        (type == ChessFigureType.queen && color == ChessFigureColor.w) -> R.drawable.svg_white_queen
-        else -> R.drawable.svg_white_pawn
+    private fun getResource(type: ChessFigureType, color: ChessFigureColor) = when(color) {
+        ChessFigureColor.w -> getWhiteResource(type)
+        ChessFigureColor.b -> getBlackResource(type)
+    }
+
+    private fun getBlackResource(type: ChessFigureType) = when(type) {
+        ChessFigureType.pawn -> R.drawable.svg_black_pawn
+        ChessFigureType.knight -> R.drawable.svg_black_knight
+        ChessFigureType.rock -> R.drawable.svg_black_rock
+        ChessFigureType.bishop -> R.drawable.svg_black_bishop
+        ChessFigureType.king -> R.drawable.svg_black_king
+        ChessFigureType.queen -> R.drawable.svg_black_queen
+    }
+
+    private fun getWhiteResource(type: ChessFigureType) = when(type) {
+        ChessFigureType.pawn -> R.drawable.svg_white_pawn
+        ChessFigureType.knight -> R.drawable.svg_white_knight
+        ChessFigureType.rock -> R.drawable.svg_white_rock
+        ChessFigureType.bishop -> R.drawable.svg_white_bishop
+        ChessFigureType.king -> R.drawable.svg_white_king
+        ChessFigureType.queen -> R.drawable.svg_white_queen
     }
 }

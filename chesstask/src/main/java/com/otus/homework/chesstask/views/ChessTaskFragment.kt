@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.core.app.AppWithFacade
 import com.example.core.model.task.FigurePosition
 import com.otus.homework.chesstask.ChessTaskActivity
+import com.otus.homework.chesstask.MAX_BOARD_INDEX
 import com.otus.homework.chesstask.R
 import com.otus.homework.chesstask.di.ChessTaskComponent
 import com.otus.homework.chesstask.factory.ChessViewFactory
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_chess_task.*
 import javax.inject.Inject
 
 class ChessTaskFragment : Fragment(), ChessTaskView {
-
     @Inject
     lateinit var presenter: ChessBoardPresenter
 
@@ -58,8 +58,8 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         parentLayout.viewTreeObserver.addOnGlobalLayoutListener( object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 parentLayout.viewTreeObserver.removeGlobalOnLayoutListener(this)
-                for (i in 0..7) {
-                    for (j in 0..7) {
+                for (i in 0..MAX_BOARD_INDEX) {
+                    for (j in 0..MAX_BOARD_INDEX) {
                         val pieceCell: ImageView = view.findViewById(resources.getIdentifier(
                             "cell$i$j",
                             "id", context!!.packageName

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>EnumNaming:ChessFigureColor.kt$ChessFigureColor.b$b</ID>
+    <ID>EnumNaming:ChessFigureColor.kt$ChessFigureColor.w$w</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.bishop$bishop</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.king$king</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.knight$knight</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.pawn$pawn</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.queen$queen</ID>
+    <ID>EnumNaming:ChessFigureType.kt$ChessFigureType.rock$rock</ID>
+  </Whitelist>
+</SmellBaseline>

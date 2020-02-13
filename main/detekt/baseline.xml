@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>NewLineAtEndOfFile:MainActivity.kt$com.otus.homework.main.MainActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:MainComponent.kt$com.otus.homework.main.di.MainComponent.kt</ID>
+  </Whitelist>
+</SmellBaseline>

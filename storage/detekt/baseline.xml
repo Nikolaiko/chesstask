@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>EnumNaming:ChessTaskDifficulty.kt$ChessTaskDifficulty.easy$easy</ID>
+    <ID>EnumNaming:ChessTaskDifficulty.kt$ChessTaskDifficulty.hard$hard</ID>
+    <ID>EnumNaming:ChessTaskDifficulty.kt$ChessTaskDifficulty.normal$normal</ID>
+    <ID>MagicNumber:ChessTaskPgnParser.kt$3</ID>
+    <ID>MagicNumber:ChessTaskPgnParser.kt$4</ID>
+    <ID>MagicNumber:ChessTaskPgnParser.kt$5</ID>
+    <ID>MagicNumber:ChessTaskPgnParser.kt$6</ID>
+    <ID>MagicNumber:ChessTaskPgnParser.kt$7</ID>
+    <ID>MaxLineLength:ChessTaskFenParser.kt$private fun getFigureTypeFromChar(figureChar:Char): ChessFigureType</ID>
+    <ID>NestedBlockDepth:ChessTaskFenParser.kt$getStartingPositions</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskDifficulty.kt$com.otus.homework.storage.model.chesstasks.ChessTaskDifficulty.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTaskFenParser.kt$com.otus.homework.storage.ChessTaskFenParser.kt</ID>
+    <ID>NewLineAtEndOfFile:ChessTasksRepository.kt$com.otus.homework.storage.implementations.ChessTasksRepository.kt</ID>
+    <ID>NewLineAtEndOfFile:LoggedUserManager.kt$com.otus.homework.storage.implementations.LoggedUserManager.kt</ID>
+    <ID>NewLineAtEndOfFile:LoggedUserProvider.kt$com.otus.homework.storage.interfaces.LoggedUserProvider.kt</ID>
+    <ID>NewLineAtEndOfFile:UserDataBindings.kt$com.otus.homework.storage.di.UserDataBindings.kt</ID>
+    <ID>NewLineAtEndOfFile:UserDataComponent.kt$com.otus.homework.storage.di.UserDataComponent.kt</ID>
+    <ID>NewLineAtEndOfFile:UserDataRepository.kt$com.otus.homework.storage.implementations.UserDataRepository.kt</ID>
+    <ID>TooGenericExceptionThrown:ChessTasksRepository.kt$ChessTasksRepository$throw Exception(it.message)</ID>
+    <ID>TooGenericExceptionThrown:UserDataRepository.kt$UserDataRepository$throw Exception(it.message)</ID>
+  </Whitelist>
+</SmellBaseline>

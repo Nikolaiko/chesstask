@@ -4,3 +4,4 @@ enum class ChessFigureColor {
     b,
     w
 }
+

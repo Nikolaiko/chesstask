@@ -4,6 +4,7 @@ import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.FigurePosition
 import com.example.core.model.task.PgnMove
+import com.otus.homework.chesstask.MAX_BOARD_INDEX
 import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
 
 
@@ -20,7 +21,10 @@ class ChessBoardState {
     fun getFigureById(id: String) = figures[id]
     fun getFigures() = figures.values.toList()
     fun getFigureByPgnMove(move: PgnMove): ChessFigureOnBoard? {
-        var neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
+        var foundFigure: ChessFigureOnBoard? = null
+        var neededFigures = figures.filter {
+            it.value.color == move.figureColor && it.value.figureType == move.figureType
+        }
         if (move.start != null) {
            if (move.start!!.row != -1) {
                neededFigures = neededFigures.filter { it.value.position.row == move.start!!.row }
@@ -29,17 +33,19 @@ class ChessBoardState {
                neededFigures = neededFigures.filter { it.value.position.column == move.start!!.column }
            }
         }
-        if (neededFigures.size == 1) return neededFigures.values.first()
-
-        for (currentFigure in neededFigures) {
-            val cells = getAvailableCellsForFigure(currentFigure.key)
-            for (currentCell in cells) {
-               if (currentCell == move.destination) {
-                   return currentFigure.value
-               }
+        if (neededFigures.size == 1) foundFigure = neededFigures.values.first()
+        else {
+            for (currentFigure in neededFigures) {
+                val cells = getAvailableCellsForFigure(currentFigure.key)
+                for (currentCell in cells) {
+                    if (currentCell == move.destination) {
+                        foundFigure = currentFigure.value
+                        break
+                    }
+                }
             }
         }
-        return null
+        return foundFigure
     }
 
     fun getFigureByPosition(position: FigurePosition): ChessFigureOnBoard? {
@@ -368,7 +374,7 @@ class ChessBoardState {
     }
 
     private fun isCellOnBoard(position: FigurePosition): Boolean {
-        return position.row in 0..7 && position.column in 0..7
+        return position.row in 0..MAX_BOARD_INDEX && position.column in 0..MAX_BOARD_INDEX
     }
 
     private fun isCellFree(cellPosition:FigurePosition): Boolean {
