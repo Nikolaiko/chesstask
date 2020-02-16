@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">chesstask</string>
+    <string name="dialog_id">wrongMoveTag</string>
+
+    <string name="wrong_move_dialog_title">You made a wrong move!\nYou can undo this move, restart task or exit.</string>
+    <string name="restart_button_title">Restart</string>
+    <string name="undo_move_button_title">Undo</string>
+    <string name="exit_button_title">Exit</string>
 </resources>

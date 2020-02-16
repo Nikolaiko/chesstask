@@ -8,5 +8,15 @@ data class BoardAction(
     val startPosition:FigurePosition,
     val endPosition: FigurePosition,
     val removedFigure: ChessFigureOnBoard? = null,
-    val promotedFigure: ChessFigureOnBoard? = null
-)
+    val promotedFigure: ChessFigureOnBoard? = null,
+    val addedFigure: ChessFigureOnBoard? = null
+) {
+    fun reverse(): BoardAction = BoardAction(
+        figure,
+        endPosition,
+        startPosition,
+        null,
+        figure.copy(figureType = promotedFigure?.figureType ?: figure.figureType),
+        removedFigure
+    )
+}

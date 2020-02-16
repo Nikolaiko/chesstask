@@ -48,12 +48,30 @@ class ChessBoardPresenter @Inject constructor(
                 presenterView?.applyAction(it)
             }.addTo(disposeBag)
 
+        reducer.updateNews
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                presenterView?.showWrongMoveDialog()
+            }.addTo(disposeBag)
+
         presenterView?.selectedFigureId?.subscribeOn(Schedulers.io())?.subscribe {
             reducer.selectFigureById(it)
         }?.addTo(disposeBag)
 
         presenterView?.selectedCell?.subscribeOn(Schedulers.io())?.subscribe {
             reducer.selectCellAt(it)
+        }?.addTo(disposeBag)
+
+        presenterView?.undoButton?.subscribeOn(Schedulers.io())?.subscribe {
+            reducer.undoLastMove()
+        }?.addTo(disposeBag)
+
+        presenterView?.restartButton?.subscribeOn(Schedulers.io())?.subscribe {
+            reducer.restartTask()
+        }?.addTo(disposeBag)
+
+        presenterView?.exitButton?.subscribeOn(Schedulers.io())?.subscribe {
+            reducer.exitTask()
         }?.addTo(disposeBag)
     }
 }

@@ -8,8 +8,12 @@ import io.reactivex.Observable
 interface ChessTaskView {
     val selectedFigureId: Observable<String>
     val selectedCell: Observable<FigurePosition>
+    val exitButton: Observable<Unit>
+    val restartButton: Observable<Unit>
+    val undoButton: Observable<Unit>
 
     fun updateChessBoardSelection(selectedCells: List<FigurePosition>)
     fun updateChessBoardPosition(position: List<ChessFigureOnBoard>)
     fun applyAction(action: BoardAction)
+    fun showWrongMoveDialog()
 }

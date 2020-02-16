@@ -65,7 +65,7 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
                 }
             }
         } else {
-            _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.CANt_FIND_FIGURE_BY_ID))
+            _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.CANT_FIND_FIGURE_BY_ID))
         }
     }
 
@@ -73,6 +73,23 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
         if (isCellAvailable(position)) {
             makeMoveAndCheck(position)
         }
+    }
+
+    override fun undoLastMove() {
+        selectedFigureId = null
+
+        val reversed = boardState.undoLastAction()
+        if (reversed != null) {
+            _applyBoardAction.onNext(reversed)
+        }
+    }
+
+    override fun restartTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun exitTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun updateSelectedFigure(id: String) {
@@ -86,13 +103,11 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
                                  attackedFigure: ChessFigureOnBoard? = null) {
         makeMove(destination, attackedFigure)
         if (isMoveCorrect(destination)) {
-            println("Correct move!!!")
             makeAIMove()
             currentTurn += 1
             checkTaskFinish()
         } else {
-            println("Wrong move!!!")
-            //message
+            _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.WRONG_MOVE))
         }
     }
 
@@ -118,11 +133,9 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     }
 
     private fun checkTaskFinish() {
-
-
         if (currentTurn == chessTask!!.pgnMoves.size) {
             chessTaskState = ChessTaskState.WON
-            //message
+            _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.GAME_WON))
         }
     }
 

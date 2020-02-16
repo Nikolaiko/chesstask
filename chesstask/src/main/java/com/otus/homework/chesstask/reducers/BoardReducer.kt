@@ -16,4 +16,8 @@ interface BoardReducer {
     fun initChessTask(task: ChessTask)
     fun selectFigureById(figureId: String)
     fun selectCellAt(position: FigurePosition)
+
+    fun undoLastMove()
+    fun restartTask()
+    fun exitTask()
 }

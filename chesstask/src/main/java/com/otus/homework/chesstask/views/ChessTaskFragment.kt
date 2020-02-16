@@ -8,6 +8,7 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.core.app.AppWithFacade
 import com.example.core.model.task.FigurePosition
 import com.otus.homework.chesstask.ChessTaskActivity
@@ -33,6 +34,18 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
 
     private var figuresOnView:MutableList<ChessFigureView> = mutableListOf()
     private var selectedBoardCells:MutableList<FigurePosition> = mutableListOf()
+
+    private val _exitButton: PublishSubject<Unit> = PublishSubject.create()
+    override val exitButton: Observable<Unit>
+        get() = _exitButton
+
+    private val _restartButton: PublishSubject<Unit> = PublishSubject.create()
+    override val restartButton: Observable<Unit>
+        get() = _restartButton
+
+    private val _undoButton: PublishSubject<Unit> = PublishSubject.create()
+    override val undoButton: Observable<Unit>
+        get() = _undoButton
 
     private val _selectedCell: PublishSubject<FigurePosition> = PublishSubject.create()
     override val selectedCell: Observable<FigurePosition>
@@ -121,6 +134,27 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
 
         movedFigure = movedFigure.copy(position = action.endPosition)
         addFigureToScreen(movedFigure)
+    }
+
+    override fun showWrongMoveDialog() {
+        val manager: FragmentManager = fragmentManager!!
+        val dialog =  WrongMoveDialog()
+        dialog.restartCallback = {
+            _restartButton.onNext(Unit)
+            dialog.dismiss()
+        }
+
+        dialog.undoCallback = {
+            _undoButton.onNext(Unit)
+            dialog.dismiss()
+        }
+
+        dialog.exitCallback = {
+            _exitButton.onNext(Unit)
+            dialog.dismiss()
+        }
+
+        dialog.show(manager, resources.getString(R.string.wrong_move_dialog_title))
     }
 
     private fun addFigureToScreen(figure: ChessFigureView) {
