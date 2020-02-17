@@ -75,10 +75,18 @@ class ChessBoardState {
         if (history.isNotEmpty()) {
             val lastMove = history.removeAt(history.size - 1)
             val reversed = lastMove.reverse()
+            if (reversed.addedFigure != null) {
+                figures[reversed.addedFigure.id] = reversed.addedFigure
+            }
             applyAction(reversed)
             return  reversed
         }
         return null
+    }
+
+    fun clearState() {
+        figures.clear()
+        history.clear()
     }
 
     fun getAvailableCellsForFigure(figureId:String): List<FigurePosition> {

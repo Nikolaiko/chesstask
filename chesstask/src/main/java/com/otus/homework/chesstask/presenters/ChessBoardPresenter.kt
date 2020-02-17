@@ -1,6 +1,7 @@
 package com.otus.homework.chesstask.presenters
 
 import com.example.core.model.task.ChessTask
+import com.otus.homework.chesstask.model.ChessTaskMessageId
 import com.otus.homework.chesstask.reducers.BoardReducer
 import com.otus.homework.chesstask.views.ChessTaskView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -51,7 +52,14 @@ class ChessBoardPresenter @Inject constructor(
         reducer.updateNews
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                presenterView?.showWrongMoveDialog()
+                when(it.newsId) {
+                    ChessTaskMessageId.WRONG_MOVE -> presenterView?.showWrongMoveDialog()
+                    ChessTaskMessageId.GAME_FINISHED -> presenterView?.closeView()
+                    //ChessTaskMessageId.CANT_FIND_FIGURE_BY_ID -> presenterView?
+                    //ChessTaskMessageId.GAME_WON
+                }
+
+
             }.addTo(disposeBag)
 
         presenterView?.selectedFigureId?.subscribeOn(Schedulers.io())?.subscribe {

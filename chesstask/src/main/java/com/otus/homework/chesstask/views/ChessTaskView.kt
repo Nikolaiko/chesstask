@@ -16,4 +16,5 @@ interface ChessTaskView {
     fun updateChessBoardPosition(position: List<ChessFigureOnBoard>)
     fun applyAction(action: BoardAction)
     fun showWrongMoveDialog()
+    fun closeView()
 }

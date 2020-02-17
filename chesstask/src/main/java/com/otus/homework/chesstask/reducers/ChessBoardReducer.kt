@@ -85,11 +85,18 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     }
 
     override fun restartTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        currentTurn = 0
+        boardState.clearState()
+        for (currentFigure in chessTask!!.startingPositions) {
+            boardState.addFigureToBoard(ChessFigureOnBoard.convert(currentFigure))
+        }
+        _updateBoardPosition.onNext(boardState.getFigures())
+        chessTaskState = ChessTaskState.IN_PROGRESS
     }
 
     override fun exitTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.GAME_FINISHED))
+        chessTaskState = ChessTaskState.LOST
     }
 
     private fun updateSelectedFigure(id: String) {

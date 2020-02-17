@@ -157,6 +157,10 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         dialog.show(manager, resources.getString(R.string.wrong_move_dialog_title))
     }
 
+    override fun closeView() {
+        activity?.finish()
+    }
+
     private fun addFigureToScreen(figure: ChessFigureView) {
         val pieceCell: ImageView = view!!.findViewById(resources.getIdentifier(
             "cell${figure.position.row}${figure.position.column}",
