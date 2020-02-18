@@ -149,7 +149,6 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
     private fun isCellAvailable(position: FigurePosition): Boolean {
         var available = false
         for (cell in availableForMoveCells) {
-            println(cell)
             if (cell == position) {
                 available = true
                 break

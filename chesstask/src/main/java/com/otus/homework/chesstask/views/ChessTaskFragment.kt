@@ -129,6 +129,20 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
             removeFigureFromScreen(destroyedFigure)
         }
 
+        if (action.addedFigure != null) {
+            val figureView = factory.buildFigure(action.addedFigure.figureType, action.addedFigure.color)
+            val newFigure = ChessFigureView(
+                action.addedFigure.id,
+                figureView,
+                action.addedFigure.position,
+                action.addedFigure.figureType
+            )
+            figureView.setOnClickListener {
+                _selectedFigureId.onNext(action.addedFigure.id)
+            }
+            addFigureToScreen(newFigure)
+        }
+
         var movedFigure = figuresOnView.first { it.id == action.figure.id }
         removeFigureFromScreen(movedFigure)
 
@@ -154,7 +168,23 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
             dialog.dismiss()
         }
 
-        dialog.show(manager, resources.getString(R.string.wrong_move_dialog_title))
+        dialog.show(manager, resources.getString(R.string.dialog_id))
+    }
+
+    override fun showWinDialog() {
+        val manager: FragmentManager = fragmentManager!!
+        val dialog =  WinDialog()
+        dialog.restartCallback = {
+            _restartButton.onNext(Unit)
+            dialog.dismiss()
+        }
+
+        dialog.exitCallback = {
+            _exitButton.onNext(Unit)
+            dialog.dismiss()
+        }
+
+        dialog.show(manager, resources.getString(R.string.win_dialog_id))
     }
 
     override fun closeView() {

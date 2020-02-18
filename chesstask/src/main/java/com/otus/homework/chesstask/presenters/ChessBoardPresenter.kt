@@ -55,11 +55,9 @@ class ChessBoardPresenter @Inject constructor(
                 when(it.newsId) {
                     ChessTaskMessageId.WRONG_MOVE -> presenterView?.showWrongMoveDialog()
                     ChessTaskMessageId.GAME_FINISHED -> presenterView?.closeView()
+                    ChessTaskMessageId.GAME_WON -> presenterView?.showWinDialog()
                     //ChessTaskMessageId.CANT_FIND_FIGURE_BY_ID -> presenterView?
-                    //ChessTaskMessageId.GAME_WON
                 }
-
-
             }.addTo(disposeBag)
 
         presenterView?.selectedFigureId?.subscribeOn(Schedulers.io())?.subscribe {
