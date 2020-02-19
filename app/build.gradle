@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/nikolaybaklanov/Projects/OTUSDiplom/chessKey')
+            storeFile file('../chessKey')
             storePassword 'chessKey'
             keyAlias = 'key0'
             keyPassword 'chessKey'
