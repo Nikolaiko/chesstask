@@ -32,5 +32,3 @@ task clean(type: Delete) {
 }
 
 apply from: "$rootDir/pipeline.gradle.kts"
-
-pipeline.dest = "mine"

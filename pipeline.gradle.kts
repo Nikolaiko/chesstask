@@ -8,8 +8,8 @@ class PipelinePlugin : Plugin<Project> {
             description = "Create white list for code style check for all projects"
             group = "pipeline"
 
-            project.allprojects.forEach {
-                dependsOn("${it.path}:detektBaseline")
+            project.childProjects.forEach {
+                dependsOn("${it.value.path}:detektBaseline")
             }
             doLast {
                 println("Successfully wrote baseline for projects")
@@ -20,8 +20,8 @@ class PipelinePlugin : Plugin<Project> {
             description = "Run detekt code style check for all projects"
             group = "pipeline"
 
-            project.allprojects.forEach {
-                dependsOn("${it.path}:detekt")
+            project.childProjects.forEach {
+                dependsOn("${it.value.path}:detekt")
             }
             doLast {
                 println("Successfully passed code style check")
@@ -32,8 +32,8 @@ class PipelinePlugin : Plugin<Project> {
             description = "Run tests for all projects"
             group = "pipeline"
 
-            project.allprojects.forEach {
-                dependsOn("${it.path}:tests")
+            project.childProjects.forEach {
+                dependsOn("${it.value.path}:test")
             }
             doLast {
                 println("Successfully passed all tests")
@@ -52,15 +52,6 @@ class PipelinePlugin : Plugin<Project> {
                 println("Successfully built and assembled.")
 
             }
-        }
-
-        val extension = project.extensions.create<CopyDestination>("pipeline")
-        project.task("copyApk", Copy::class) {
-            group = "pipeline"
-            println("Copying to defined location...")
-            from("app/build/outputs")
-            into(extension.dest)
-            println("Finished.")
         }
     }
 }
