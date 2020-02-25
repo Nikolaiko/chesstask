@@ -5,6 +5,10 @@
     <ID>LongMethod:ChessBoardState.kt$ChessBoardState$getAvailableCellsForKing</ID>
     <ID>LongMethod:ChessBoardState.kt$ChessBoardState$getAvailableCellsForKnight</ID>
     <ID>NestedBlockDepth:ChessBoardState.kt$ChessBoardState$getFigureByPgnMove</ID>
+    <ID>NewLineAtEndOfFile:WinDialog.kt$com.otus.homework.chesstask.views.WinDialog.kt</ID>
+    <ID>NewLineAtEndOfFile:WrongMoveDialog.kt$com.otus.homework.chesstask.views.WrongMoveDialog.kt</ID>
+    <ID>TooManyFunctions:ChessBoardReducer.kt$ChessBoardReducer$ChessBoardReducer</ID>
     <ID>TooManyFunctions:ChessBoardState.kt$ChessBoardState$ChessBoardState</ID>
+    <ID>TooManyFunctions:ChessTaskFragment.kt$ChessTaskFragment$ChessTaskFragment</ID>
   </Whitelist>
 </SmellBaseline>
