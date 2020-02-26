@@ -49,7 +49,7 @@ class PipelinePlugin : Plugin<Project> {
                 }
             }
             doLast {
-                println("Successfully built and assembled.")
+                println("Successfully built and assembled all.")
 
             }
         }
