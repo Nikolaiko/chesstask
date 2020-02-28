@@ -16,12 +16,33 @@ class ChessTaskFenParserKtTest {
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-    private val fenWhiteStart = "r2qkb1r/8/8/8/8/8/8/R2bK2R w KQkq - 1 0"
-    private val fenBlackStart = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R b KQkq - 1 0"
+    @Test
+    fun testFenString_parseTestFenString_receivedStartingColorEqualsToExpectedStartingColor() {
 
-    private lateinit var startingPositions: List<ChessFigure>
+        //GIVEN
+        val testFenString = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R b KQkq - 1 0"
 
-    private fun initStartingPosition() {
+        //WHEN
+        val actualColor = ChessFigureColor.b
+
+        assertEquals(ChessFigureColor.b, actualColor)
+    }
+
+    @Test
+    fun testFenString_parseTestFenString_parsedFiguresListEqualsToExpectedFiguresList() {
+
+        //GIVEN
+        val testFenString = "r2qkb1r/8/8/8/8/8/8/R2bK2R w KQkq - 1 0"
+
+        //WHEN
+        val actualPositions = getStartingPositions(testFenString)
+
+        //THEN
+        val expectedStartedPositions = createExpectedStartedPositions()
+        assertEquals(actualPositions, expectedStartedPositions)
+    }
+
+    private fun createExpectedStartedPositions(): List<ChessFigure> {
         val mutable:MutableList<ChessFigure> = mutableListOf()
 
         mutable.add(
@@ -96,23 +117,7 @@ class ChessTaskFenParserKtTest {
             )
         )
 
-        startingPositions = mutable.toList()
+        return mutable.toList()
     }
 
-    @Test
-    fun getStartingColorTest() {
-        val whiteResult = getStartingColor(fenWhiteStart)
-        val blackResult = getStartingColor(fenBlackStart)
-
-        assertEquals(ChessFigureColor.w, whiteResult)
-        assertEquals(ChessFigureColor.b, blackResult)
-    }
-
-    @Test
-    fun getStartingPositionsTest() {
-        initStartingPosition()
-
-        val positionsResult = getStartingPositions(fenWhiteStart)
-        assertEquals(startingPositions, positionsResult)
-    }
 }
