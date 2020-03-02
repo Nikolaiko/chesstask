@@ -23,8 +23,8 @@ class ChessTaskFenParserKtTest {
         val testFenString = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R b KQkq - 1 0"
 
         //WHEN
-        val actualColor = ChessFigureColor.b
-
+        val actualColor = getStartingColor(testFenString)
+        //THEN
         assertEquals(ChessFigureColor.b, actualColor)
     }
 

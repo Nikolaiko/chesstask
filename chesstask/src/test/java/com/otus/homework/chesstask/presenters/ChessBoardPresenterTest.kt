@@ -4,17 +4,11 @@ import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.enums.ChessFigureType
 import com.example.core.model.task.*
 import com.otus.homework.chesstask.RxJavaRule
-import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
-import com.otus.homework.chesstask.reducers.BoardReducer
-import com.otus.homework.chesstask.reducers.ChessBoardReducer
 import com.otus.homework.chesstask.views.ChessTaskView
 import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
@@ -26,71 +20,51 @@ class ChessBoardPresenterTest {
     @get:Rule
     val rxRule: RxJavaRule = RxJavaRule()
 
-    @Mock
-    lateinit var reducer: BoardReducer
-
-    @Mock
-    lateinit var presenterView: ChessTaskView
-
-    private val firstFigurePosition = FigurePosition(1, 1)
-    private val secondFigurePosition = FigurePosition(1, 5)
-    private val thirdFigurePosition = FigurePosition(3, 3)
-
-    private val firstFigure = ChessFigure(
-        ChessFigureType.rock,
-        ChessFigureColor.w,
-        firstFigurePosition
-    )
-
-    private val secondFigure = ChessFigure(
-        ChessFigureType.knight,
-        ChessFigureColor.b,
-        secondFigurePosition
-    )
-
-    private val thirdFigure = ChessFigure(
-        ChessFigureType.queen,
-        ChessFigureColor.w,
-        thirdFigurePosition
-    )
-
-    private lateinit var presenter: ChessBoardPresenter
-    private lateinit var testTask: ChessTask
-
-    @Before
-    fun initTask() {
-        testTask = ChessTask(
+    @Test
+    fun testChessTask_initPresenterWithTask_reducerFunctionCalled() {
+        //GIVEN
+        val expectedTask = ChessTask(
             "testtask",
-            buildStartingPositions(),
+            buildExpectedPositions(),
             ChessFigureColor.w,
-            buildPgn()
+            buildExpectedPgn()
+        )
+        val reducer = ReducerStub()
+        val presenter = ChessBoardPresenter(reducer)
+
+        //WHEN
+        presenter.setBoardTask(expectedTask)
+
+        //THEN
+        assert(reducer.initChessTaskCalledWith(expectedTask))
+    }
+
+    private fun buildExpectedPositions(): List<ChessFigure> {
+        val firstFigurePosition = FigurePosition(1, 1)
+        val secondFigurePosition = FigurePosition(1, 5)
+        val thirdFigurePosition = FigurePosition(3, 3)
+
+        val firstFigure = ChessFigure(
+            ChessFigureType.rock,
+            ChessFigureColor.w,
+            firstFigurePosition
         )
 
-        presenter = ChessBoardPresenter(reducer)
-        presenter.attachView(presenterView)
+        val secondFigure = ChessFigure(
+            ChessFigureType.knight,
+            ChessFigureColor.b,
+            secondFigurePosition
+        )
+
+        val thirdFigure = ChessFigure(
+            ChessFigureType.queen,
+            ChessFigureColor.w,
+            thirdFigurePosition
+        )
+        return listOf(firstFigure, secondFigure, thirdFigure)
     }
 
-    @Test
-    fun setBoardTask() {
-        presenter.setBoardTask(testTask)
-
-        Mockito.verify(reducer).initChessTask(testTask)
-        Mockito.verify(presenterView).updateChessBoardPosition(buildUpdateBoard())
-    }
-
-    @Test
-    fun detachView() {
-    }
-
-    private fun buildStartingPositions(): List<ChessFigure> = listOf(firstFigure, secondFigure, thirdFigure)
-
-    private fun buildUpdateBoard(): List<ChessFigureOnBoard> = listOf(
-        ChessFigureOnBoard.convert(firstFigure),
-        ChessFigureOnBoard.convert(secondFigure),
-        ChessFigureOnBoard.convert(thirdFigure)
-    )
-
-    private fun buildPgn(): List<PgnMovePair> {
+    private fun buildExpectedPgn(): List<PgnMovePair> {
         val mutable = mutableListOf<PgnMovePair>()
         var pair = PgnMovePair(
             PgnMove(

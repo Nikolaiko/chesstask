@@ -48,16 +48,17 @@ class ChessBoardStateTest {
 
     private lateinit var chessBoardState: ChessBoardState
 
-    @Before
-    fun initState() {
+    @Test
+    fun threeFiguresOnBoard_addAnotherFigure_checkAllFiguresList() {
+        //GIVEN
         chessBoardState = ChessBoardState()
         chessBoardState.addFigureToBoard(firstChessFigure)
         chessBoardState.addFigureToBoard(secondChessFigure)
-        chessBoardState.addFigureToBoard(thirdChessFigure)
-    }
 
-    @Test
-    fun addFigureToBoard() {
+        //WHEN
+        chessBoardState.addFigureToBoard(thirdChessFigure)
+
+        //THEN
         assert(chessBoardState.getFigures().containsAll(listWithFigures))
     }
 
