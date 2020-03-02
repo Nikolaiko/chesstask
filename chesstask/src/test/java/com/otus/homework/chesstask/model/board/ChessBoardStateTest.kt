@@ -8,7 +8,6 @@ import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
@@ -17,153 +16,147 @@ class ChessBoardStateTest {
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-    private val firstFigurePosition = FigurePosition(1, 1)
-    private val secondFigurePosition = FigurePosition(1, 5)
-    private val thirdFigurePosition = FigurePosition(3, 3)
-
-    private val firstChessFigure = ChessFigureOnBoard(
-        "id1",
-        ChessFigureColor.w,
-        firstFigurePosition,
-        ChessFigureType.queen
-    )
-    private val secondChessFigure = ChessFigureOnBoard(
-        "id2",
-        ChessFigureColor.w,
-        secondFigurePosition,
-        ChessFigureType.queen
-    )
-    private val thirdChessFigure = ChessFigureOnBoard(
-        "id3",
-        ChessFigureColor.b,
-        thirdFigurePosition,
-        ChessFigureType.queen
-    )
-    private val listWithFigures: List<ChessFigureOnBoard> = listOf(
-        firstChessFigure,
-        secondChessFigure,
-        thirdChessFigure
-    )
-
-
-    private lateinit var chessBoardState: ChessBoardState
-
     @Test
-    fun threeFiguresOnBoard_addAnotherFigure_checkAllFiguresList() {
+    fun twoFiguresOnBoard_addAnotherFigure_checkAllFiguresList() {
         //GIVEN
-        chessBoardState = ChessBoardState()
-        chessBoardState.addFigureToBoard(firstChessFigure)
-        chessBoardState.addFigureToBoard(secondChessFigure)
+        val testBoardState = ChessBoardState()
+        testBoardState.addFigureToBoard(buildFirstExpectedFigure())
+        testBoardState.addFigureToBoard(buildSecondExpectedFigure())
 
         //WHEN
-        chessBoardState.addFigureToBoard(thirdChessFigure)
+        testBoardState.addFigureToBoard(buildThirdExpectedFigure())
 
         //THEN
-        assert(chessBoardState.getFigures().containsAll(listWithFigures))
+        assert(testBoardState.getFigures().containsAll(
+            listOf(
+                buildFirstExpectedFigure(),
+                buildSecondExpectedFigure(),
+                buildThirdExpectedFigure()
+            ))
+        )
     }
 
     @Test
-    fun getFigureById() {
-        assertEquals(firstChessFigure, chessBoardState.getFigureById(firstChessFigure.id))
-        assertEquals(secondChessFigure, chessBoardState.getFigureById(secondChessFigure.id))
-        assertEquals(thirdChessFigure, chessBoardState.getFigureById(thirdChessFigure.id))
+    fun emptyBoard_addFigureToBoard_getFigureById() {
+        //GIVEN
+        val testFigure = buildFirstExpectedFigure()
+        val testBoardState = ChessBoardState()
+
+        //WHEN
+        testBoardState.addFigureToBoard(testFigure)
+
+        //THEN
+        assertEquals(testBoardState.getFigureById(testFigure.id), testFigure)
     }
 
     @Test
-    fun getFigures() {
-        assert(chessBoardState.getFigures().containsAll(listWithFigures))
-    }
-
-    @Test
-    fun getFigureByPgnMove() {
-        val pgnWhitMoveFirst = PgnMove(
+    fun chessBoardWithFigure_getFigureByPgnMove_compareFigureReceivedByPgnMoveWithExpected() {
+        //GIVEN
+        val testFigure = buildFirstExpectedFigure()
+        val testBoardState = ChessBoardState()
+        val testPgnMove = PgnMove(
             ChessFigureType.queen,
             ChessFigureColor.w,
-            thirdFigurePosition,
-            firstFigurePosition,
-            true
+            FigurePosition(testFigure.position.row, testFigure.position.column + 3),
+            testFigure.position
         )
+        testBoardState.addFigureToBoard(testFigure)
 
-        val pgnWhitMoveSecond = PgnMove(
-            ChessFigureType.queen,
-            ChessFigureColor.w,
-            thirdFigurePosition,
-            secondFigurePosition,
-            true
-        )
+        //WHEN
+        val actualFigure = testBoardState.getFigureByPgnMove(testPgnMove)
 
-        val pgnBlackMoveFirst = PgnMove(
-            ChessFigureType.queen,
-            ChessFigureColor.b,
-            firstFigurePosition,
-            thirdFigurePosition,
-            true
-        )
+        //THEN
+        assertEquals(actualFigure, testFigure)
+    }
 
-        val pgnBlackMoveSecond = PgnMove(
-            ChessFigureType.queen,
-            ChessFigureColor.b,
-            FigurePosition(5, 5),
+    @Test
+    fun emptyChessBoard_addFigureToBoard_compareFigureReceivedByPositionWithExpected() {
+        //GIVEN
+        val testFigure = buildFirstExpectedFigure()
+        val testBoardState = ChessBoardState()
+
+        //WHEN
+        testBoardState.addFigureToBoard(testFigure)
+
+        //THEN
+        assertEquals(testBoardState.getFigureByPosition(testFigure.position), testFigure)
+    }
+
+    @Test
+    fun chessBoardWithFigure_applyAction_checkPositionOfMovedFigure() {
+        //GIVEN
+        val testFigure = buildFirstExpectedFigure()
+        val testBoardState = ChessBoardState()
+        val expectedPosition = FigurePosition(testFigure.position.row, testFigure.position.column + 1)
+        testBoardState.addFigureToBoard(testFigure)
+
+        val move = BoardAction(
+            testFigure,
+            testFigure.position,
+            expectedPosition,
+            null,
             null
         )
 
-        assertEquals(chessBoardState.getFigureByPgnMove(pgnWhitMoveFirst), firstChessFigure)
-        assertEquals(chessBoardState.getFigureByPgnMove(pgnWhitMoveSecond), secondChessFigure)
-        assertEquals(chessBoardState.getFigureByPgnMove(pgnBlackMoveFirst), thirdChessFigure)
-        assertEquals(chessBoardState.getFigureByPgnMove(pgnBlackMoveSecond), thirdChessFigure)
+        //WHEN
+        testBoardState.applyAction(move)
+
+        //THEN
+        val movedFigure = testBoardState.getFigureById(testFigure.id)
+        assertNotNull(movedFigure)
+        assert(movedFigure!!.position == expectedPosition)
     }
 
     @Test
-    fun getFigureByPosition() {
-        assertEquals(firstChessFigure, chessBoardState.getFigureByPosition(firstFigurePosition))
-        assertEquals(secondChessFigure, chessBoardState.getFigureByPosition(secondFigurePosition))
-    }
+    fun boardWithFigure_getAvailableForMovePositions_compareResultsWithExpected() {
+        //GIVEN
+        val testFigure = buildFirstExpectedFigure()
+        val testBoardState = ChessBoardState()
 
-    @Test
-    fun applyAction() {
-        val move = BoardAction(
-            firstChessFigure,
-            firstFigurePosition,
-            thirdFigurePosition,
-            thirdChessFigure
-        )
-
-        val movedFirstFigure = ChessFigureOnBoard(
-            firstChessFigure.id,
-            firstChessFigure.color,
-            thirdFigurePosition,
-            firstChessFigure.figureType
-        )
-        val afterMoveState = listOf(movedFirstFigure, secondChessFigure)
-
-        chessBoardState.applyAction(move)
-        assert(chessBoardState.getFigures().containsAll(afterMoveState))
-    }
-
-    @Test
-    fun getAvailableCellsForFigure() {
         val availableCells = mutableListOf<FigurePosition>()
-
-        availableCells.add(FigurePosition(firstChessFigure.position.row, 0))
-        availableCells.add(FigurePosition(0, firstChessFigure.position.column))
+        availableCells.add(FigurePosition(testFigure.position.row, 0))
+        availableCells.add(FigurePosition(0, testFigure.position.column))
         availableCells.add(FigurePosition(0, 0))
-        availableCells.add(FigurePosition(0, 2))
-        availableCells.add(FigurePosition(2, 0))
+        availableCells.add(FigurePosition(testFigure.position.row + 1, 0))
 
-        for (i in 2..4) {
-            availableCells.add(FigurePosition(firstChessFigure.position.row, i))
+        for (i in 2..7) {
+            availableCells.add(FigurePosition(testFigure.position.row, i))
         }
 
         for (i in 2..7) {
-            availableCells.add(FigurePosition(i, firstChessFigure.position.column))
+            availableCells.add(FigurePosition(i, testFigure.position.column))
         }
 
-        for (i in 2..2) {
+        for (i in 2..7) {
             availableCells.add(FigurePosition(i, i))
         }
+        testBoardState.addFigureToBoard(testFigure)
 
+        //WHEN
+        val cells = testBoardState.getAvailableCellsForFigure(testFigure.id)
 
-        val cells = chessBoardState.getAvailableCellsForFigure(firstChessFigure.id)
+        //THEN
         assert(cells.containsAll(availableCells))
     }
+
+    private fun buildFirstExpectedFigure(): ChessFigureOnBoard = ChessFigureOnBoard(
+        "id1",
+        ChessFigureColor.w,
+        FigurePosition(1, 1),
+        ChessFigureType.queen
+    )
+
+    private fun buildSecondExpectedFigure(): ChessFigureOnBoard = ChessFigureOnBoard(
+        "id2",
+        ChessFigureColor.w,
+        FigurePosition(1, 5),
+        ChessFigureType.queen
+    )
+
+    private fun buildThirdExpectedFigure(): ChessFigureOnBoard = ChessFigureOnBoard(
+        "id3",
+        ChessFigureColor.b,
+        FigurePosition(3, 3),
+        ChessFigureType.queen
+    )
 }

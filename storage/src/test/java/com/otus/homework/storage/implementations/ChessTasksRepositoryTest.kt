@@ -31,94 +31,112 @@ class ChessTasksRepositoryTest {
     @Mock
     lateinit var tasksApi: ChessTasksApi
 
-    private lateinit var repository:ChessTasksRepository
-
-    private val taskId = "id"
-    private val taskName = "testTask"
-    private val taskData = ChessTaskShortInfo(taskId, taskName)
-    private val list = listOf(taskData)
-
-    private val taskShortData = ChessTaskShortData(taskId, taskName)
-    private val allTasksResponse = Response(200, null, listOf(taskShortData))
-    private val allTasksNullResponse = Response<List<ChessTaskShortData>>(200, "Null Body", null)
-    private val idTaskNullResponse = Response<ChessTaskData>(200, "Null Body", null)
-
-    private val taskFen = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 1 0"
-    private val taskPgn = "1. Nf6+ gxf6 2. Bxf7# "
-    private val responseTask = ChessTaskData(
-        taskId,
-        taskFen,
-        taskPgn
-    )
-    private val idTaskResponse = Response(200,"", responseTask)
-    private val parsedTask = ChessTask(
-        taskId,
-        getStartingPositions(taskFen),
-        getStartingColor(taskFen),
-        parsePgnString(taskPgn)
-    )
-
-    @Before
-    fun setUp() {
-        repository = ChessTasksRepository(tasksApi)
-    }
-
     @Test
-    fun getAllTasks() {
+    fun expectedAllTasksResponse_callGetAllTasks_compareResultsToExpectedList() {
+        //GIVEN
+        val taskId = "id"
+        val taskName = "testTask"
+        val taskShortData = ChessTaskShortData(taskId, taskName)
+        val taskData = ChessTaskShortInfo(taskId, taskName)
+        val list = listOf(taskData)
+        val allTasksResponse = Response(200, null, listOf(taskShortData))
+        val repository = ChessTasksRepository(tasksApi)
+
         Mockito.`when`(tasksApi.getAllTasks(Mockito.anyString()))
             .thenReturn(Single.just(allTasksResponse).toObservable())
 
+        //WHEN AND THEN
         repository.getAllTasks(UserTokens(""))
             .test()
             .assertResult(list)
     }
 
     @Test
-    fun getAllTasksNullBody() {
+    fun wrongResponseFromServer_callGetAllTasks_checkExceptionHappen() {
+        //GIVEN
+        val allTasksNullResponse = Response<List<ChessTaskShortData>>(200, "Null Body", null)
+        val repository = ChessTasksRepository(tasksApi)
+
         Mockito.`when`(tasksApi.getAllTasks(Mockito.anyString()))
             .thenReturn(Single.just(allTasksNullResponse).toObservable())
 
+        //WHEN AND THEN
         repository.getAllTasks(UserTokens(""))
             .test()
             .assertFailure(Exception::class.java)
     }
 
     @Test
-    fun getAllTasksStatusError() {
+    fun mockObjectWithWrongStatusResponse_callGetAllTasks_checkExceptionHappen() {
+        //GIVEN
+        val repository = ChessTasksRepository(tasksApi)
         Mockito.`when`(tasksApi.getAllTasks(Mockito.anyString()))
             .thenReturn(Single.error<Response<List<ChessTaskShortData>>>(Exception("Error status")).toObservable())
 
+        //WHEN AND THEN
         repository.getAllTasks(UserTokens(""))
             .test()
             .assertFailure(Exception::class.java)
     }
 
     @Test
-    fun getTaskById() {
+    fun taskResponseExample_callGetTaskById_compareToExpectedParsedResult() {
+        //GIVEN
+        val expectedTaskId = "id"
+        val expectedFen = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 1 0"
+        val expectedPgn = "1. Nf6+ gxf6 2. Bxf7# "
+
+        val responseTask = ChessTaskData(
+            expectedTaskId,
+            expectedFen,
+            expectedPgn
+        )
+        val parsedTask = ChessTask(
+            expectedTaskId,
+            getStartingPositions(expectedFen),
+            getStartingColor(expectedFen),
+            parsePgnString(expectedPgn)
+        )
+        val idTaskResponse = Response(200,"", responseTask)
+        val repository = ChessTasksRepository(tasksApi)
+
         Mockito.`when`(tasksApi.getTaskById(Mockito.anyString(), Mockito.anyString()))
             .thenReturn(Single.just(idTaskResponse).toObservable())
 
-        repository.getTaskById(UserTokens(""), taskId)
+
+        //WHEN AND THEN
+        repository.getTaskById(UserTokens(""), expectedTaskId)
             .test()
             .assertResult(parsedTask)
     }
 
     @Test
-    fun getTaskByIdNullBody() {
+    fun nullBodyTaskResponse_callGetTaskById_checkExceptionHappen() {
+        //GIVEN
+        val expectedTaskId = "id"
+        val idTaskNullResponse = Response<ChessTaskData>(200, "Null Body", null)
+        val repository = ChessTasksRepository(tasksApi)
+
         Mockito.`when`(tasksApi.getTaskById(Mockito.anyString(), Mockito.anyString()))
             .thenReturn(Single.just(idTaskNullResponse).toObservable())
 
-        repository.getTaskById(UserTokens(""), taskId)
+        //WHEN AND THEN
+        repository.getTaskById(UserTokens(""), expectedTaskId)
             .test()
             .assertFailure(Exception::class.java)
     }
 
     @Test
-    fun getTaskByIdStatusError() {
+    fun mockApiReturningWrongStatus_callGetTaskById_checkExceptionHappen() {
+        //GIVEN
+        val expectedTaskId = "id"
+        val repository = ChessTasksRepository(tasksApi)
+
         Mockito.`when`(tasksApi.getTaskById(Mockito.anyString(), Mockito.anyString()))
             .thenReturn(Single.error<Response<ChessTaskData>>(Exception("Error status")).toObservable())
 
-        repository.getTaskById(UserTokens(""), taskId)
+        //WHEN AND THEN
+        repository.getTaskById(UserTokens(""), expectedTaskId)
             .test()
             .assertFailure(Exception::class.java)
     }

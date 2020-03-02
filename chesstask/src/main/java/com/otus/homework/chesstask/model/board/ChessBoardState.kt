@@ -21,16 +21,16 @@ class ChessBoardState {
     fun getFigures() = figures.values.toList()
     fun getFigureByPgnMove(move: PgnMove): ChessFigureOnBoard? {
         var neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
-        if (move.start != null) {
-           if (move.start!!.row != -1) {
-               neededFigures = neededFigures.filter { it.value.position.row == move.start!!.row }
-           }
-           if (move.start!!.column != -1) {
-               neededFigures = neededFigures.filter { it.value.position.column == move.start!!.column }
-           }
-        }
-        if (neededFigures.size == 1) return neededFigures.values.first()
+        val startMove = move.start ?: return null
 
+        if (startMove.row != -1) {
+            neededFigures = neededFigures.filter { it.value.position.row == startMove.row }
+        }
+        if (startMove.column != -1) {
+            neededFigures = neededFigures.filter { it.value.position.column == startMove.column }
+        }
+
+        if (neededFigures.size == 1) return neededFigures.values.first()
         for (currentFigure in neededFigures) {
             val cells = getAvailableCellsForFigure(currentFigure.key)
             for (currentCell in cells) {
