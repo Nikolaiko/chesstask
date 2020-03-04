@@ -16,7 +16,7 @@ project.afterEvaluate {
                 groupId packageName
                 version = libraryVersion
                 artifactId project.getName()
-                artifact("$buildDir/outputs/apk/release/app-release.apk")
+                artifact("$buildDir/outputs/apk/prod/release/app-prod-release.apk")
             }
         }
     }
