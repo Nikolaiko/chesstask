@@ -33,5 +33,10 @@ pipeline {
                 sh './gradlew appCenterAssembleAndUploadProdRelease'
             }
         }
+        stage('saveToArtifactory') {
+            steps {
+                sh './gradlew artifactoryPublish'
+            }
+        }
     }
 }

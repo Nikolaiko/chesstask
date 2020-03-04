@@ -3,6 +3,42 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.betomorrow.appcenter'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+def packageName = 'com.otus.homework'
+def libraryVersion = '1.0.0'
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId packageName
+                version = libraryVersion
+                artifactId project.getName()
+                artifact("$buildDir/outputs/apk/release/app-release.apk")
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'http://localhost:8081/artifactory'
+    publish {
+        repository {
+            repoKey = 'gradle-dev-local'
+            username = "admin"
+            password = "N1kolaiko"
+        }
+        defaults {
+            publications('maven')
+            publishArtifacts = true
+
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            publishPom = true
+        }
+    }
+}
 
 android {
     signingConfigs {
