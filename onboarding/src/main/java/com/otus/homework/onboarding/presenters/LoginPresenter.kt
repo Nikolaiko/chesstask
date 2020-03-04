@@ -1,5 +1,6 @@
 package com.otus.homework.onboarding.presenters
 
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.views.BaseView
 import com.otus.homework.onboarding.model.LoginState
@@ -9,7 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class LoginPresenter @Inject constructor(private val reducer: ILoginReducer) : ILoginPresenter {
+class LoginPresenter @Inject constructor(
+    private val reducer: ILoginReducer
+) : ILoginPresenter {
     private var presenterView:ILoginView? = null
     private val disposeContainer:CompositeDisposable = CompositeDisposable()
 
