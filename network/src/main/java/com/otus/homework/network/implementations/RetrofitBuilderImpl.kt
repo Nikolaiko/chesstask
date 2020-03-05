@@ -12,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import com.otus.homework.network.BuildConfig
 import javax.inject.Inject
 
 class RetrofitBuilderImpl @Inject constructor() :
@@ -33,7 +33,7 @@ class RetrofitBuilderImpl @Inject constructor() :
         .create()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://92.242.40.194:8080")
+        .baseUrl(BuildConfig.BASE_ADDRESS)
         //.client(client)
         .client(OkHttpClient.Builder().build())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
