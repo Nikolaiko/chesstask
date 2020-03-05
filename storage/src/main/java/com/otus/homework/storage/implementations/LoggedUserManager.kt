@@ -6,7 +6,7 @@ import com.example.core.model.user.UserTokens
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import javax.inject.Inject
 
-class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPreferences) :
+class LoggedUserManager @Inject constructor(private val sharedPreferences: SharedPreferences) :
     LoggedUserProvider {
     companion object {
         private const val USER_NAME_KEY: String = "logged_user_name"
@@ -15,7 +15,7 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
         private const val DEFAULT_STRING_VALUE: String = ""
 
         private var loggedInUser: UserProfile? = null
-        private var loggedUsertokens: UserTokens? = null
+        private var loggedUserTokens: UserTokens? = null
     }
 
     override fun setLoggedUser(loggedUser: UserProfile) {
@@ -35,7 +35,7 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
     }
 
     override fun setLoggedUserTokens(tokens: UserTokens) {
-        loggedUsertokens = tokens
+        loggedUserTokens = tokens
         val editor:SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putString(USER_NAME_ACCESS_TOKEN, tokens.accessToken)
@@ -43,10 +43,18 @@ class LoggedUserManager @Inject constructor(val sharedPreferences: SharedPrefere
     }
 
     override fun getLoggedUserTokens(): UserTokens? {
-        if (loggedUsertokens == null) {
-            loggedUsertokens = tryGetSavedUserTokens()
+        if (loggedUserTokens == null) {
+            loggedUserTokens = tryGetSavedUserTokens()
         }
-        return loggedUsertokens
+        return loggedUserTokens
+    }
+
+    override fun logout() {
+        loggedInUser = null
+        loggedUserTokens = null
+        sharedPreferences.edit()
+            .remove(USER_NAME_ACCESS_TOKEN)
+            .apply()
     }
 
     private fun tryGetSavedUserTokens(): UserTokens? {

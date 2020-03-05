@@ -79,6 +79,11 @@ class TasksListReducer @Inject constructor(
         }
     }
 
+    override fun logout() {
+        loggedUserProvider.logout()
+        _updateNews.onNext(TasksListNews(NewsMessageId.LOGOUT))
+    }
+
     override fun clearDisposables() {
         disposeBag.clear()
     }
