@@ -7,7 +7,6 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
-
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 29
@@ -38,6 +37,12 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -70,4 +75,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "androidx.test:core:$android_x_testcore_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation 'org.robolectric:robolectric:4.3.1'
 }

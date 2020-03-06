@@ -13,6 +13,7 @@ android {
             keyPassword 'chessKey'
         }
     }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -50,6 +51,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 appcenter {
@@ -84,13 +91,14 @@ dependencies {
     implementation project(":chesstask")
 
     //Test
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation "androidx.test:core:$android_x_testcore_version"
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    //testImplementation "com.squareup.okhttp3:mockwebserver:4.4.0"
 
     androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'

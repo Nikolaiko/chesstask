@@ -5,8 +5,7 @@ import com.example.core.app.AppWithFacade
 import com.example.core.app.ProvidersFacade
 import com.otus.homework.di.AppComponent
 
-class ChessApplication : Application(),
-    AppWithFacade {
+class ChessApplication : Application(), AppWithFacade {
     companion object {
         private var appComponentObject: ProvidersFacade? = null
     }

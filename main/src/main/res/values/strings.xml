@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">main</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">Chess Application</string>
+    <string name="title_activity_main">Chess Application</string>
 </resources>
