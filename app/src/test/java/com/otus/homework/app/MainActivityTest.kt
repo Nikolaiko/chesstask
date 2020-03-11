@@ -11,10 +11,10 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [23], application = ChessApplication::class)
+@Config(sdk = [24], application = ChessApplication::class)
 class MainActivityTest {
     @Test
-    fun appNameInResources_compareNameToExpected_namesShouldMatch() {
+    fun `application name in resources should match expected app name`() {
         val expectedAppName = "Chess Application"
         val mainActivity = Robolectric.buildActivity(MainActivity::class.java)
             .create()
