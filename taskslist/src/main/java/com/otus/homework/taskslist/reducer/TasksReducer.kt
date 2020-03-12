@@ -10,6 +10,7 @@ interface TasksReducer {
     val updateNews:Observable<TasksListNews>
     val updateDestination:Observable<TasksListScreens>
 
+    fun logout()
     fun refreshTasks()
     fun getTaskById(id:String)
 

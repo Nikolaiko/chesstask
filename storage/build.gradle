@@ -18,6 +18,16 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    flavorDimensions "environment"
+    productFlavors {
+        prod {
+            dimension "environment"
+        }
+        uiTest {
+            dimension "environment"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

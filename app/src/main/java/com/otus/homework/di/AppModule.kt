@@ -11,7 +11,7 @@ abstract class AppModule private constructor() {
 
     @Module
     companion object {
-        private const val PREFS_NAME: String = "CHESS_PREFS"
+        const val PREFS_NAME: String = "CHESS_PREFS"
 
         @JvmStatic
         @Provides

@@ -8,6 +8,7 @@ import io.reactivex.Observable
 
 interface TasksView {
     val selectedTask: Observable<ChessTaskShortInfo>
+    val logoutUserButton: Observable<Unit>
 
     fun displayMessage(newsMessage: TasksListNews)
     fun navigateTo(destination: TasksListScreens, task:ChessTask?)

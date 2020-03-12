@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         MainComponent.init((application as AppWithFacade).getFacade()).injects(this)
         val loggedUserTokens: UserTokens? = loggedDataManager.getLoggedUserTokens()
-
+        
         if (loggedUserTokens == null) {
             onBoardingMediator.createOnBoardingActivity(this)
             finish()

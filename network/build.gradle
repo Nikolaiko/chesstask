@@ -18,6 +18,18 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    flavorDimensions "environment"
+    productFlavors {
+        prod {
+            dimension "environment"
+            buildConfigField "String", "BASE_ADDRESS", '"http://92.242.40.194:8080"'
+        }
+        uiTest {
+            dimension "environment"
+            buildConfigField "String", "BASE_ADDRESS", '"http://127.0.0.1:8080"'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -52,6 +64,6 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.4.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_rx_adapter_version"
 }
