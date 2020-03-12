@@ -42,38 +42,33 @@ class LoginUITest {
         }
     }
 
-    @After
-    fun teardown() {
-        mockServer.shutdown()
-    }
-
     @Test
-    fun appFromStart_emptyTextFields_LoginButtonDisabled() {
+    fun allFieldsMustBeEmptyAtStart() {
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(not(isEnabled())))
     }
 
     @Test
-    fun appFromStart_enterOnlyLogin_LoginButtonDisabled() {
+    fun loginButtonDisabledIfOnlyLoginEntered() {
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("someLogin"))
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(not(isEnabled())))
     }
 
     @Test
-    fun appFromStart_enterPasswordAndShortLogin_LoginButtonDisabled() {
+    fun loginButtonDisabledIfLoginValueIsTooShort() {
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(LoginReducer.MIN_EMAIL_LENGTH - 1)), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("somePassword"))
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(not(isEnabled())))
     }
 
     @Test
-    fun appFromStart_enterPasswordAndLogin_LoginButtonEnabled() {
+    fun loginButtonEnabledIfLoginValueAndPasswordEnteredCorrectly() {
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(LoginReducer.MIN_EMAIL_LENGTH)), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("somePassword"))
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(isEnabled()))
     }
 
     @Test
-    fun appFromStart_enterPasswordAndLogin_LoginFails() {
+    fun loginFailIfWrongLoginValueAndPasswordEntered() {
         mockServer.dispatcher = FailedLoginDispatcher()
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("u@mail.ru"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("password123"), closeSoftKeyboard())
@@ -84,11 +79,16 @@ class LoginUITest {
     }
 
     @Test
-    fun appFromStart_enterPasswordAndLogin_LoginSuccess() {
+    fun loginSuccessfulIfLoginValueAndPasswordCorrect() {
         mockServer.dispatcher = SuccessLoginDispatcher()
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("u@mail.ru"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("password"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).perform(click())
         onView(withId(com.otus.homework.taskslist.R.id.tasksList)).check(matches(isEnabled()))
+    }
+
+    @After
+    fun teardown() {
+        mockServer.shutdown()
     }
 }
