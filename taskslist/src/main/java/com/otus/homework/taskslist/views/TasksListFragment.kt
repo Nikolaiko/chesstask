@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.core.app.AppWithFacade
+import com.example.core.mediator.OnBoardingMediator
 import com.example.core.mediator.SingleChessTaskMediator
 import com.example.core.model.task.ChessTask
 import com.example.core.model.task.ChessTaskShortInfo
@@ -29,7 +30,15 @@ class TasksListFragment : Fragment(), TasksView {
     @Inject
     lateinit var mediator:SingleChessTaskMediator
 
+    @Inject
+    lateinit var logoutMediator:OnBoardingMediator
+
     private var listAdapter:TasksListAdapter? = null
+
+    private val _logoutUserButton: PublishSubject<Unit> = PublishSubject.create()
+    override val logoutUserButton: Observable<Unit>
+        get() = _logoutUserButton
+
     private val _selectedTask:PublishSubject<ChessTaskShortInfo> = PublishSubject.create()
     override val selectedTask:Observable<ChessTaskShortInfo>
         get() = _selectedTask
@@ -42,6 +51,10 @@ class TasksListFragment : Fragment(), TasksView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+
+        logoutButton.setOnClickListener {
+            _logoutUserButton.onNext(Unit)
+        }
 
         listAdapter = TasksListAdapter()
         listAdapter?.rowClickCallback = {
@@ -68,6 +81,10 @@ class TasksListFragment : Fragment(), TasksView {
             TasksListScreens.SINGLE_CHESS_TASK -> {
                 mediator.startOnChessActivity(context!!, task!!)
             }
+            TasksListScreens.LOGIN -> {
+                logoutMediator.createOnBoardingActivity(context!!)
+                activity?.finish()
+            }
             else -> displayMessage(TasksListNews(NewsMessageId.UNKNOWN_DESTINATION))
         }
     }
@@ -90,5 +107,6 @@ class TasksListFragment : Fragment(), TasksView {
         NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST -> resources.getString(R.string.exception_all_tasks_request_error, news.message)
         NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST -> resources.getString(R.string.exception_task_by_id_request_error, news.message)
         NewsMessageId.NULL_TOKEN_ERROR -> resources.getString(R.string.null_token_error)
+        else -> resources.getString(R.string.unknown_error_message)
     }
 }

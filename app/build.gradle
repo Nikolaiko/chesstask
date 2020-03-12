@@ -2,6 +2,43 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.betomorrow.appcenter'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+def packageName = 'com.otus.homework'
+def libraryVersion = '1.0.0'
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId packageName
+                version = libraryVersion
+                artifactId project.getName()
+                artifact("$buildDir/outputs/apk/prod/release/app-prod-release.apk")
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'http://localhost:8081/artifactory'
+    publish {
+        repository {
+            repoKey = 'gradle-dev-local'
+            username = "admin"
+            password = "N1kolaiko"
+        }
+        defaults {
+            publications('maven')
+            publishArtifacts = true
+
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            publishPom = true
+        }
+    }
+}
 
 android {
     signingConfigs {
@@ -20,7 +57,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.otus.homework.chessclient.UITestRunner"
         signingConfig signingConfigs.release
     }
     compileOptions {
@@ -31,11 +68,35 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    flavorDimensions "environment"
+    productFlavors {
+        prod {
+            dimension "environment"
+        }
+        uiTest {
+            dimension "environment"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+appcenter {
+    apiToken = "d68280c84e021a8b107415ea57d9089461e5962a"
+    ownerName = "nikbakland-h8nz"
+    distributionGroups = ["Collaborators"]
+    releaseNotes = file("../changelog.md")
+    notifyTesters = false
+    apps {
+       prodRelease {
+            appName = "ChessAppDiplom"
         }
     }
 }
@@ -57,4 +118,17 @@ dependencies {
     implementation project(":onboarding")
     implementation project(":taskslist")
     implementation project(":chesstask")
+
+    //Test
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    //testImplementation "com.squareup.okhttp3:mockwebserver:4.4.0"
+
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.4.0"
 }

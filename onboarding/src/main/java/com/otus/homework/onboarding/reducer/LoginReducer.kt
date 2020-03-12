@@ -18,7 +18,7 @@ class LoginReducer @Inject constructor(
 ) : ILoginReducer {
 
     companion object{
-        private const val MIN_EMAIL_LENGTH:Int = 3
+        const val MIN_EMAIL_LENGTH:Int = 3
     }
 
     override val updateDestination:PublishSubject<OnBoardingScreens>  = PublishSubject.create()
@@ -31,7 +31,7 @@ class LoginReducer @Inject constructor(
 
     override fun credentialsChange(userData: UserProfile):LoginState {
         currentUserData = userData
-        currentState = currentState.copy(loginButtonEnabled = (currentUserData.username.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
+        currentState = currentState.copy(loginButtonEnabled = (currentUserData.username.length >= MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
     }
 

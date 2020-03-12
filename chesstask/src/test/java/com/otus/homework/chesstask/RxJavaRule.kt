@@ -12,6 +12,7 @@ class RxJavaRule : ExternalResource (){
     }
 
     private fun replaceShedulers() {
+        RxAndroidPlugins.initMainThreadScheduler { Schedulers.trampoline() }
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         RxJavaPlugins.setComputationSchedulerHandler { Schedulers.trampoline() }
         RxJavaPlugins.setNewThreadSchedulerHandler { Schedulers.trampoline() }

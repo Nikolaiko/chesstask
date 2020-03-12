@@ -9,4 +9,8 @@
     <string name="exception_task_by_id_request_error">Exception during task by id request : %1$s</string>
     <string name="exception_task_by_diff_request_error">Exception during task by difficulty request : %1$s</string>
     <string name="null_token_error">Null token error</string>
+    <string name="unknown_error_message">Unknown error</string>
+
+    <!-- Button labels -->
+    <string name="logout_button">Logout</string>
 </resources>

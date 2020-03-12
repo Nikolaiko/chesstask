@@ -1,6 +1,8 @@
 package com.otus.homework.taskslist.presenters
 
+import com.otus.homework.taskslist.model.TasksListNews
 import com.otus.homework.taskslist.model.TasksListState
+import com.otus.homework.taskslist.model.enums.NewsMessageId
 import com.otus.homework.taskslist.model.enums.TasksListScreens
 import com.otus.homework.taskslist.reducer.TasksReducer
 import com.otus.homework.taskslist.views.TasksView
@@ -31,11 +33,29 @@ class ChessTasksPresenter @Inject constructor(private val reducer:TasksReducer) 
             reducer.getTaskById(it.id)
         }?.addTo(disposeBag)
 
+        presenterView?.logoutUserButton?.subscribe {
+            reducer.logout()
+        }?.addTo(disposeBag)
+
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 updateState(it)
             }.addTo(disposeBag)
+
+        reducer.updateNews
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                processNews(it)
+            }.addTo(disposeBag)
+    }
+
+    private fun processNews(news: TasksListNews) {
+        if (news.id == NewsMessageId.LOGOUT) {
+            presenterView?.navigateTo(TasksListScreens.LOGIN, null)
+        } else {
+            presenterView?.displayMessage(news)
+        }
     }
 
     private fun updateState(newState:TasksListState) {
