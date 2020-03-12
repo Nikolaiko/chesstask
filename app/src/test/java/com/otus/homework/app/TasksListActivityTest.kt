@@ -21,7 +21,7 @@ import org.robolectric.annotation.Config
 class TasksListActivityTest {
 
     @Test
-    fun `onBoarding activity should start after logout button tapped`() {
+    fun `onBoarding activity should be started after logout button tapped`() {
         val tasksListActivity = Robolectric.buildActivity(TasksListActivity::class.java)
             .create()
             .resume()

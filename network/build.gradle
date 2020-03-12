@@ -22,7 +22,7 @@ android {
     productFlavors {
         prod {
             dimension "environment"
-            buildConfigField "String", "BASE_ADDRESS", '"http://92.242.40.194:8080"'
+            buildConfigField "String", "BASE_ADDRESS", '"http://92.242.40.194:80"'
         }
         uiTest {
             dimension "environment"

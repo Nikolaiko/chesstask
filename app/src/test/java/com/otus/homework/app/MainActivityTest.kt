@@ -1,7 +1,6 @@
 package com.otus.homework.app
 
 import com.otus.homework.ChessApplication
-import com.otus.homework.chesstask.ChessTaskActivity
 import com.otus.homework.main.MainActivity
 import org.junit.Assert
 import org.junit.Test

@@ -1,6 +1,7 @@
 package com.otus.homework.network.implementations
 
 import com.otus.homework.model.user.UserData
+import com.otus.homework.network.BuildConfig
 import com.otus.homework.network.interfaces.OnBoardingApi
 import com.otus.homework.network.interfaces.RetrofitBuilder
 import com.otus.homework.network.model.responses.ChessTaskResponse
@@ -13,6 +14,7 @@ class OnBoardingApiImpl @Inject constructor(builder: RetrofitBuilder) :
     private val service = builder.buildOnBoardingService()
 
     override fun login(newUserData: UserData): Observable<UserDataResponse> {
+        println(BuildConfig.BASE_ADDRESS)
         return service.loginUser(newUserData).map {
             if (it.isSuccessful) {
                 UserDataResponse(it.code(), it.message(), it.body())
