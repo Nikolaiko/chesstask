@@ -1,6 +1,7 @@
 package com.otus.homework.onboarding.reducer
 
 import com.example.core.model.user.UserProfile
+import com.otus.homework.onboarding.MIN_EMAIL_LENGTH
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.model.LoginState
@@ -16,10 +17,6 @@ class LoginReducer @Inject constructor(
     private val backend: UserDataRepository,
     private val userData : LoggedUserProvider
 ) : ILoginReducer {
-
-    companion object{
-        const val MIN_EMAIL_LENGTH:Int = 3
-    }
 
     override val updateDestination:PublishSubject<OnBoardingScreens>  = PublishSubject.create()
     override val updateState:PublishSubject<LoginState> = PublishSubject.create()

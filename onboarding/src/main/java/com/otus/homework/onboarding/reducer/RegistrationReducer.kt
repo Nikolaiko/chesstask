@@ -1,6 +1,7 @@
 package com.otus.homework.onboarding.reducer
 
 import com.example.core.model.user.UserProfile
+import com.otus.homework.onboarding.MIN_EMAIL_LENGTH
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.RegistrationState
@@ -17,10 +18,6 @@ class RegistrationReducer @Inject constructor(
     private val userData: LoggedUserProvider
 ) : IRegistrationReducer {
 
-    companion object{
-        private const val MIN_EMAIL_LENGTH:Int = 3
-    }
-
     override val updateState: PublishSubject<RegistrationState> = PublishSubject.create()
     override val updateNews: PublishSubject<OnBoardingNews> = PublishSubject.create()
     override val updateDestination: PublishSubject<OnBoardingScreens> = PublishSubject.create()
@@ -31,7 +28,7 @@ class RegistrationReducer @Inject constructor(
 
     override fun credentialsChange(userData: UserProfile): RegistrationState {
         currentUserData = userData
-        currentState = currentState.copy(registrationButtonEnabled = (currentUserData.username.length > MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
+        currentState = currentState.copy(registrationButtonEnabled = (currentUserData.username.length >= MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
         return currentState
     }
 

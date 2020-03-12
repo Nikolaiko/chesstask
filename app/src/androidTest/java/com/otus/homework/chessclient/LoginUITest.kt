@@ -7,10 +7,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import com.otus.homework.chessclient.dispatchers.FailedLoginDispatcher
-import com.otus.homework.chessclient.dispatchers.SuccessLoginDispatcher
+import com.otus.homework.chessclient.dispatchers.NotFoundStatusDispatcher
+import com.otus.homework.chessclient.dispatchers.SuccessLoginOrRegisterDispatcher
 import com.otus.homework.main.MainActivity
-import com.otus.homework.onboarding.reducer.LoginReducer
+import com.otus.homework.onboarding.MIN_EMAIL_LENGTH
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
@@ -55,21 +55,21 @@ class LoginUITest {
 
     @Test
     fun loginButtonDisabledIfLoginValueIsTooShort() {
-        onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(LoginReducer.MIN_EMAIL_LENGTH - 1)), closeSoftKeyboard())
+        onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(MIN_EMAIL_LENGTH - 1)), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("somePassword"))
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(not(isEnabled())))
     }
 
     @Test
     fun loginButtonEnabledIfLoginValueAndPasswordEnteredCorrectly() {
-        onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(LoginReducer.MIN_EMAIL_LENGTH)), closeSoftKeyboard())
+        onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("s".repeat(MIN_EMAIL_LENGTH)), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("somePassword"))
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).check(matches(isEnabled()))
     }
 
     @Test
     fun loginFailIfWrongLoginValueAndPasswordEntered() {
-        mockServer.dispatcher = FailedLoginDispatcher()
+        mockServer.dispatcher = NotFoundStatusDispatcher()
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("u@mail.ru"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("password123"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).perform(click())
@@ -80,11 +80,17 @@ class LoginUITest {
 
     @Test
     fun loginSuccessfulIfLoginValueAndPasswordCorrect() {
-        mockServer.dispatcher = SuccessLoginDispatcher()
+        mockServer.dispatcher = SuccessLoginOrRegisterDispatcher()
         onView(withId(com.otus.homework.onboarding.R.id.emailText)).perform(typeText("u@mail.ru"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.passwordText)).perform(typeText("password"), closeSoftKeyboard())
         onView(withId(com.otus.homework.onboarding.R.id.loginButton)).perform(click())
         onView(withId(com.otus.homework.taskslist.R.id.tasksList)).check(matches(isEnabled()))
+    }
+
+    @Test
+    fun navigateToRegistrationViewIfRegisterButtonTap() {
+        onView(withId(com.otus.homework.onboarding.R.id.registerButton)).perform(click())
+        onView(withId(com.otus.homework.onboarding.R.id.registerLayout)).check(matches(isEnabled()))
     }
 
     @After
