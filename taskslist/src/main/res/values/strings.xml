@@ -13,4 +13,6 @@
 
     <!-- Button labels -->
     <string name="logout_button">Logout</string>
+
+    <string name="default_image_description">default image description</string>
 </resources>

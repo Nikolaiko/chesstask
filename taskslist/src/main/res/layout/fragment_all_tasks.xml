@@ -8,11 +8,25 @@
 
     <Button
         android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/svg_logout_button"
+        app:layout_constraintBottom_toTopOf="@+id/tasksList"
+        app:layout_constraintDimensionRatio="H, 1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.15" />
+
+    <ImageView
+        android:id="@+id/iconView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintDimensionRatio="H,800:168"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/logoutButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/svg_title_image" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
@@ -21,36 +35,42 @@
         app:layout_constraintBottom_toTopOf="@id/easyButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
+        app:layout_constraintTop_toBottomOf="@+id/iconView" />
 
     <Button
         android:id="@+id/easyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/svg_pawn"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H, 128:130"
         app:layout_constraintEnd_toStartOf="@+id/normalButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.1" />
 
     <Button
         android:id="@+id/normalButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/svg_bishop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,128:130"
         app:layout_constraintEnd_toStartOf="@+id/hardButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/easyButton" />
+        app:layout_constraintStart_toEndOf="@+id/easyButton"
+        app:layout_constraintWidth_percent="0.1" />
 
     <Button
         android:id="@+id/hardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/svg_queen"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,128:130"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/normalButton" />
+        app:layout_constraintStart_toEndOf="@+id/normalButton"
+        app:layout_constraintWidth_percent="0.1" />
 
     <ProgressBar
         android:id="@+id/progressBar"

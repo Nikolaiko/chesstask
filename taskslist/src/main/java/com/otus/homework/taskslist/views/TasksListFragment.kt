@@ -104,8 +104,12 @@ class TasksListFragment : Fragment(), TasksView {
     private fun convertNewsToString(news:TasksListNews):String = when(news.id) {
         NewsMessageId.UNKNOWN_DESTINATION -> resources.getString(R.string.unknown_screen_error)
         NewsMessageId.REQUEST_STATUS_ERROR -> resources.getString(R.string.request_status_error, news.message)
-        NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST -> resources.getString(R.string.exception_all_tasks_request_error, news.message)
-        NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST -> resources.getString(R.string.exception_task_by_id_request_error, news.message)
+        NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST -> {
+            resources.getString(R.string.exception_all_tasks_request_error, news.message)
+        }
+        NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST -> {
+            resources.getString(R.string.exception_task_by_id_request_error, news.message)
+        }
         NewsMessageId.NULL_TOKEN_ERROR -> resources.getString(R.string.null_token_error)
         else -> resources.getString(R.string.unknown_error_message)
     }
