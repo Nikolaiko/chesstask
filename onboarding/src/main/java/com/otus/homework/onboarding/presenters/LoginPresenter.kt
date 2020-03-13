@@ -1,6 +1,5 @@
 package com.otus.homework.onboarding.presenters
 
-import androidx.test.espresso.idling.CountingIdlingResource
 import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.views.BaseView
 import com.otus.homework.onboarding.model.LoginState
@@ -29,26 +28,26 @@ class LoginPresenter @Inject constructor(
 
     private fun bind() {
         val credentialsObserver = presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(
+            reducer.credentialsChange(
                 UserProfile(
                     it[0],
                     it[1]
                 )
-            ))
+            )
         }
         if (credentialsObserver != null) {
             disposeContainer.add(credentialsObserver)
         }
 
         val loginClickObserver = presenterView?.loginClick()?.subscribe {
-            renderState(reducer.tryToLogin())
+            reducer.tryToLogin()
         }
         if (loginClickObserver != null) {
             disposeContainer.add(loginClickObserver)
         }
 
         val registerClickObserver = presenterView?.registerClick()?.subscribe {
-            renderState(reducer.register())
+            reducer.register()
         }
         if (registerClickObserver != null) {
             disposeContainer.add(registerClickObserver)

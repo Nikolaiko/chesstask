@@ -2,6 +2,7 @@ package com.otus.homework.onboarding.reducer
 
 import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.MIN_EMAIL_LENGTH
+import com.otus.homework.onboarding.isUserDataCorrect
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import com.otus.homework.onboarding.model.LoginState
@@ -26,13 +27,13 @@ class LoginReducer @Inject constructor(
     private var currentState = LoginState()
     private val disposeBag:CompositeDisposable = CompositeDisposable()
 
-    override fun credentialsChange(userData: UserProfile):LoginState {
+    override fun credentialsChange(userData: UserProfile) {
         currentUserData = userData
-        currentState = currentState.copy(loginButtonEnabled = (currentUserData.username.length >= MIN_EMAIL_LENGTH && currentUserData.password.isNotEmpty()))
-        return currentState
+        currentState = currentState.copy(loginButtonEnabled = isUserDataCorrect(currentUserData))
+        updateState.onNext(currentState)
     }
 
-    override fun tryToLogin():LoginState {
+    override fun tryToLogin() {
         disposeBag.add(backend.login(currentUserData)
             .subscribeOn(Schedulers.io())
             .subscribe( {
@@ -52,12 +53,12 @@ class LoginReducer @Inject constructor(
             loginTextFieldEnabled = false,
             passwordTextField = false
         )
-        return currentState
+        updateState.onNext(currentState)
     }
 
-    override fun register(): LoginState {
+    override fun register() {
         updateDestination.onNext(OnBoardingScreens.REGISTER_SCREEN)
-        return currentState
+        updateState.onNext(currentState)
     }
 
     override fun clearDisposables() {

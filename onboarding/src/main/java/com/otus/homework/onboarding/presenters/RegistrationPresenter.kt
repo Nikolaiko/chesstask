@@ -26,19 +26,19 @@ class RegistrationPresenter @Inject constructor(private val reducer: IRegistrati
 
     private fun bind() {
         val credentialsObserver = presenterView?.credentialsChange()?.subscribe {
-            renderState(reducer.credentialsChange(
+            reducer.credentialsChange(
                 UserProfile(
                     it[0],
                     it[1]
                 )
-            ))
+            )
         }
         if (credentialsObserver != null) {
             disposeContainer.add(credentialsObserver)
         }
 
         val registerClickObserver = presenterView?.registerClick()?.subscribe {
-            renderState(reducer.tryToRegister())
+            reducer.tryToRegister()
         }
         if (registerClickObserver != null) {
             disposeContainer.add(registerClickObserver)

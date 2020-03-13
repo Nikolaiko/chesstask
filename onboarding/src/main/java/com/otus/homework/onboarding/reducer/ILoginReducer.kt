@@ -11,8 +11,8 @@ interface ILoginReducer {
     val updateNews: PublishSubject<OnBoardingNews>
     val updateDestination: PublishSubject<OnBoardingScreens>
 
-    fun credentialsChange(userData: UserProfile): LoginState
-    fun tryToLogin(): LoginState
-    fun register(): LoginState
+    fun credentialsChange(userData: UserProfile)
+    fun tryToLogin()
+    fun register()
     fun clearDisposables()
 }

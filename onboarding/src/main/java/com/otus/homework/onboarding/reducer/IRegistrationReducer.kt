@@ -11,8 +11,8 @@ interface IRegistrationReducer {
     val updateNews: PublishSubject<OnBoardingNews>
     val updateDestination: PublishSubject<OnBoardingScreens>
 
-    fun credentialsChange(userData: UserProfile): RegistrationState
-    fun tryToRegister(): RegistrationState
+    fun credentialsChange(userData: UserProfile)
+    fun tryToRegister()
     fun goToPreviousScreen()
     fun clearDisposables()
 }

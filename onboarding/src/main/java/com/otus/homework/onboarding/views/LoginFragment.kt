@@ -11,6 +11,7 @@ import com.example.core.app.AppWithFacade
 import com.example.core.mediator.TasksListMediator
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.otus.homework.onboarding.DEBOUNCE_VALUE
 import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.LoginComponent
 import com.otus.homework.onboarding.model.OnBoardingNews
@@ -99,7 +100,10 @@ class LoginFragment : Fragment(), ILoginView {
 
     override fun navigateTo(destination: OnBoardingScreens) {
         when(destination) {
-            OnBoardingScreens.REGISTER_SCREEN -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)
+            OnBoardingScreens.REGISTER_SCREEN -> {
+                NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_loginFragment_to_registerFragment)
+            }
             OnBoardingScreens.MAIN_SCREEN -> {
                 mediator.createTasksListActivity(context!!)
                 activity?.finish()
@@ -110,16 +114,20 @@ class LoginFragment : Fragment(), ILoginView {
 
     private fun emailChange():Observable<String> = RxTextView.textChanges(emailText)
         .map { emailValue -> emailValue.toString() }
-        .debounce(500, TimeUnit.MICROSECONDS)
+        .debounce(DEBOUNCE_VALUE, TimeUnit.MICROSECONDS)
     private fun passwordChange():Observable<String> = RxTextView.textChanges(passwordText)
         .map { emailValue -> emailValue.toString() }
-        .debounce(500, TimeUnit.MICROSECONDS)
+        .debounce(DEBOUNCE_VALUE, TimeUnit.MICROSECONDS)
 
     private fun convertNewsToString(news:OnBoardingNews):String = when(news.id) {
         NewsMessageId.UNKNOWN_DESTINATION -> resources.getString(R.string.unknown_screen_error)
         NewsMessageId.NULL_BODY_MESSAGE -> resources.getString(R.string.null_body_error)
         NewsMessageId.REQUEST_STATUS_ERROR -> resources.getString(R.string.request_status_error, news.message)
-        NewsMessageId.EXCEPTION_LOGIN_REQUEST -> resources.getString(R.string.exception_login_request_error, news.message)
-        NewsMessageId.EXCEPTION_REGISTRATION_REQUEST -> resources.getString(R.string.exception_registration_request_error, news.message)
+        NewsMessageId.EXCEPTION_LOGIN_REQUEST -> {
+            resources.getString(R.string.exception_login_request_error, news.message)
+        }
+        NewsMessageId.EXCEPTION_REGISTRATION_REQUEST -> {
+            resources.getString(R.string.exception_registration_request_error, news.message)
+        }
     }
 }

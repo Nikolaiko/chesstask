@@ -2,43 +2,6 @@
 <SmellBaseline>
   <Blacklist></Blacklist>
   <Whitelist>
-    <ID>EmptyClassBlock:RegistrationState.kt$RegistrationState${ }</ID>
-    <ID>MagicNumber:LoginFragment.kt$LoginFragment$500</ID>
-    <ID>MagicNumber:RegisterFragment.kt$RegisterFragment$500</ID>
-    <ID>MaxLineLength:LoginFragment.kt$LoginFragment$NewsMessageId.EXCEPTION_LOGIN_REQUEST -&gt; resources.getString(R.string.exception_login_request_error, news.message)</ID>
-    <ID>MaxLineLength:LoginFragment.kt$LoginFragment$NewsMessageId.EXCEPTION_REGISTRATION_REQUEST -&gt; resources.getString(R.string.exception_registration_request_error, news.message)</ID>
-    <ID>MaxLineLength:LoginFragment.kt$LoginFragment$OnBoardingScreens.REGISTER_SCREEN -&gt; NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment)</ID>
-    <ID>MaxLineLength:LoginReducer.kt$LoginReducer$currentState = currentState.copy(loginButtonEnabled = (currentUserData.username.length &gt; MIN_EMAIL_LENGTH &amp;&amp; currentUserData.password.isNotEmpty()))</ID>
-    <ID>MaxLineLength:RegisterFragment.kt$RegisterFragment$NewsMessageId.EXCEPTION_LOGIN_REQUEST -&gt; resources.getString(R.string.exception_login_request_error, news.message)</ID>
-    <ID>MaxLineLength:RegisterFragment.kt$RegisterFragment$NewsMessageId.EXCEPTION_REGISTRATION_REQUEST -&gt; resources.getString(R.string.exception_registration_request_error, news.message)</ID>
-    <ID>MaxLineLength:RegisterFragment.kt$RegisterFragment$override</ID>
-    <ID>MaxLineLength:RegistrationReducer.kt$RegistrationReducer$currentState = currentState.copy(registrationButtonEnabled = (currentUserData.username.length &gt; MIN_EMAIL_LENGTH &amp;&amp; currentUserData.password.isNotEmpty()))</ID>
-    <ID>MaxLineLength:RegistrationReducer.kt$RegistrationReducer$updateNews.onNext(OnBoardingNews(NewsMessageId.EXCEPTION_REGISTRATION_REQUEST, it.localizedMessage ?: ""))</ID>
-    <ID>NewLineAtEndOfFile:BasePresenter.kt$com.otus.homework.onboarding.presenters.BasePresenter.kt</ID>
-    <ID>NewLineAtEndOfFile:BaseView.kt$com.otus.homework.onboarding.views.BaseView.kt</ID>
-    <ID>NewLineAtEndOfFile:ILoginPresenter.kt$com.otus.homework.onboarding.presenters.ILoginPresenter.kt</ID>
-    <ID>NewLineAtEndOfFile:ILoginReducer.kt$com.otus.homework.onboarding.reducer.ILoginReducer.kt</ID>
-    <ID>NewLineAtEndOfFile:ILoginView.kt$com.otus.homework.onboarding.views.ILoginView.kt</ID>
-    <ID>NewLineAtEndOfFile:IRegisterView.kt$com.otus.homework.onboarding.views.IRegisterView.kt</ID>
-    <ID>NewLineAtEndOfFile:IRegistrationPresenter.kt$com.otus.homework.onboarding.presenters.IRegistrationPresenter.kt</ID>
-    <ID>NewLineAtEndOfFile:IRegistrationReducer.kt$com.otus.homework.onboarding.reducer.IRegistrationReducer.kt</ID>
-    <ID>NewLineAtEndOfFile:LoginBinds.kt$com.otus.homework.onboarding.di.LoginBinds.kt</ID>
-    <ID>NewLineAtEndOfFile:LoginFragment.kt$com.otus.homework.onboarding.views.LoginFragment.kt</ID>
-    <ID>NewLineAtEndOfFile:LoginPresenter.kt$com.otus.homework.onboarding.presenters.LoginPresenter.kt</ID>
-    <ID>NewLineAtEndOfFile:LoginReducer.kt$com.otus.homework.onboarding.reducer.LoginReducer.kt</ID>
-    <ID>NewLineAtEndOfFile:LoginState.kt$com.otus.homework.onboarding.model.LoginState.kt</ID>
-    <ID>NewLineAtEndOfFile:NewsMessageId.kt$com.otus.homework.onboarding.model.enums.NewsMessageId.kt</ID>
-    <ID>NewLineAtEndOfFile:OnBoardingActivity.kt$com.otus.homework.onboarding.OnBoardingActivity.kt</ID>
-    <ID>NewLineAtEndOfFile:OnBoardingMediatorImpl.kt$com.otus.homework.onboarding.OnBoardingMediatorImpl.kt</ID>
-    <ID>NewLineAtEndOfFile:OnBoardingNews.kt$com.otus.homework.onboarding.model.OnBoardingNews.kt</ID>
-    <ID>NewLineAtEndOfFile:OnBoardingScreens.kt$com.otus.homework.onboarding.model.enums.OnBoardingScreens.kt</ID>
-    <ID>NewLineAtEndOfFile:RegisterFragment.kt$com.otus.homework.onboarding.views.RegisterFragment.kt</ID>
-    <ID>NewLineAtEndOfFile:RegistrationBinds.kt$com.otus.homework.onboarding.di.RegistrationBinds.kt</ID>
-    <ID>NewLineAtEndOfFile:RegistrationComponent.kt$com.otus.homework.onboarding.di.RegistrationComponent.kt</ID>
-    <ID>NewLineAtEndOfFile:RegistrationPresenter.kt$com.otus.homework.onboarding.presenters.RegistrationPresenter.kt</ID>
-    <ID>NewLineAtEndOfFile:RegistrationReducer.kt$com.otus.homework.onboarding.reducer.RegistrationReducer.kt</ID>
-    <ID>NewLineAtEndOfFile:RegistrationState.kt$com.otus.homework.onboarding.model.RegistrationState.kt</ID>
-    <ID>NewLineAtEndOfFile:Scopes.kt$com.otus.homework.onboarding.di.Scopes.kt</ID>
     <ID>TooManyFunctions:LoginFragment.kt$LoginFragment$LoginFragment</ID>
     <ID>TooManyFunctions:RegisterFragment.kt$RegisterFragment$RegisterFragment</ID>
   </Whitelist>
