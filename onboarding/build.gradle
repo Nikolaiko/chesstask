@@ -68,7 +68,8 @@ dependencies {
     implementation project(':core')
     implementation project(':storage')
 
-    //Test
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+    //Unit Tests
+    testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.test:core:$android_x_testcore_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 }
