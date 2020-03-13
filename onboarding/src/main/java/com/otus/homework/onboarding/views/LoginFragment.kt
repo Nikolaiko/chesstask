@@ -16,7 +16,7 @@ import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.LoginComponent
 import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
-import com.otus.homework.onboarding.presenters.ILoginPresenter
+import com.otus.homework.onboarding.presenters.UserLoginPresenter
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -30,7 +30,7 @@ class LoginFragment : Fragment(), ILoginView {
     lateinit var mediator: TasksListMediator
 
     @Inject
-    lateinit var presenter: ILoginPresenter
+    lateinit var presenter: UserLoginPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         LoginComponent.init((activity!!.application as AppWithFacade).getFacade()).inject(this)

@@ -3,13 +3,15 @@ package com.otus.homework.onboarding.presenters
 import com.example.core.model.user.UserProfile
 import com.otus.homework.onboarding.views.BaseView
 import com.otus.homework.onboarding.model.RegistrationState
-import com.otus.homework.onboarding.reducer.IRegistrationReducer
+import com.otus.homework.onboarding.reducer.UserRegistrationReducer
 import com.otus.homework.onboarding.views.IRegisterView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class RegistrationPresenter @Inject constructor(private val reducer: IRegistrationReducer) : IRegistrationPresenter {
+class RegistrationPresenter @Inject constructor(
+    private val reducer: UserRegistrationReducer
+) : UserRegistrationPresenter {
     private var presenterView:IRegisterView? = null
     private val disposeContainer: CompositeDisposable = CompositeDisposable()
 

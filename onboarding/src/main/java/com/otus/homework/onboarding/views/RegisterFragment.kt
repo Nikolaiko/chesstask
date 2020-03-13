@@ -17,7 +17,7 @@ import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.RegistrationComponent
 import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
-import com.otus.homework.onboarding.presenters.IRegistrationPresenter
+import com.otus.homework.onboarding.presenters.UserRegistrationPresenter
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_registration.*
@@ -30,7 +30,7 @@ class RegisterFragment : Fragment(), IRegisterView {
     lateinit var mediator: TasksListMediator
 
     @Inject
-    lateinit var presenter: IRegistrationPresenter
+    lateinit var presenter: UserRegistrationPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         RegistrationComponent.init((activity!!.application as AppWithFacade).getFacade()).inject(this)

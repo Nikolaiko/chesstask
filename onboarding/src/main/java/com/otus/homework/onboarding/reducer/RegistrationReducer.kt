@@ -1,7 +1,6 @@
 package com.otus.homework.onboarding.reducer
 
 import com.example.core.model.user.UserProfile
-import com.otus.homework.onboarding.MIN_EMAIL_LENGTH
 import com.otus.homework.onboarding.isUserDataCorrect
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.onboarding.model.OnBoardingNews
@@ -17,7 +16,7 @@ import javax.inject.Inject
 class RegistrationReducer @Inject constructor(
     private val backend: UserDataRepository,
     private val userData: LoggedUserProvider
-) : IRegistrationReducer {
+) : UserRegistrationReducer {
 
     override val updateState: PublishSubject<RegistrationState> = PublishSubject.create()
     override val updateNews: PublishSubject<OnBoardingNews> = PublishSubject.create()
