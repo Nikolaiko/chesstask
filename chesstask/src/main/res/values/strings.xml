@@ -10,4 +10,7 @@
     <string name="restart_button_title">Restart</string>
     <string name="undo_move_button_title">Undo</string>
     <string name="exit_button_title">Exit</string>
+    <string name="reveal_answer_button_title">Reveal Answer</string>
+
+    <string name="default_image_description">default image description</string>
 </resources>

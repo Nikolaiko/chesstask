@@ -38,4 +38,20 @@ class ChessTasksRepository @Inject constructor(private val api:ChessTasksApi) {
             }
         }
     }
+
+    fun getTaskByDifficulty(userTokens: UserTokens, difficulty: String): Observable<ChessTask> {
+        return api.getTaskByDifficulty("Bearer ${userTokens.accessToken}", difficulty).map {
+            if (it.responseObject != null) {
+                parsePgnString(it.responseObject!!.pgn)
+                ChessTask(
+                    it.responseObject!!.id,
+                    getStartingPositions(it.responseObject!!.fen),
+                    getStartingColor(it.responseObject!!.fen),
+                    parsePgnString(it.responseObject!!.pgn)
+                )
+            } else {
+                throw Exception(it.message)
+            }
+        }
+    }
 }

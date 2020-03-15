@@ -1,5 +1,6 @@
 package com.otus.homework.taskslist.presenters
 
+import com.example.core.model.enums.ChessTaskDifficulty
 import com.otus.homework.taskslist.model.TasksListNews
 import com.otus.homework.taskslist.model.TasksListState
 import com.otus.homework.taskslist.model.enums.NewsMessageId
@@ -26,6 +27,10 @@ class ChessTasksPresenter @Inject constructor(private val reducer:TasksReducer) 
         presenterView = null
         disposeBag.clear()
         reducer.clearDisposables()
+    }
+
+    override fun getTaskByDifficulty(difficulty: ChessTaskDifficulty) {
+        reducer.getTaskByDifficulty(difficulty)
     }
 
     private fun bind() {

@@ -1,5 +1,6 @@
 package com.otus.homework.taskslist.reducer
 
+import com.example.core.model.enums.ChessTaskDifficulty
 import com.otus.homework.storage.implementations.ChessTasksRepository
 import com.otus.homework.storage.interfaces.LoggedUserProvider
 import com.otus.homework.taskslist.model.TasksListNews
@@ -44,7 +45,6 @@ class TasksListReducer @Inject constructor(
                 state = TasksListState(loadedTasks = it)
                 _updateState.onNext(state)
             }, {
-                println("Error message : ${it.message}")
                 state = TasksListState(loadedTasks = null)
                 _updateState.onNext(state)
                 _updateNews.onNext(TasksListNews(NewsMessageId.EXCEPTION_TASKS_LIST_REQUEST, it.message ?: ""))
@@ -63,6 +63,29 @@ class TasksListReducer @Inject constructor(
         val userTokens = loggedUserProvider.getLoggedUserTokens()
         if (userTokens != null) {
             tasksRepository.getTaskById(userTokens, id)
+                .subscribeOn(Schedulers.io())
+                .subscribe( {
+                    state = state.copy(loadingActive = false, loadedTask = it, loadedTasks = null)
+                    _updateState.onNext(state)
+                }, {
+                    state = TasksListState(loadedTasks = null)
+                    _updateState.onNext(state)
+                    _updateNews.onNext(TasksListNews(NewsMessageId.EXCEPTION_TASK_BY_ID_REQUEST, it.message ?: ""))
+                }).addTo(disposeBag)
+        } else {
+            state = TasksListState(loadedTasks = null)
+            _updateState.onNext(state)
+            _updateNews.onNext(TasksListNews(NewsMessageId.NULL_TOKEN_ERROR))
+        }
+    }
+
+    override fun getTaskByDifficulty(difficulty: ChessTaskDifficulty) {
+        state = TasksListState(loadingActive = true, loadedTasks = null)
+        _updateState.onNext(state)
+
+        val userTokens = loggedUserProvider.getLoggedUserTokens()
+        if (userTokens != null) {
+            tasksRepository.getTaskByDifficulty(userTokens, difficulty.name.toLowerCase())
                 .subscribeOn(Schedulers.io())
                 .subscribe( {
                     state = state.copy(loadingActive = false, loadedTask = it, loadedTasks = null)

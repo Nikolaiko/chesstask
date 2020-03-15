@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black_cell_color">#767676</color>
-    <color name="white_cell_color">#C4C4C4</color>
+    <color name="black_cell_color">#F3E9D4</color>
+    <color name="white_cell_color">#7D643D</color>
+    <color name="main_background">#ECD6AD</color>
 </resources>

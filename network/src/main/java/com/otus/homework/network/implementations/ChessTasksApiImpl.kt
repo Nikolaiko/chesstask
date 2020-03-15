@@ -23,8 +23,24 @@ class ChessTasksApiImpl @Inject constructor(builder: RetrofitBuilder) : ChessTas
         }.toObservable()
     }
 
-    override fun getTaskById(accessToken: String, id: String): Observable<Response<ChessTaskData>> {
+    override fun getTaskById(
+        accessToken: String,
+        id: String
+    ): Observable<Response<ChessTaskData>> {
         return service.getTaskById(accessToken, id).map {
+            if (it.isSuccessful) {
+                Response<ChessTaskData>(it.code(), it.message(), it.body())
+            } else {
+                throw Exception(it.message())
+            }
+        }.toObservable()
+    }
+
+    override fun getTaskByDifficulty(
+        accessToken: String,
+        difficulty: String
+    ): Observable<Response<ChessTaskData>> {
+        return service.getRandomTask(accessToken, difficulty).map {
             if (it.isSuccessful) {
                 Response<ChessTaskData>(it.code(), it.message(), it.body())
             } else {

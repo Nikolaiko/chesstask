@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.core.app.AppWithFacade
 import com.example.core.mediator.OnBoardingMediator
 import com.example.core.mediator.SingleChessTaskMediator
+import com.example.core.model.enums.ChessTaskDifficulty
 import com.example.core.model.task.ChessTask
 import com.example.core.model.task.ChessTaskShortInfo
 import com.otus.homework.taskslist.R
@@ -51,6 +52,18 @@ class TasksListFragment : Fragment(), TasksView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+
+        easyButton.setOnClickListener {
+            presenter.getTaskByDifficulty(ChessTaskDifficulty.EASY)
+        }
+
+        normalButton.setOnClickListener {
+            presenter.getTaskByDifficulty(ChessTaskDifficulty.NORMAL)
+        }
+
+        hardButton.setOnClickListener {
+            presenter.getTaskByDifficulty(ChessTaskDifficulty.HARD)
+        }
 
         logoutButton.setOnClickListener {
             _logoutUserButton.onNext(Unit)
