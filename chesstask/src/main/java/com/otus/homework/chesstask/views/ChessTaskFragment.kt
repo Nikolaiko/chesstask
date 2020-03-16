@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -90,6 +91,18 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.detachView()
+    }
+
+    override fun showWrongFigureMessage() {
+        Toast.makeText(context!!, getString(R.string.wrong_figure_error_message), Toast.LENGTH_LONG).show()
+    }
+
+    override fun showSolutionText() {
+        answerText.visibility = View.VISIBLE
+    }
+
+    override fun hideOpenSolutionButton() {
+        showAnswerButton.visibility = View.INVISIBLE
     }
 
     override fun updateChessBoardSelection(selectedCells: List<FigurePosition>) {

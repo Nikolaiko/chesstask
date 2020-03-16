@@ -17,6 +17,7 @@ interface BoardReducer {
     fun selectFigureById(figureId: String)
     fun selectCellAt(position: FigurePosition)
 
+    fun openSolution()
     fun undoLastMove()
     fun restartTask()
     fun exitTask()

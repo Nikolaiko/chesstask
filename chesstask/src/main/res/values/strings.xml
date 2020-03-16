@@ -13,4 +13,5 @@
     <string name="reveal_answer_button_title">Reveal Answer</string>
 
     <string name="default_image_description">default image description</string>
+    <string name="wrong_figure_error_message">Cant find figure with this id</string>
 </resources>

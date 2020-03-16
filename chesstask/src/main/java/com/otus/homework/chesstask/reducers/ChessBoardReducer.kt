@@ -75,6 +75,10 @@ class ChessBoardReducer @Inject constructor() : BoardReducer {
         }
     }
 
+    override fun openSolution() {
+        _updateNews.onNext(ChessTaskNews(ChessTaskMessageId.OPEN_SOLUTION))
+    }
+
     override fun undoLastMove() {
         selectedFigureId = null
 

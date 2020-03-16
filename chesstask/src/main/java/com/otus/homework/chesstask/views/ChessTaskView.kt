@@ -12,6 +12,9 @@ interface ChessTaskView {
     val restartButton: Observable<Unit>
     val undoButton: Observable<Unit>
 
+    fun showWrongFigureMessage()
+    fun showSolutionText()
+    fun hideOpenSolutionButton()
     fun updateChessBoardSelection(selectedCells: List<FigurePosition>)
     fun updateChessBoardPosition(position: List<ChessFigureOnBoard>)
     fun applyAction(action: BoardAction)

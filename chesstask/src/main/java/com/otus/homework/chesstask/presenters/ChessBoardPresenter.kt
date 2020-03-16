@@ -16,6 +16,10 @@ class ChessBoardPresenter @Inject constructor(
     private var presenterView: ChessTaskView? = null
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
+    override fun openSolution() {
+        reducer.openSolution()
+    }
+
     override fun setBoardTask(task: ChessTask) {
         reducer.initChessTask(task)
     }
@@ -56,7 +60,11 @@ class ChessBoardPresenter @Inject constructor(
                     ChessTaskMessageId.WRONG_MOVE -> presenterView?.showWrongMoveDialog()
                     ChessTaskMessageId.GAME_FINISHED -> presenterView?.closeView()
                     ChessTaskMessageId.GAME_WON -> presenterView?.showWinDialog()
-                    //ChessTaskMessageId.CANT_FIND_FIGURE_BY_ID -> presenterView?
+                    ChessTaskMessageId.OPEN_SOLUTION -> {
+                        presenterView?.showSolutionText()
+                        presenterView?.hideOpenSolutionButton()
+                    }
+                    ChessTaskMessageId.CANT_FIND_FIGURE_BY_ID -> presenterView?.showWrongFigureMessage()
                 }
             }.addTo(disposeBag)
 
