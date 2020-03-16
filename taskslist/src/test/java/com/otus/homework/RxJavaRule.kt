@@ -1,4 +1,4 @@
-package com.otus.homework.taskslist
+package com.otus.homework
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
