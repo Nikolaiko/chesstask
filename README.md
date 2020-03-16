@@ -1,3 +1,2 @@
-# chesstask
-Application to solve chess tasks requested from backend.
-Backend will be implemented by me during course.
+# Chess App
+Приложение, для решения шахматных задачек типа : Мат в N Ходов.
