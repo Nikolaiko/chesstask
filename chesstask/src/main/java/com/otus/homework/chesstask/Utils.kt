@@ -10,6 +10,10 @@ fun getSolutionFromPgn(task: ChessTask): String {
     for (currentMove in task.pgnMoves) {
         if (task.activeColor == ChessFigureColor.b) {
             val currentString = pgnToString(currentMove.blackMove)
+            stringSolution = "$stringSolution\n$currentString"
+        } else {
+            val currentString = pgnToString(currentMove.whiteMove)
+            stringSolution = "$stringSolution\n$currentString"
         }
     }
     return stringSolution

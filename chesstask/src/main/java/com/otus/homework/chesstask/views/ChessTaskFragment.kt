@@ -17,6 +17,7 @@ import com.otus.homework.chesstask.MAX_BOARD_INDEX
 import com.otus.homework.chesstask.R
 import com.otus.homework.chesstask.di.ChessTaskComponent
 import com.otus.homework.chesstask.factory.ChessViewFactory
+import com.otus.homework.chesstask.getSolutionFromPgn
 import com.otus.homework.chesstask.model.board.BoardAction
 import com.otus.homework.chesstask.model.figure.ChessFigureOnBoard
 import com.otus.homework.chesstask.model.figure.ChessFigureView
@@ -65,8 +66,14 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
 
+        answerText.text = getSolutionFromPgn(ChessTaskActivity.selectedTask!!)
+
         backButton.setOnClickListener {
             activity?.finish()
+        }
+
+        showAnswerButton.setOnClickListener {
+            presenter.openSolution()
         }
 
         parentLayout.viewTreeObserver.addOnGlobalLayoutListener( object : ViewTreeObserver.OnGlobalLayoutListener {
