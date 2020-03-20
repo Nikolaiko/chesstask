@@ -18,20 +18,24 @@ class ReducerStub() : BoardReducer {
     private var initChessTaskCalled: Boolean = false
     private var initChessTaskParameter: ChessTask? = null
 
+    fun initChessTaskCalledWith(task: ChessTask): Boolean {
+        return initChessTaskCalled && task == initChessTaskParameter
+    }
+
     override fun initChessTask(task: ChessTask) {
         initChessTaskCalled = true
         initChessTaskParameter = task
     }
 
-    override fun selectFigureById(figureId: String) {
+    override fun selectFigureById(figureId: String) {}
 
-    }
+    override fun selectCellAt(position: FigurePosition) {}
 
-    override fun selectCellAt(position: FigurePosition) {
+    override fun openSolution() {}
 
-    }
+    override fun undoLastMove() {}
 
-    fun initChessTaskCalledWith(task: ChessTask): Boolean {
-        return initChessTaskCalled && task == initChessTaskParameter
-    }
+    override fun restartTask() {}
+
+    override fun exitTask() {}
 }

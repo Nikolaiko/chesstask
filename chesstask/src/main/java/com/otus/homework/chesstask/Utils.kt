@@ -1,6 +1,5 @@
 package com.otus.homework.chesstask
 
-import android.content.Context
 import com.example.core.model.enums.ChessFigureColor
 import com.example.core.model.task.ChessTask
 import com.example.core.model.task.FigurePosition
