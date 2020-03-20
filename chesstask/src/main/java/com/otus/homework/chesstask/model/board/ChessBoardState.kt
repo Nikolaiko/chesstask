@@ -23,7 +23,7 @@ class ChessBoardState {
     fun getFigureByPgnMove(move: PgnMove): ChessFigureOnBoard? {
         var foundFigure: ChessFigureOnBoard? = null
         var neededFigures = figures.filter { it.value.color == move.figureColor && it.value.figureType == move.figureType }
-        val startMove = move.start ?: return null
+        val startMove = move.start ?: FigurePosition()
 
         if (startMove.row != -1) {
             neededFigures = neededFigures.filter { it.value.position.row == startMove.row }
