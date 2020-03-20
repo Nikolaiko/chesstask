@@ -18,45 +18,38 @@ class ChessTaskPgnParserKtTest {
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-    private val pgnTest1 = "1. Nf6+ gxf6 2. Bxf7# "
-    private val pgnTest2 = "1. Qb8+ Nxb8 2. Rd8#   "
-
-    private lateinit var pgnMoves1: List<PgnMovePair>
-    private lateinit var pgnMoves2: List<PgnMovePair>
-
-    @Before
-    fun init() {
-        initFirst()
-        initSecond()
-    }
-
     @Test
-    fun parsePgnStringTest() {
-        val first = parsePgnString(pgnTest1)
-        val second = parsePgnString(pgnTest2)
+    fun pgnTestString_parsePgnTestString_parsedMovesEqualsToExpectedMoves() {
 
-        assertEquals(first, pgnMoves1)
-        assertEquals(second, pgnMoves2)
+        //GIVEN
+        val testPgnString = "1. Nf6+ gxf6 2. Bxf7# "
+
+        //WHEN
+        val actualPgnMoves = parsePgnString(testPgnString)
+
+        //THEN
+        val expectedPgnMoves: List<PgnMovePair> = prepareExpectedMovieSequence()
+        assertEquals(actualPgnMoves, expectedPgnMoves)
     }
 
-    private fun initFirst() {
-        val mutable = mutableListOf<PgnMovePair>()
+    private fun prepareExpectedMovieSequence(): List<PgnMovePair> {
+        val tempMutableListForMoves = mutableListOf<PgnMovePair>()
         var pair = PgnMovePair(
             PgnMove(
                 ChessFigureType.knight,
                 ChessFigureColor.w,
                 FigurePosition(2, 5),
-            null
+                null
             ),
             PgnMove(
                 ChessFigureType.pawn,
                 ChessFigureColor.b,
                 FigurePosition(2,5),
                 FigurePosition(column = 6),
-            true
+                true
             )
         )
-        mutable.add(pair)
+        tempMutableListForMoves.add(pair)
 
         pair = PgnMovePair(
             PgnMove(
@@ -67,38 +60,7 @@ class ChessTaskPgnParserKtTest {
                 true
             )
         )
-        mutable.add(pair)
-        pgnMoves1 = mutable.toList()
-    }
-
-    private fun initSecond() {
-        val mutable = mutableListOf<PgnMovePair>()
-        var pair = PgnMovePair(
-            PgnMove(
-                ChessFigureType.queen,
-                ChessFigureColor.w,
-                FigurePosition(0, 1),
-                null
-            ),
-            PgnMove(
-                ChessFigureType.knight,
-                ChessFigureColor.b,
-                FigurePosition(0,1),
-                null,
-                true
-            )
-        )
-        mutable.add(pair)
-
-        pair = PgnMovePair(
-            PgnMove(
-                ChessFigureType.rock,
-                ChessFigureColor.w,
-                FigurePosition(0, 3),
-                null
-            )
-        )
-        mutable.add(pair)
-        pgnMoves2 = mutable.toList()
+        tempMutableListForMoves.add(pair)
+        return tempMutableListForMoves.toList()
     }
 }
