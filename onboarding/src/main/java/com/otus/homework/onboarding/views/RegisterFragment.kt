@@ -17,7 +17,7 @@ import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.RegistrationComponent
 import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
-import com.otus.homework.onboarding.presenters.UserRegistrationPresenter
+import com.otus.homework.taskslist.presenters.UserRegistrationPresenter
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_registration.*

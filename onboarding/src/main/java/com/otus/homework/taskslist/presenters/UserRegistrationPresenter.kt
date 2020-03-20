@@ -1,3 +1,3 @@
-package com.otus.homework.onboarding.presenters
+package com.otus.homework.taskslist.presenters
 
 interface UserRegistrationPresenter : BasePresenter

@@ -3,7 +3,6 @@ package com.otus.homework.network.implementations
 import com.example.core.model.task.ChessTask
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.otus.homework.network.deserializers.ChessTaskDeserializer
 import com.otus.homework.network.interfaces.ChessTasksService
 import com.otus.homework.network.interfaces.OnBoardingService
 import com.otus.homework.network.interfaces.RetrofitBuilder
@@ -29,7 +28,6 @@ class RetrofitBuilderImpl @Inject constructor() :
 
     private val gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .registerTypeAdapter(ChessTask::class.java, ChessTaskDeserializer())
         .create()
 
     private val retrofit = Retrofit.Builder()

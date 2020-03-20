@@ -1,4 +1,4 @@
-package com.otus.homework.onboarding.presenters
+package com.otus.homework.taskslist.presenters
 
 import com.otus.homework.onboarding.RxJavaRule
 import com.otus.homework.onboarding.reducer.UserLoginReducer

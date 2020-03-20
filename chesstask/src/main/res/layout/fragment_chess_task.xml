@@ -21,15 +21,27 @@
         app:layout_constraintWidth_percent="0.1"
         app:srcCompat="@drawable/svg_back_arrow" />
 
+    <TextView
+        android:id="@+id/taskLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/task_label_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/row1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        app:layout_constraintTop_toBottomOf="@id/backButton"
-        tools:layout_editor_absoluteY="64dp">
+        app:layout_constraintTop_toBottomOf="@id/taskLabel"
+        app:layout_constraintWidth_percent="0.8">
 
         <ImageView
             android:id="@+id/cell00"

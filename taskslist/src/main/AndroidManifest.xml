@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.otus.homework.taskslist">
     <application>
-        <activity android:name=".TasksListActivity"></activity>
+        <activity
+            android:name=".TasksListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

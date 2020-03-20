@@ -1,7 +1,7 @@
 package com.otus.homework.onboarding.di
 
-import com.otus.homework.onboarding.presenters.UserLoginPresenter
-import com.otus.homework.onboarding.presenters.LoginPresenter
+import com.otus.homework.taskslist.presenters.UserLoginPresenter
+import com.otus.homework.taskslist.presenters.LoginPresenter
 import com.otus.homework.onboarding.reducer.UserLoginReducer
 import com.otus.homework.onboarding.reducer.LoginReducer
 import dagger.Binds

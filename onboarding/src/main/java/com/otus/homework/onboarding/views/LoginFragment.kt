@@ -16,7 +16,7 @@ import com.otus.homework.onboarding.R
 import com.otus.homework.onboarding.di.LoginComponent
 import com.otus.homework.onboarding.model.OnBoardingNews
 import com.otus.homework.onboarding.model.enums.NewsMessageId
-import com.otus.homework.onboarding.presenters.UserLoginPresenter
+import com.otus.homework.taskslist.presenters.UserLoginPresenter
 import com.otus.homework.onboarding.model.enums.OnBoardingScreens
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction

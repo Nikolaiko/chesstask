@@ -67,6 +67,7 @@ class ChessTaskFragment : Fragment(), ChessTaskView {
         presenter.attachView(this)
 
         answerText.text = getSolutionFromPgn(ChessTaskActivity.selectedTask!!)
+        taskLabel.text = resources.getString(R.string.task_label_title, ChessTaskActivity.selectedTask!!.pgnMoves.size)
 
         backButton.setOnClickListener {
             activity?.finish()

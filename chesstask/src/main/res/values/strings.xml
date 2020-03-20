@@ -11,6 +11,7 @@
     <string name="undo_move_button_title">Undo</string>
     <string name="exit_button_title">Exit</string>
     <string name="reveal_answer_button_title">Reveal Answer</string>
+    <string name="task_label_title">Checkmate in %1$d turns</string>
 
     <string name="default_image_description">default image description</string>
     <string name="wrong_figure_error_message">Cant find figure with this id</string>
